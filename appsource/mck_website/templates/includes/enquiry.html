@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Property Enquiry — Contact Us</title>
+
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* =========
+       CSS RESET
+       ========= */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body { margin: 0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; color: #0F172A; background: #EEF2F7; }
+    img { max-width: 100%; display: block; }
+
+    /* =========================================
+       THE CARD (the big rounded white container)
+       ========================================= */
+    .sheet {
+      width: min(1140px, 94vw);
+      margin: 44px auto;
+      background: #fff;
+      border-radius: 22px;
+      box-shadow:
+        0 20px 45px rgba(16,24,40,.12),
+        0 10px 18px rgba(16,24,40,.06);
+      overflow: hidden;
+    }
+
+    /* ========
+       TOP BAR
+       ======== */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 26px 36px;
+      gap: 16px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1px;
+    }
+    .logo-dot {
+      width: 18px; height: 18px; border-radius: 50%;
+      background: radial-gradient(100% 100% at 30% 30%, #7FB3FF 0%, #2E7BFF 65%, #2366E5 100%);
+      box-shadow: 0 4px 10px rgba(46,123,255,.45);
+      flex: 0 0 18px;
+    }
+    .brand-name { color: #0B1223; }
+    .nav {
+      display: flex;
+      gap: 28px;
+      font-weight: 500;
+    }
+    .nav a {
+      text-decoration: none;
+      color: #94A3B8;
+      transition: color .2s ease;
+    }
+    .nav a:hover { color: #0B1223; }
+
+    /* ===========================
+       MAIN TWO-COLUMN LAYOUT
+       =========================== */
+    .content {
+      display: grid;
+      grid-template-columns: 56% 44%;
+      align-items: stretch;
+      min-height: 560px;
+    }
+
+    /* =========
+       LEFT SIDE
+       ========= */
+    .left {
+      padding: 8px 36px 56px 36px;
+      position: relative;
+      z-index: 2;
+    }
+    .eyebrow {
+      display: inline-block;
+      font-size: 12px;
+      letter-spacing: .08em;
+      color: #94A3B8;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+    h1.title {
+      font-size: clamp(30px, 4.2vw, 54px);
+      line-height: 1.05;
+      margin: 8px 0 6px;
+      font-weight: 800;
+      color: #0B1223;
+    }
+    .title .blue-dot {
+      display: inline-block;
+      width: .5em; height: .5em;
+      margin-left: .18em;
+      border-radius: 50%;
+      background: #2F81FF;
+      vertical-align: .18em;
+    }
+    .member {
+      font-size: 14px; color: #97A0AE; margin: 8px 0 22px;
+    }
+    .member a { color: #2F81FF; text-decoration: none; font-weight: 600; }
+    .member a:hover { text-decoration: underline; }
+
+    /* ==========
+       THE FORM
+       ========== */
+    form { max-width: 540px; }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .field {
+      position: relative;
+      background: #F1F5FB;
+      border: 2px solid transparent;
+      border-radius: 14px;
+      transition: border-color .2s ease, background .2s ease;
+    }
+    .field.full { grid-column: 1 / -1; }
+    .field label {
+      position: absolute;
+      top: 8px; left: 14px;
+      font-size: 12px; color: #94A3B8; font-weight: 600;
+      pointer-events: none;
+    }
+    .field input, .field select, .field textarea {
+      width: 100%;
+      border: 0;
+      background: transparent;
+      color: #0F172A;
+      padding: 28px 46px 12px 14px; /* leave space for label + icon */
+      font-size: 15px;
+      outline: none;
+      font-family: inherit;
+    }
+    .field textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    .field .icon {
+      position: absolute;
+      right: 12px; top: 50%; transform: translateY(-50%);
+      width: 22px; height: 22px; border-radius: 8px;
+      background: #E2E8F6;
+      box-shadow: inset 0 0 0 1px #D7E0F2;
+    }
+    .field:focus-within { background: #FFFFFF; border-color: #2F81FF; }
+    .hint { font-size: 12px; color: #97A0AE; margin-top: 8px; }
+
+    /* ========
+       BUTTONS
+       ======== */
+    .actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+    .btn {
+      appearance: none;
+      border: 0;
+      padding: 14px 26px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      transition: transform .06s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .btn:active { transform: translateY(1px); }
+    .btn.primary {
+      background: #2F81FF;
+      color: #fff;
+      box-shadow: 0 8px 20px rgba(47,129,255,.35);
+    }
+    .btn.primary:hover { box-shadow: 0 10px 26px rgba(47,129,255,.45); }
+    .btn.secondary {
+      background: #EEF2F7;
+      color: #637089;
+      font-weight: 700;
+    }
+    .btn.secondary:hover { background: #E7ECF4; }
+
+    /* =========
+       RIGHT SIDE (photo with wavy left edge + dashed curve)
+       ========= */
+    .right {
+      position: relative;
+      min-height: 420px;
+      overflow: hidden; /* keep rounded corner clip clean */
+    }
+    .hero {
+      position: absolute;
+      inset: 0;
+      /* clip-path creates the soft wavy boundary on the left */
+      clip-path: polygon(
+        22% 0%,
+        100% 0%,
+        100% 100%,
+        22% 100%,
+        16% 86%,
+        14% 72%,
+        16% 59%,
+        12% 44%,
+        16% 31%,
+        14% 18%,
+        18% 10%
+      );
+    }
+    .hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 60%;
+      filter: saturate(1.02);
+    }
+    /* Decorative dashed curve that mimics the stitching path */
+    .curve {
+      position: absolute;
+      left: 6%;
+      top: 6%;
+      width: 38%;
+      height: 88%;
+      pointer-events: none;
+      opacity: .5;
+    }
+    .curve path {
+      stroke: #E2E8F0;
+      stroke-width: 2;
+      stroke-dasharray: 6 10;
+      fill: none;
+    }
+
+    /* Success message */
+    .success-message {
+      display: none;
+      background: #D1FAE5;
+      color: #065F46;
+      padding: 16px;
+      border-radius: 12px;
+      margin-top: 20px;
+      font-weight: 500;
+    }
+
+    /* Error message */
+    .error-message {
+      display: none;
+      background: #FEE2E2;
+      color: #B91C1C;
+      padding: 16px;
+      border-radius: 12px;
+      margin-top: 20px;
+      font-weight: 500;
+    }
+
+    /* Loading spinner */
+    .btn-loading {
+      position: relative;
+      color: transparent !important;
+    }
+    .btn-loading::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      top: 50%;
+      left: 50%;
+      margin: -10px 0 0 -10px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: #fff;
+      animation: spin 1s ease-in-out infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* ===============
+       RESPONSIVE
+       =============== */
+    @media (max-width: 980px) {
+      .content { grid-template-columns: 1fr; }
+      .right { order: -1; min-height: 280px; }
+      .hero { clip-path: none; }
+      .curve { display: none; }
+      .left { padding-top: 18px; }
+      .topbar { padding: 22px 22px; }
+    }
+    @media (max-width: 560px) {
+      .grid-2 { grid-template-columns: 1fr; }
+      .actions { justify-content: space-between; }
+      .btn { flex: 1 1 auto; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  {% comment %} {% include "includes/header.html" %} {% endcomment %}
+  <!-- ===============================
+       WHITE CARD CONTAINER (SHEET)
+       =============================== -->
+  <main class="sheet" role="main" aria-label="Property enquiry form">
+    <!-- Header / Navigation -->
+    <header class="topbar">
+      <div class="brand" aria-label="Property Finder logo and name">
+        <span class="logo-dot" aria-hidden="true"></span>
+        <span class="brand-name">PropertyFinder</span>
+      </div>
+      <nav class="nav" aria-label="Primary">
+        <a href="{% url 'mck_website:home_page' %}" aria-current="page">Home</a>
+        <a href="{% url 'mck_website:mck_property_page' %}">Properties</a>
+        
+      </nav>
+    </header>
+
+    <!-- Split Layout -->
+    <section class="content">
+      <!-- LEFT: Text + Form -->
+      <div class="left">
+        <span class="eyebrow">GET STARTED TODAY</span>
+        <h1 class="title">Property Enquiry<span class="blue-dot" aria-hidden="true"></span></h1>
+        <p class="member">Looking for something else? <a href="#">Browse all properties</a></p>
+
+        <!-- Success message (initially hidden) -->
+        <div class="success-message" id="successMessage">
+          <i class="fas fa-check-circle"></i> Enquiry submitted successfully! We'll contact you shortly.
+        </div>
+
+        <!-- Error message (initially hidden) -->
+        <div class="error-message" id="errorMessage">
+          <i class="fas fa-exclamation-circle"></i> <span id="errorText">There was an error submitting your enquiry.</span>
+        </div>
+
+        <!-- Enquiry form -->
+        <form id="enquiryForm" aria-label="Property enquiry form">
+          <div class="grid-2">
+            <!-- Name -->
+            <div class="field">
+              <label for="name">Full Name</label>
+              <input id="name" name="name" type="text" placeholder="John Smith" required />
+              <span class="icon" aria-hidden="true"></span>
+            </div>
+            
+            <!-- Email -->
+            <div class="field">
+              <label for="email">Email Address</label>
+              <input id="email" name="email" type="email" placeholder="john.smith@example.com" required />
+              <span class="icon" aria-hidden="true"></span>
+            </div>
+            
+            <!-- Phone -->
+            <div class="field full">
+              <label for="phone">Phone Number</label>
+              <input id="phone" name="phone" type="tel" placeholder="+1 234 567 8900" required />
+              <span class="icon" aria-hidden="true"></span>
+            </div>
+            
+            <!-- Property Type -->
+            <div class="field full">
+              <label for="property_type">Property Type</label>
+              <select id="property_type" name="property_type" required>
+                <option value="" disabled selected>Select property type</option>
+                <option value="Apartment">Apartment</option>
+                <option value="Villa">Villa</option>
+                <option value="Plot">Plot</option>
+                <option value="Office">Office</option>
+                <option value="Townhouse">Townhouse</option>
+                <option value="Commercial">Commercial</option>
+              </select>
+              <span class="icon" aria-hidden="true"></span>
+            </div>
+            
+            <!-- Message -->
+            <div class="field full">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" placeholder="Tell us about your requirements..." required></textarea>
+              <span class="icon" aria-hidden="true"></span>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="actions">
+            <button type="button" class="btn secondary" onclick="window.location.href='#'">View Properties</button>
+            <button type="submit" class="btn primary" id="submitBtn">
+              <i class="fas fa-paper-plane me-2"></i> Submit Enquiry
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- RIGHT: Photo with organic curve + dashed path -->
+      <aside class="right" aria-hidden="true">
+        <!-- Decorative dashed curve -->
+        <svg class="curve" viewBox="0 0 200 800" preserveAspectRatio="none">
+          <path d="M150,0
+                   C60,80 170,160 110,240
+                   C50,320 150,400 90,480
+                   C30,560 130,640 70,720" />
+        </svg>
+
+        <!-- Scenic image (placeholder used) -->
+        <div class="hero" role="img" aria-label="Luxury property">
+          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="Luxury modern villa with swimming pool" />
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  {% include "includes/footer_main.html" %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('enquiryForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const successMessage = document.getElementById('successMessage');
+    const errorMessage = document.getElementById('errorMessage');
+    const errorText = document.getElementById('errorText');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      // Show loading state
+      submitBtn.classList.add('btn-loading');
+      submitBtn.disabled = true;
+      
+      successMessage.style.display = 'none';
+      errorMessage.style.display = 'none';
+
+      submitForm(); // call real AJAX
+    });
+
+    function submitForm() {
+      const formData = new FormData(form);
+
+      fetch("{% url 'vlr_website:mck_ajax_enquiry_save' %}", {
+        method: "POST",
+        body: formData,
+        headers: {
+          "X-CSRFToken": getCSRFToken() // important for Django
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.status === "success") {
+          successMessage.style.display = "block";
+          form.reset();
+        } else {
+          errorText.textContent = data.message || "There was an error submitting your enquiry";
+          errorMessage.style.display = "block";
+        }
+      })
+      .catch(error => {
+        errorText.textContent = "Network error. Please check your connection and try again.";
+        errorMessage.style.display = "block";
+      })
+      .finally(() => {
+        submitBtn.classList.remove("btn-loading");
+        submitBtn.disabled = false;
+      });
+    }
+
+    // Grab CSRF token from cookies
+    function getCSRFToken() {
+      const name = "csrftoken";
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== "") {
+        const cookies = document.cookie.split(";");
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          if (cookie.substring(0, name.length + 1) === (name + "=")) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+  });
+</script>
+
+</body>
+</html>

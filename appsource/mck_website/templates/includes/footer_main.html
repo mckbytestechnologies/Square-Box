@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Estate Footer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Footer Styles */
+        footer {
+            background: linear-gradient(to right, #0f172a, #1e293b);
+            color: #fff;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-brand h3 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(to right, #29abff, #29abff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .footer-brand p {
+            color: #cbd5e1;
+            margin-bottom: 25px;
+            max-width: 280px;
+            line-height: 1.7;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            background: #29abff;
+            transform: translateY(-3px);
+        }
+        
+        .footer-heading {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #f8fafc;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-heading::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 3px;
+            background: #29abff;
+            border-radius: 3px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-links a:hover {
+            color: #29abff;
+            transform: translateX(5px);
+        }
+        
+        .footer-links i {
+            margin-right: 10px;
+            font-size: 14px;
+        }
+        
+        .contact-info {
+            list-style: none;
+        }
+        
+        .contact-info li {
+            display: flex;
+            margin-bottom: 15px;
+            color: #cbd5e1;
+        }
+        
+        .contact-info i {
+            margin-right: 15px;
+            color: #29abff;
+            font-size: 18px;
+            margin-top: 3px;
+        }
+        
+        .newsletter p {
+            color: #cbd5e1;
+            margin-bottom: 20px;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .newsletter-form input {
+            padding: 12px 15px;
+            border-radius: 6px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+        
+        .newsletter-form input::placeholder {
+            color: #94a3b8;
+        }
+        
+        .newsletter-form button {
+            padding: 12px 20px;
+            border-radius: 6px;
+            border: none;
+            background: linear-gradient(to right, #29abff, #29abff);
+            color: #0f172a;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .newsletter-form button:hover {
+            background: linear-gradient(to right, #29abff, #29abff);
+            transform: translateY(-2px);
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .copyright {
+            color: #94a3b8;
+        }
+        
+        .footer-bottom-links {
+            display: flex;
+            gap: 25px;
+        }
+        
+        .footer-bottom-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-bottom-links a:hover {
+            color: #29abff;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .footer-bottom-links {
+                justify-content: center;
+            }
+        }
+        
+        /* Demo content */
+        .demo-content {
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        .demo-content h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #1e293b;
+        }
+        
+        .demo-content p {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+   
+
+    <footer class="mt-5">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>SquareBox</h3>
+                    <p>India's leading real estate platform for buying, selling, and renting properties. Trusted by millions.</p>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com/squareboxtransformingspace/"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/squarebox.co.in/"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links-column">
+                    <h4 class="footer-heading">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="{% url 'mck_website:mck_property_page' %}"><i class="fas fa-chevron-right"></i> Buy Property</a></li>
+                        <li><a href="{% url 'mck_website:mck_property_create_page' %}"><i class="fas fa-chevron-right"></i> Rent Property</a></li>
+                        <li><a href="{% url 'mck_website:mck_property_create_page' %}"><i class="fas fa-chevron-right"></i> Sell Property</a></li>
+                        <li><a href="{% url 'mck_website:mck_property_page' %}"><i class="fas fa-chevron-right"></i> Apartment</a></li>
+                        <li><a href="{% url 'mck_website:mck_property_page' %}"><i class="fas fa-chevron-right"></i> Commercial</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links-column">
+                    <h4 class="footer-heading">Company</h4>
+                    <ul class="footer-links">
+                        {% comment %} <li><a href="{% url 'mck_website:about_page' %}"><i class="fas fa-chevron-right"></i> About Us</a></li> {% endcomment %}
+                        {% comment %} <li><a href=""><i class="fas fa-chevron-right"></i> Service</a></li> {% endcomment %}
+                        <li><a href="{% url 'mck_website:fencing_page' %}"><i class="fas fa-chevron-right"></i> Fencing</a></li>
+                        <li><a href="{% url 'mck_website:land_levelling_page' %}"><i class="fas fa-chevron-right"></i> Land Levelling</a></li>
+                        <li><a href="{% url 'mck_website:solar_page' %}"><i class="fas fa-chevron-right"></i>  Solar Roadmap</a></li>
+
+                        <li><a href="{% url 'mck_website:property_legal_services_page' %}"><i class="fas fa-chevron-right"></i> Legal Services</a></li>
+                        <li><a href="{% url 'mck_website:property_maintenance_page' %}"><i class="fas fa-chevron-right"></i> Maintenance</a></li>
+                        {% comment %} <li><a href="{% url 'mck_website:property_enquiry_page' %}"><i class="fas fa-chevron-right"></i> Contact Us</a></li> {% endcomment %}
+                    </ul>
+                </div>
+                
+                <div class="footer-links-column">
+                    <h4 class="footer-heading">Contact Info</h4>
+                    <ul class="contact-info">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>1st West Main Rd, Suthanthira Ponvizha Nagar, Gandhinagar West, Gandhi Nagar, Vellore, India, Tamil Nadu</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone-alt"></i>
+                            <span>099945 55962</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>2024squarebox@gmail.com</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-clock"></i>
+                            <span>Always Open</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+           
+            
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p>&copy; 2025 SquareBox Real Estate. All rights reserved.</p>
+                </div>
+                <div class="footer-bottom-links">
+                    <a href="{% url 'mck_website:about_page' %}">About US</a>
+                    <a href="{% url 'mck_website:privacy_policy_page' %}">Privacy Policy</a>
+                        {% comment %} <li><a href="{% url 'mck_website:property_enquiry_page' %}"><i class="fas fa-chevron-right"></i> Contact Us</a></li> {% endcomment %}
+                    <a href="{% url 'mck_website:terms_page' %}">Terms of Service</a>
+                                
+                    <a href="{% url 'mck_website:our_services_page' %}">Services</a>
+                    <a href="{% url 'mck_website:property_enquiry_page' %}">Contact US</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple form validation for newsletter
+        document.querySelector('.newsletter-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input').value;
+            if (email && email.includes('@')) {
+                alert('Thank you for subscribing to our newsletter!');
+                this.querySelector('input').value = '';
+            } else {
+                alert('Please enter a valid email address.');
+            }
+        });
+    </script>
+</body>
+</html>

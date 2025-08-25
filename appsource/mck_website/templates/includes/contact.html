@@ -1,0 +1,76 @@
+<style>
+/* Dream Area Start */
+.dreams-area {
+  width: 100%;
+  background: #29abff;
+  padding: 40px 0 30px;
+}
+
+.dreams-row {
+  display: flex;
+  align-items: center; /* vertical centering */
+  justify-content: space-between; /* text left, button right */
+  flex-wrap: wrap; /* stack on small screens */
+  gap: 15px;
+}
+
+.dreams-title h2 {
+  font-size: 30px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  color: #fff;
+  margin: 0; /* remove extra spacing */
+  text-transform: capitalize;
+}
+
+.abt_btn ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.abt_btn li {
+  display: inline-block;
+}
+
+.abt_btn li a {
+  font-weight: 500;
+  text-transform: uppercase;
+  display: inline-block;
+  text-align: center;
+  height: 50px;
+  line-height: 50px;
+  width: 145px;
+  border-radius: 4px;
+  border: 2px solid #fff;
+  background: transparent;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.abt_btn li a:hover {
+  background: #fff;
+  color: #29abff;
+  border-color: #fff;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+</style>
+<div class="dreams-area">
+  <div class="container">
+    <div class="dreams-row">
+      <div class="dreams-title">
+        <h2>Do you have any questions, doubts or enquiry?</h2>
+      </div>
+      <div class="abt_btn enquiry_btn">
+        <ul>
+          <li>
+            <a href="{% url 'mck_website:property_enquiry_page' %}">
+              Contact Us
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

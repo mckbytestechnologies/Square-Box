@@ -1,0 +1,237 @@
+<!DOCTYPE html><html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>SunSource | Power Your Home, Empower Your Future</title> <style> /* Base Styles */ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; color: #333; line-height: 1.6; } .container { width: 90%; max-width: 1200px; margin: 0 auto; } .btn-primary { display: inline-block; padding: 12px 30px; background-color: #FF9800; color: white; text-decoration: none; border-radius: 30px; font-weight: bold; border: none; cursor: pointer; transition: background-color 0.3s; } .btn-primary:hover { background-color: #F57C00; } section { padding: 60px 0; } h2 { text-align: center; margin-bottom: 40px; color: #2C3E50; }
+text
+    /* Header & Hero */
+    header {
+        background-color: white;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+    .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 0;
+    }
+    .logo {
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: #FF9800;
+    }
+    .logo span {
+        color: #2C3E50;
+    }
+    nav ul {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    nav li {
+        margin-left: 25px;
+    }
+    nav a {
+        text-decoration: none;
+        color: #2C3E50;
+        font-weight: 500;
+    }
+    nav a:hover {
+        color: #FF9800;
+    }
+    .hero {
+        background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-4.0.3') no-repeat center center/cover;
+        color: white;
+        text-align: center;
+        padding: 100px 0;
+    }
+    .hero h1 {
+        font-size: 2.8rem;
+        margin-bottom: 20px;
+    }
+    .hero p {
+        font-size: 1.2rem;
+        max-width: 700px;
+        margin: 0 auto 30px;
+    }
+
+    /* Why Choose Us */
+    .benefits-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+    }
+    .benefit-card {
+        text-align: center;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        transition: transform 0.3s;
+    }
+    .benefit-card:hover {
+        transform: translateY(-10px);
+    }
+    .benefit-icon {
+        font-size: 2.5rem;
+        color: #FF9800;
+        margin-bottom: 15px;
+    }
+
+    /* How It Works */
+    .process-steps {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        margin-top: 40px;
+    }
+    .step {
+        text-align: center;
+        width: 200px;
+        position: relative;
+        margin-bottom: 20px;
+    }
+    .step-number {
+        width: 50px;
+        height: 50px;
+        background-color: #FF9800;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin: 0 auto 15px;
+    }
+    .step:not(:last-child):after {
+        content: "→";
+        position: absolute;
+        top: 15px;
+        right: -40px;
+        font-size: 1.5rem;
+        color: #ccc;
+    }
+
+    /* CTA Section */
+    .cta {
+        background-color: #2C3E50;
+        color: white;
+        text-align: center;
+    }
+    .cta h2 {
+        color: white;
+    }
+
+    /* Footer */
+    footer {
+        background-color: #1A252F;
+        color: #bbb;
+        padding: 40px 0 20px;
+    }
+    .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 30px;
+    }
+    .footer-column h3 {
+        color: #fff;
+        margin-bottom: 20px;
+    }
+    .footer-column ul {
+        list-style: none;
+        padding: 0;
+    }
+    .footer-column li {
+        margin-bottom: 10px;
+    }
+    .footer-column a {
+        color: #bbb;
+        text-decoration: none;
+    }
+    .footer-column a:hover {
+        color: #FF9800;
+    }
+    .copyright {
+        text-align: center;
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid #444;
+    }
+</style>
+</head> <body>
+
+          {% include "includes/header.html" %}
+
+<section class="hero">
+    <div class="container">
+        <h1>Harness the Sun. Slash Your Bills.</h1>
+        <p>Join the energy revolution with a custom-designed solar system for your home. Start saving money and reducing your carbon footprint from day one.</p>
+        <a href="#contact" class="btn-primary">Calculate Your Savings</a>
+    </div>
+</section>
+
+<section id="why">
+    <div class="container">
+        <h2>Why Make SunSource Your Energy Partner?</h2>
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <div class="benefit-icon">💰</div>
+                <h3>Maximum Savings</h3>
+                <p>Drastically reduce or even eliminate your electricity bill. Lock in your energy rate for decades and protect yourself from rising utility costs.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">🌍</div>
+                <h3>Planet Positive</h3>
+                <p>Generate clean, renewable energy right from your rooftop. Reduce your reliance on fossil fuels and make a direct impact on a greener future.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">🛡️</div>
+                <h3>Worry-Free Warranty</h3>
+                <p>Sleep soundly with our industry-leading 25-year performance warranty and robust product guarantees on all our installations.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">📈</div>
+                <h3>Increase Home Value</h3>
+                <p>Homes with solar panels sell faster and for more money. It's an upgrade that pays you back now and later.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="process" style="background-color: #f9f9f9;">
+    <div class="container">
+        <h2>The Simple Path to Solar Power</h2>
+        <div class="process-steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Consult & Plan</h3>
+                <p>We analyze your energy needs and design a custom system for your home.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Approval & Permits</h3>
+                <p>Our team handles all the paperwork, from permits to utility approvals.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Professional Install</h3>
+                <p>Our certified technicians install your system quickly and cleanly.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3>Power On!</h3>
+                <p>We get final approval from your utility, and you flip the switch to free energy.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cta" id="contact">
+    <div class="container">
+        <h2>Ready to Take Control of Your Energy?</h2>
+        <p>Request a free, no-obligation quote today. See how much you can save.</p>
+        <a href="#contact" class="btn-primary" style="background-color: white; color: #2C3E50;">Get Your Free Quote</a>
+    </div>
+</section>
+
+</body> </html>

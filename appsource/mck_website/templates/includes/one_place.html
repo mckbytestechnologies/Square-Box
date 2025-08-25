@@ -1,0 +1,403 @@
+<style>
+    /* Reset and base styles */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: 'Poppins', Arial, sans-serif;
+        background-color: #f0f4f8; /* Softer background */
+        color: #34495e; /* Darker, more professional text */
+        line-height: 1.6;
+    }
+    
+    .services-section {
+        padding: 50px 5%; /* Reduced padding */
+        background: linear-gradient(135deg, #f0f4f8 0%, #e8f0f8 100%);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .services-section::before,
+    .services-section::after {
+        content: '';
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(26, 79, 142, 0.04);
+        z-index: 0;
+    }
+    
+    .services-section::before {
+        top: -60px; /* Reduced position */
+        right: -60px; /* Reduced position */
+        width: 250px; /* Reduced size */
+        height: 175px; /* Reduced size */
+    }
+    
+    .services-section::after {
+        bottom: -50px; /* Reduced position */
+        left: -50px; /* Reduced position */
+        width: 125px; /* Reduced size */
+        height: 125px; /* Reduced size */
+    }
+    
+    .section-header {
+        text-align: center;
+        max-width: 600px; /* Reduced max-width */
+        margin: 0 auto 35px; /* Reduced margin */
+        position: relative;
+        z-index: 2;
+    }
+    
+    .section-header h2 {
+        font-size: 1.75rem; /* Reduced font size */
+        margin-bottom: 10px; /* Reduced margin */
+        color: #1b2f56;
+        font-weight: 700;
+        position: relative;
+    }
+    
+    .section-header h2::after {
+        bottom: -8px; /* Reduced position */
+        width: 60px; /* Reduced width */
+        height: 3px; /* Reduced height */
+    }
+    
+    .section-header p {
+        color: #556070;
+        font-size: 1rem; /* Reduced font size */
+        margin-top: 15px; /* Reduced margin */
+    }
+    
+    .tabs-container {
+        background: white;
+        border-radius: 12px; /* Reduced border-radius */
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.08); /* Reduced shadow */
+        overflow: hidden;
+        max-width: 1000px; /* Reduced max-width */
+        margin: 0 auto;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .tabs-navigation {
+        display: flex;
+        justify-content: center;
+        background: #eef5fc;
+        padding: 8px 10px; /* Reduced padding */
+        border-bottom: 1px solid #e0eaf3; /* Reduced border size */
+    }
+    
+    .tab-button {
+        background: transparent;
+        color: #66758c;
+        border: none;
+        padding: 10px 20px; /* Reduced padding */
+        font-size: 0.9rem; /* Reduced font size */
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        position: relative;
+    }
+    
+    .tab-button::after {
+        bottom: -1px; /* Reduced position */
+        height: 2px; /* Reduced height */
+    }
+    
+    .tab-button.active {
+        color: #1a4f8e;
+        font-weight: 700;
+    }
+    
+    .tab-button.active::after {
+        transform: scaleX(1);
+    }
+    
+    .tab-content {
+        display: none;
+        padding: 30px 20px; /* Reduced padding */
+        animation: fadeIn 0.6s ease-out forwards;
+    }
+    
+    .tab-content.active {
+        display: block;
+    }
+    
+    .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjusted minmax for smaller cards */
+        gap: 20px; /* Reduced gap */
+    }
+    
+    .one-card {
+        background: #ffffff;
+        border-radius: 10px; /* Reduced border-radius */
+        padding: 20px 15px; /* Reduced padding */
+        text-align: center;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05); /* Reduced shadow */
+        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        border: 1px solid #eef5fc;
+        position: relative;
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .one-card:hover {
+        transform: translateY(-8px); /* Reduced hover lift */
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Reduced shadow on hover */
+        border-color: #3a9df9;
+    }
+    
+    .service-icon {
+        font-size: 2.2rem; /* Reduced font size */
+        margin-bottom: 15px; /* Reduced margin */
+        color: #1a4f8e;
+        position: relative;
+        height: 50px; /* Reduced size */
+        width: 50px; /* Reduced size */
+        line-height: 50px; /* Reduced line height */
+        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    .service-icon::before {
+        width: 60px; /* Reduced size */
+        height: 60px; /* Reduced size */
+    }
+    
+    .one-card:hover .service-icon {
+        color: #3a9df9;
+        transform: scale(1.1);
+    }
+    
+    .one-card:hover .service-icon::before {
+        background: #d8e5f5;
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+    
+    .one-card h3 {
+        color: #1b2f56;
+        font-size: 1.1rem; /* Reduced font size */
+        margin-bottom: 8px; /* Reduced margin */
+        font-weight: 600;
+        transition: color 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    .one-card:hover h3 {
+        color: #3a9df9;
+    }
+    
+    .one-card p {
+        color: #718096;
+        font-size: 0.9rem; /* Reduced font size */
+        line-height: 1.5;
+    }
+    
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px); /* Reduced movement */
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    /* Responsive styles */
+    @media (max-width: 992px) {
+        .tabs-navigation {
+            flex-wrap: wrap;
+        }
+        
+        .tab-button {
+            flex: 1 0 33.33%;
+            padding: 8px 10px;
+            font-size: 0.85rem;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .section-header h2 {
+            font-size: 1.5rem;
+        }
+        
+        .tab-button {
+            flex: 1 0 50%;
+        }
+        
+        .services-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .tabs-container {
+            border-radius: 8px;
+        }
+        .one-card {
+            padding: 20px 15px;
+        }
+    }
+    
+    @media (max-width: 576px) {
+        .services-section {
+            padding: 40px 15px;
+        }
+        
+        .section-header h2 {
+            font-size: 1.25rem;
+        }
+        
+        .section-header p {
+            font-size: 0.9rem;
+        }
+        
+        .tab-button {
+            flex: 1 0 100%;
+            padding: 10px;
+        }
+        
+        .tab-content {
+            padding: 20px 15px;
+        }
+    }
+</style>
+<section class="services-section">
+    <div class="section-header">
+        <h3>Your one-stop destination for all real estate needs, from buying to building.</h3>
+    </div>
+    
+    <div class="tabs-container">
+        <div class="tabs-navigation">
+            <button class="tab-button active" data-tab="buyers">For Buyers</button>
+            <button class="tab-button" data-tab="owners">For Owners</button>
+            <button class="tab-button" data-tab="builders">For Builders & Sellers</button>
+        </div>
+        
+        <div class="tab-content active" id="buyers">
+            <div class="services-grid">
+                <a href="#" class="one-card">
+                    <div class="service-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3>Property Search</h3>
+                    <p>Find your dream home from thousands of verified listings .</p>
+                </a>
+                
+                <a href="{% url 'mck_website:solar_page' %}" class="one-card">
+                    <div class="service-icon">
+                        <i class="fas fa-sun"></i>
+                    </div>
+                    <h3>Solar Roadmap</h3>
+                    <p>Expert guidance and services to help you integrate solar power into your property.</p>
+                </a>
+                
+                <a href="{% url 'vlr_website:property_legal_services_page' %}" class="one-card">
+                    <div class="service-icon">
+                        <i class="fas fa-file-contract"></i>
+                    </div>
+                    <h3>Property Legal Services</h3>
+                    <p>Ensure your property has clear titles and documentation with our legal experts.</p>
+                </a>
+            </div>
+        </div>
+        
+        <div class="tab-content" id="owners">
+            <div class="services-grid">
+                <a href="{% url 'vlr_website:mck_property_page' %}" class="one-card">
+                    <div class="service-icon">
+                        <i class="fas fa-tag"></i>
+                    </div>
+                    <h3>Property Listing</h3>
+                    <p>List your property across multiple platforms to maximize visibility and reach.</p>
+                </a>
+                
+                <a href="#" class="one-card">
+                    <div class="service-icon">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <h3>Professional Photography</h3>
+                    <p>High-quality photography that showcases your property in the best light possible.</p>
+                </a>
+                
+                <a href="#" class="one-card">
+                    <div class="service-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Buyer Connections</h3>
+                    <p>Connect with genuine, verified buyers interested in properties like yours.</p>
+                </a>
+            </div>
+        </div>
+        
+        <div class="tab-content" id="builders">
+            <div class="services-grid">
+                <a href="https://www.mckbytes.com/" class="one-card">
+                    <div class="service-icon">
+                        <i class="fas fa-city"></i>
+                    </div>
+                    <h3>Advertise With Us</h3>
+                    <p>Comprehensive marketing solutions for new developments and construction projects.</p>
+                </a>
+                
+                <a href="https://www.mckbytes.com/" class="one-card">
+                    <div class="service-icon">
+                        <i class="fas fa-vr-cardboard"></i>
+                    </div>
+                    <h3>3D/AR/VR Services</h3>
+                    <p>Showcase properties with immersive virtual tours and augmented reality experiences.</p>
+                </a>
+                
+                <a href="https://www.mckbytes.com/" class="one-card">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Market Insights</h3>
+                    <p>Data intelligence and analytics for strategic planning and informed decision making.</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        // This function handles the tab switching logic
+        function showTab(tabId) {
+            tabContents.forEach(content => {
+                if (content.id === tabId) {
+                    content.classList.add('active');
+                } else {
+                    content.classList.remove('active');
+                }
+            });
+
+            tabButtons.forEach(btn => {
+                if (btn.getAttribute('data-tab') === tabId) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+        
+        // Add click listeners to all buttons
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const tabId = button.getAttribute('data-tab');
+                showTab(tabId);
+            });
+        });
+        
+        // Optional: Ensure the first tab is active on page load
+        // This is a good practice to prevent an empty state
+        const initialTabId = document.querySelector('.tab-button.active').getAttribute('data-tab');
+        showTab(initialTabId);
+    });
+</script>

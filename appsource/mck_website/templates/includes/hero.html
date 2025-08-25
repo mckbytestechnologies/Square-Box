@@ -1,0 +1,190 @@
+<!-- 
+  <div id="bannerCarousel" class="carousel slide hero-carousel" data-bs-ride="carousel" data-bs-interval="3000">
+
+    <div class="carousel-inner">
+      <div class="carousel-item active" data-bs-interval="3000">
+        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" class="d-block w-100" alt="Banner 1">
+      </div>
+      <div class="carousel-item" data-bs-interval="3000">
+        <img src="https://i.pinimg.com/1200x/67/ab/61/67ab617d3a7564b53663de57bb3421dc.jpg" class="d-block w-100" alt="Banner 2">
+      </div>
+    </div>
+
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#bannerCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#bannerCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+
+
+
+    
+    <div class="hero-overlay">
+      <h1 class="text-white">Your <span class="highlight-yellow ">Dream Home</span> Starts Here</h1>
+      <p>Explore premium homes, smart financing & verified agents – all in one place</p>
+
+      <div class="top-buttons d-flex justify-content-center flex-wrap position-relative mt-3" id="propertyOptions">
+  <a href="{% url 'vlr_website:mck_property_page' %}" class="btn nav-btn active" data-type="buy">Buy Now</a>
+  <a href="{% url 'mck_website:mck_property_create_page' %}" class="btn nav-btn" data-type="rent">Rent Today</a>
+  <a href="{% url 'mck_website:mck_property_create_page' %}" class="btn nav-btn" data-type="pg">Sell Now</a>
+  <a href="{% url 'mck_website:mck_property_create_page' %}" class="btn nav-btn" data-type="land">Land & Plots</a>
+  <a href="{% url 'mck_website:property_maintenance_page' %}" class="btn nav-btn" data-type="commercial">Maintenance</a>
+  <div class="active-indicator position-absolute"></div>
+</div>
+
+
+      
+<div class="container search-box mt-4">
+    <form method="GET" action="{% url 'mck_website:mck_property_page' %}">
+        <div class="row g-3 align-items-center">
+          
+            <div class="col-md-3">
+                <select class="form-select" name="city">
+                    <option value="">Location</option>
+                    {% for city in cities %}
+                        <option value="{{ city }}" {% if selected_city == city %}selected{% endif %}>
+                            {{ city }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+  
+            <div class="col-md-3">
+                <select class="form-select" name="property_type">
+                    <option value="">Property Type</option>
+                    {% for ptype in property_type %}
+                        <option value="{{ ptype }}" {% if selected_type == ptype %}selected{% endif %}>{{ ptype }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+    
+            <div class="col-md-3">
+                <select class="form-select" name="budget">
+                    <option value="">Budget</option>
+                    <option value="Below 100" {% if selected_budget == 'Below 100' %}selected{% endif %}>Below $100,000</option>
+                    <option value="100k - 300k" {% if selected_budget == '100k - 300k' %}selected{% endif %}>$100k - $300k</option>
+                    <option value="Above 300k" {% if selected_budget == 'Above 300k' %}selected{% endif %}>Above $300k</option>
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <button class="btn w-100 search-btn" type="submit">Search</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+    </div>
+    </div>
+  </div> -->
+
+    <!-- Prompt 3: Hero Section with Advanced Search Box -->
+     <style>
+      .hero__inner {
+  max-width: 1200px;
+  width: 100%;
+  padding: 4rem 1rem;
+  color: #111;   /* changed from white to black */
+  text-align: center;
+}
+
+.hero h1,
+.hero p,
+.hero-subtitle {
+  color: #111 !important;  /* ensure black text */
+}
+
+.tab-btn {
+  padding: .55rem .9rem;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,.35); /* dark border instead of white */
+  color: #111 !important;            /* black text */
+  font-weight: 600;
+  cursor: pointer;
+  background: transparent;
+  opacity: .9;
+}
+
+.tab-btn[aria-selected="true"] {
+  background: #111;
+  color: #fff !important;   /* white text when active */
+  border-color: #111;
+}
+
+.field label {
+  font-size: .8rem;
+  color: #111 !important;   /* black labels */
+  opacity: .95;
+}
+
+.field select,
+.field input {
+  color: #111; /* already dark */
+}
+
+.search-btn {
+  background: var(--brand);
+  color: #fff;  /* keep button text white for contrast */
+}
+
+     </style>
+  
+    <section class="hero" role="region" aria-label="Hero">
+  <div class="hero__inner">
+    <h1 class="test-dark">Your <span class="highlight-yellow">Dream Home</span> Starts Here</h1>
+    <h3 class="hero-subtitle">Explore premium homes, smart financing & verified agents – all in one place</h3>
+    
+    <div class="search-panel">
+      <div class="tabs" role="tablist" aria-label="Property type tabs" id="propertyOptions">
+        <a href="{% url 'vlr_website:mck_property_page' %}" class="tab-btn active" role="tab" aria-selected="true" data-type="buy">Buy</a>
+        <a href="{% url 'mck_website:mck_property_create_page' %}" class="tab-btn" role="tab" aria-selected="false" data-type="rent">Rent</a>
+        <a href="{% url 'mck_website:mck_property_create_page' %}" class="tab-btn" role="tab" aria-selected="false" data-type="pg">Sell</a>
+        <a href="{% url 'mck_website:mck_property_page' %}" class="tab-btn" role="tab" aria-selected="false" data-type="land">Plots</a>
+        <a href="{% url 'mck_website:property_maintenance_page' %}" class="tab-btn" role="tab" aria-selected="false" data-type="commercial">Maintenance</a>
+        <div class="active-indicator"></div>
+      </div>
+      
+      <form method="GET" action="{% url 'mck_website:mck_property_page' %}" class="filters">
+        <div class="field">
+          <label for="city">City</label>
+          <select id="city" name="city">
+            <option value="">Select City</option>
+            {% for city in cities %}
+              <option value="{{ city }}" {% if selected_city == city %}selected{% endif %}>{{ city }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        
+        <div class="field">
+          <label for="property_type">Property Type</label>
+          <select id="property_type" name="property_type">
+            <option value="">Property Type</option>
+            {% for ptype in property_type %}
+              <option value="{{ ptype }}" {% if selected_type == ptype %}selected{% endif %}>{{ ptype }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        
+        <div class="field">
+          <label for="budget">Budget</label>
+          <select id="budget" name="budget">
+            <option value="">Budget</option>
+            <option value="Below 100" {% if selected_budget == 'Below 100' %}selected{% endif %}>Below $100,000</option>
+            <option value="100k - 300k" {% if selected_budget == '100k - 300k' %}selected{% endif %}>$100k - $300k</option>
+            <option value="Above 300k" {% if selected_budget == 'Above 300k' %}selected{% endif %}>Above $300k</option>
+          </select>
+        </div>
+        
+        <button class="search-btn" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</section>

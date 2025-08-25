@@ -1,0 +1,261 @@
+<!-- Properties Section -->
+<section class="properties">
+    <div class="container">
+        <h2 class="section-title justify-content-center align-items-center" id="dynamic-title">
+            {% if selected_city %}
+                Premium Properties in {{ selected_city }}
+            {% else %}
+                Featured Real Estate Projects
+            {% endif %}
+        </h2>
+        
+        
+      
+
+        <!-- Slider container for when there are more than 3 properties -->
+        <div class="properties-slider-container" style="display: none;">
+            <div class="swiper properties-slider">
+                <div class="swiper-wrapper">
+                    {% for property in property %}
+                    <div class="swiper-slide" data-city="{{ property.city }}">
+                        <div class="property-card">
+                            <div class="property-img">
+                                {% for img in property.images.all|slice:":1" %}
+                                    <img src="{{ img.image.url }}" alt="{{ property.title }}">
+                                {% endfor %}
+                                <div class="property-badge">
+                                    <span class="badge-type">
+                                        {% if property.property_type %}
+                                            {{ property.property_type.name }}
+                                        {% else %}
+                                            Premium
+                                        {% endif %}
+                                    </span>
+                                    {% if property.is_featured %}
+                                    <span class="badge-featured">Featured</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="property-info">
+                                <h3>{{ property.title|default:"Premium Property" }}</h3>
+                                {% if property.price %}
+                                <p class="property-price">₹{{ property.price|floatformat:"0" }}</p>
+                                {% endif %}
+                                <p>{{ property.description|truncatewords:15 }}</p>
+                                <div class="property-details">
+                                    {% if property.bedrooms %}
+                                    <span><i class="fas fa-bed"></i> {{ property.bedrooms }} Beds</span>
+                                    {% endif %}
+                                    {% if property.bathrooms %}
+                                    <span><i class="fas fa-bath"></i> {{ property.bathrooms }} Baths</span>
+                                    {% endif %}
+                                    {% if property.sqft %}
+                                    <span><i class="fas fa-ruler-combined"></i> {{ property.sqft }} sq.ft</span>
+                                    {% endif %}
+                                </div>
+                                <a href="{% url 'mck_website:property_detail' property.id %}" class="btn">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <!-- Navigation arrows -->
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+                
+                <!-- Pagination -->
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+
+        <!-- Grid layout for when there are 3 or fewer properties -->
+        <div class="properties-grid">
+            {% for property in property %}
+            <div class="property-card" data-city="{{ property.city }}">
+                <div class="property-img">
+                    {% for img in property.images.all|slice:":1" %}
+                        <img src="{{ img.image.url }}" alt="{{ property.title }}">
+                    {% endfor %}
+                    <div class="property-badge">
+                        <span class="badge-type">
+                            {% if property.property_type %}
+                                {{ property.property_type.name }}
+                            {% else %}
+                                Premium
+                            {% endif %}
+                        </span>
+                        {% if property.is_featured %}
+                        <span class="badge-featured">Featured</span>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="property-info">
+                    <h3>{{ property.title|default:"Premium Property" }}</h3>
+                    {% if property.price %}
+                    <p class="property-price">₹{{ property.price|floatformat:"0" }}</p>
+                    {% endif %}
+                    <p>{{ property.description|truncatewords:15 }}</p>
+                    <div class="property-details">
+                        {% if property.bedrooms %}
+                        <span><i class="fas fa-bed"></i> {{ property.bedrooms }} Beds</span>
+                        {% endif %}
+                        {% if property.bathrooms %}
+                        <span><i class="fas fa-bath"></i> {{ property.bathrooms }} Baths</span>
+                        {% endif %}
+                        {% if property.sqft %}
+                        <span><i class="fas fa-ruler-combined"></i> {{ property.sqft }} sq.ft</span>
+                        {% endif %}
+                    </div>
+                    <a href="{% url 'mck_website:property_detail' property.id %}" class="btn">View Details</a>
+                </div>
+            </div>
+            {% empty %}
+            <div class="no-properties">
+                <div class="empty-state">
+                    <i class="fas fa-home fa-3x"></i>
+                    <h4 id="empty-state-title">
+                        {% if selected_city %}
+                            Currently no properties in {{ selected_city }}
+                        {% else %}
+                            No properties available
+                        {% endif %}
+                    </h4>
+                    <p>Please check back later or contact our agents</p>
+                    <a href="" class="btn-contact">Contact Us</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize Swiper slider if needed
+        let propertiesSwiper = null;
+        const propertyCount = document.querySelectorAll('.property-card').length;
+        const sliderContainer = document.querySelector('.properties-slider-container');
+        const gridContainer = document.querySelector('.properties-grid');
+        
+        // Show slider if more than 3 properties, otherwise show grid
+        if (propertyCount > 3) {
+            sliderContainer.style.display = 'block';
+            gridContainer.style.display = 'none';
+            
+            // Initialize Swiper
+            propertiesSwiper = new Swiper('.properties-slider', {
+                slidesPerView: 1,
+                spaceBetween: 20,
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                breakpoints: {
+                    640: {
+                        slidesPerView: 2,
+                        spaceBetween: 20,
+                    },
+                    1024: {
+                        slidesPerView: 3,
+                        spaceBetween: 30,
+                    },
+                }
+            });
+        } else {
+            sliderContainer.style.display = 'none';
+            gridContainer.style.display = 'grid';
+        }
+        
+        // City Filter Functionality
+        const filterButtons = document.querySelectorAll('.properties-filter button');
+        const propertyCards = document.querySelectorAll('.property-card');
+        const sliderSlides = document.querySelectorAll('.swiper-slide');
+        const dynamicTitle = document.getElementById('dynamic-title');
+        const dynamicSubtitle = document.getElementById('dynamic-subtitle');
+        const emptyStateTitle = document.getElementById('empty-state-title');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Update active button
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                
+                const selectedCity = this.getAttribute('data-city');
+                
+                // Update dynamic text
+                if (selectedCity === 'all') {
+                    dynamicTitle.textContent = 'Featured Real Estate Projects';
+                    dynamicSubtitle.innerHTML = '<i class="fas fa-star"></i> Curated collection of luxury properties';
+                } else {
+                    dynamicTitle.textContent = `Premium Properties in ${selectedCity}`;
+                    dynamicSubtitle.innerHTML = `<i class="fas fa-map-marker-alt"></i> Exclusive selections in ${selectedCity}`;
+                }
+                
+                // Filter properties
+                let visibleCount = 0;
+                
+                // Handle grid view
+                propertyCards.forEach(card => {
+                    const cardCity = card.getAttribute('data-city');
+                    
+                    if (selectedCity === 'all' || cardCity === selectedCity) {
+                        card.style.display = 'block';
+                        visibleCount++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                
+                // Handle slider view
+                sliderSlides.forEach(slide => {
+                    const slideCity = slide.getAttribute('data-city');
+                    
+                    if (selectedCity === 'all' || slideCity === selectedCity) {
+                        slide.style.display = 'block';
+                    } else {
+                        slide.style.display = 'none';
+                    }
+                });
+                
+                // Update Swiper if it exists
+                if (propertiesSwiper) {
+                    propertiesSwiper.update();
+                }
+                
+                // Update empty state if needed
+                if (emptyStateTitle) {
+                    const noPropertiesDiv = document.querySelector('.no-properties');
+                    if (visibleCount === 0 && selectedCity !== 'all') {
+                        emptyStateTitle.textContent = `Currently no properties in ${selectedCity}`;
+                        if (noPropertiesDiv) noPropertiesDiv.style.display = 'block';
+                    } else if (visibleCount === 0) {
+                        emptyStateTitle.textContent = 'No properties available';
+                        if (noPropertiesDiv) noPropertiesDiv.style.display = 'block';
+                    } else {
+                        if (noPropertiesDiv) noPropertiesDiv.style.display = 'none';
+                    }
+                }
+            });
+        });
+        
+        // Check for URL parameter to set initial filter
+        const urlParams = new URLSearchParams(window.location.search);
+        const cityParam = urlParams.get('city');
+        if (cityParam) {
+            const cityBtn = document.querySelector(`.properties-filter button[data-city="${cityParam}"]`);
+            if (cityBtn) {
+                cityBtn.click();
+            }
+        }
+    });
+</script>
