@@ -9,9 +9,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-u3ePw2xw0P7t0t6V2jv1n3R6nE1P0zQk5mM6v2n5m2sE1jz7l4w7f5tZ7p3J9TLwqG7i0vJq9Xo7Jk0+X3y0A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <style>
+ <style>
     :root{
-      --brand:#FFC107;
+      --brand:#29abff;;
       --text:#2c3e50;
       --muted:#6b7785;
       --bg:#f6f8fb;
@@ -75,7 +75,7 @@
     .topbar a { color: #cfe0f4; opacity: .9; }
 
     .navbar { position: sticky; top: 0; z-index: 50; background: #0a1e2d; color: #fff; box-shadow: var(--shadow); }
-    .nav-inner { display: flex; align-items: center; gap: 1rem; padding: .9rem 0; }
+    .nav-inner { display: flex; align-items: center; gap: 0.5rem; padding: .9rem 0; }
 
     /* Logo built with CSS */
     .logo { display: flex; align-items: center; gap: .75rem; }
@@ -141,14 +141,23 @@
       }
     }
     /* Prompt 3: Hero Section with Advanced Search */
-    .hero{
-      position:relative;min-height:72vh;display:grid;place-items:center;
-      background:url('https://i.pinimg.com/1200x/1e/ea/af/1eeaaf3279542105eb71cd739abbac0b.jpg') center/cover no-repeat fixed;
-      isolation:isolate;
-    }
-    .hero::before{
-      content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.35));z-index:-1
-    }
+    .hero {
+  position: relative;
+  min-height: 72vh;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(to right, #87cefa, #b0e0e6); /* Light Sky Blue gradient */
+  isolation: isolate;
+}
+
+    .hero::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg, rgba(255,255,255,.2), rgba(255,255,255,.05));
+  z-index:-1;
+}
+
     .hero__inner{max-width:1200px;width:100%;padding:4rem 1rem;color:#fff;text-align:center}
     .hero h1{font-size:clamp(1.75rem, 2.4vw + 1rem, 3rem);margin:0 0 1.25rem;font-weight:800}
 
@@ -262,7 +271,7 @@
     .btn {
         display: inline-block;
         padding: 10px 20px;
-        background-color: #FFD54F;
+        background-color: #29abff;;
         color: white;
         border: none;
         border-radius: 4px;
@@ -272,8 +281,8 @@
     }
     
     .btn:hover {
-        background-color: #e55d00;
-    }
+    background-color: #007acc;   /* adjusted hover blue */
+}
     
     .section-title {
         font-size: 28px;
@@ -311,7 +320,7 @@
         
         .service-icon {
             font-size: 40px;
-            color: #FFD54F;
+            color: #29abff;
             margin-bottom: 15px;
         }
         
@@ -438,7 +447,7 @@
     .stat-number {
         font-size: 36px;
         font-weight: 700;
-        color: #FFD54F;
+        color: #29abff;
         margin-bottom: 5px;
     }
     
@@ -785,13 +794,56 @@
       .city-grid.cols-3 {grid-template-columns:1fr}
     }
 
-    .city-section {padding:36px 0}
-    .city-section-head {display:flex;align-items:end;justify-content:space-between;margin-bottom:16px}
-    .city-section-head h2 {margin:0;font-size:26px}
-    .city-box {position:relative;overflow:hidden;border-radius:16px}
-    .city-box img {height:160px;width:100%;object-fit:cover;transition:transform .4s ease}
-    .city-box:hover img {transform:scale(1.05)}
-    .city-label {position:absolute;left:10px;bottom:10px;background:rgba(255,255,255,.9);padding:6px 10px;border-radius:999px;font-weight:700;box-shadow:var(--shadow-sm)}
+    .city-section {
+  padding: 36px 0;
+}
+
+
+
+.city-section-head {
+  display: flex;
+  flex-direction: column; /* stack heading & button */
+  justify-content: center; /* vertical align if needed */
+  align-items: center;     /* center horizontally */
+  margin-bottom: 20px;
+  text-align: center;
+}
+.city-section-head h2 {
+  align-items: center;
+  margin: 0;
+  font-size: 26px;
+}
+
+.city-box {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  margin-bottom: 20px; /* ✅ Added margin bottom */
+}
+
+.city-box img {
+  height: 160px;
+  width: 100%;
+  object-fit: cover;
+  transition: transform .4s ease;
+}
+
+.city-box:hover img {
+  transform: scale(1.05);
+}
+
+.city-label {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  background: rgba(255, 255, 255, .9);
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 700;
+  box-shadow: var(--shadow-sm);
+}
+
+   
   </style>
 </head>
 <body>

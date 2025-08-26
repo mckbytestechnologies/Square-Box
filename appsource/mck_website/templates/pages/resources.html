@@ -90,27 +90,7 @@
                             {% endif %}
                         </div>
                         
-                        <div class="property-highlights">
-                            <div class="highlight-item">
-                                <div class="highlight-icon">
-                                    <i class="fas fa-bed"></i>
-                                </div>
-                                <div class="highlight-info">
-                                    <div class="highlight-value">{{ property.bedrooms }}</div>
-                                    <div class="highlight-label">Bedrooms</div>
-                                </div>
-                            </div>
-                            
-                            <div class="highlight-item">
-                                <div class="highlight-icon">
-                                    <i class="fas fa-bath"></i>
-                                </div>
-                                <div class="highlight-info">
-                                    <div class="highlight-value">{{ property.bathrooms }}</div>
-                                    <div class="highlight-label">Bathrooms</div>
-                                </div>
-                            </div>
-                            
+                        <div class="property-highlights">                  
                             <div class="highlight-item">
                                 <div class="highlight-icon">
                                     <i class="fas fa-ruler-combined"></i>
@@ -126,16 +106,13 @@
                     <div class="property-actions">
                         <button class="btn btn-primary btn-action">
                             <i class="fas fa-phone-alt"></i>
-                            <span>Contact Agent</span>
+                            <span>99945 55962</span>
                         </button>
                         <button class="btn btn-outline btn-action">
                             <i class="fas fa-calendar"></i>
-                            <span>Schedule Tour</span>
+                            <a href="{% url 'mck_website:property_enquiry_page' %}"> Contact Us</a>
                         </button>
-                        <button class="btn btn-outline btn-action">
-                            <i class="fas fa-video"></i>
-                            <span>Virtual Tour</span>
-                        </button>
+                        
                     </div>
                 </div>
             </div>
@@ -223,12 +200,7 @@
                 <div class="detail-card">
                     <h3 class="detail-card-title">Location</h3>
                     <div class="detail-card-content">
-                        <div class="map-container">
-                            <div class="map-placeholder">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <span>Interactive Map</span>
-                            </div>
-                        </div>
+                        
                         <div class="location-address">
                             <i class="fas fa-map-marker-alt"></i>
                             <span>{{ property.address }}, {{ property.city }}, {{ property.state }}</span>
@@ -252,15 +224,13 @@
                     <h3 class="sidebar-card-title">Share This Property</h3>
                     <div class="sidebar-card-content">
                         <div class="share-buttons">
-                            <a href="#" class="share-button facebook">
+                            <a href="https://www.facebook.com/squareboxtransformingspace/" class="share-button facebook">
                                 <i class="fab fa-facebook-f"></i>
                             </a>
-                            <a href="#" class="share-button twitter">
-                                <i class="fab fa-twitter"></i>
+                            <a href="https://www.instagram.com/squarebox.co.in/" class="share-button twitter">
+                                <i class="fab fa-instagram"></i>
                             </a>
-                            <a href="#" class="share-button linkedin">
-                                <i class="fab fa-linkedin-in"></i>
-                            </a>
+                          
                             <a href="#" class="share-button email">
                                 <i class="fas fa-envelope"></i>
                             </a>
@@ -294,7 +264,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#" class="view-more-link">View More Similar Properties <i class="fas fa-arrow-right"></i></a>
+                        <a href="{% url 'mck_website:mck_property_page' %}" class="view-more-link">View More Similar Properties <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -315,7 +285,7 @@
             </div>
             <div class="feature-item">
                 <i class="fas fa-calendar-alt"></i>
-                <span>Listed: {{ property.list_date|date:"F j, Y" }}</span>
+                <span>Listed: {{ property.updated_on|date:"F j, Y" }}</span>
             </div>
             <div class="feature-item">
                 <i class="fas fa-map-marker-alt"></i>

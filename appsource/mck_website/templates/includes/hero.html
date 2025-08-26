@@ -88,6 +88,72 @@
 
     <!-- Prompt 3: Hero Section with Advanced Search Box -->
      <style>
+      /* Center the search panel */
+.search-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+/* Filters form: horizontal row */
+.filters {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem; /* space between fields */
+  flex-wrap: wrap; /* wrap on small screens */
+  margin-top: 1.5rem;
+}
+
+/* Each field styling */
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Labels larger */
+.field label {
+  font-size: 1rem !important;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  color: #111 !important;
+  text-align: left;
+}
+
+/* Inputs & selects bigger */
+.field select,
+.field input {
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  border: 1px solid rgba(0,0,0,.35);
+  border-radius: 6px;
+  min-width: 180px;
+}
+
+/* Search button styling */
+.search-btn {
+  padding: 0.7rem 1.8rem;
+  font-size: 1.05rem;
+  border-radius: 8px;
+  background: var(--brand);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-top: 1.6rem; /* aligns with fields on small screens */
+}
+
+/* Optional: keep all in one line on larger screens */
+@media (min-width: 768px) {
+  .filters {
+    flex-wrap: nowrap;
+  }
+  .search-btn {
+    margin-top: 0;
+    align-self: flex-end;
+  }
+}
+
       .hero__inner {
   max-width: 1200px;
   width: 100%;
@@ -177,9 +243,10 @@
           <label for="budget">Budget</label>
           <select id="budget" name="budget">
             <option value="">Budget</option>
-            <option value="Below 100" {% if selected_budget == 'Below 100' %}selected{% endif %}>Below $100,000</option>
-            <option value="100k - 300k" {% if selected_budget == '100k - 300k' %}selected{% endif %}>$100k - $300k</option>
-            <option value="Above 300k" {% if selected_budget == 'Above 300k' %}selected{% endif %}>Above $300k</option>
+            <option value="Below 50L" {% if selected_budget == 'Below 50L' %}selected{% endif %}>Below ₹50 Lakh</option>
+            <option value="50L - 1Cr" {% if selected_budget == '50L - 1Cr' %}selected{% endif %}>₹50 Lakh - ₹1 Crore</option>
+            <option value="1Cr - 2Cr" {% if selected_budget == '1Cr - 2Cr' %}selected{% endif %}>₹1 Crore - ₹2 Crore</option>
+            <option value="Above 2Cr" {% if selected_budget == 'Above 2Cr' %}selected{% endif %}>Above ₹2 Crore</option>
           </select>
         </div>
         

@@ -1,4 +1,3 @@
-<!-- Properties Section -->
 <section class="properties">
     <div class="container">
         <h2 class="section-title justify-content-center align-items-center" id="dynamic-title">
@@ -9,104 +8,164 @@
             {% endif %}
         </h2>
         
-        
-      
-
-        <!-- Slider container for when there are more than 3 properties -->
+        <!-- Slider container for more than 3 properties -->
         <div class="properties-slider-container" style="display: none;">
             <div class="swiper properties-slider">
                 <div class="swiper-wrapper">
                     {% for property in property %}
-                    <div class="swiper-slide" data-city="{{ property.city }}">
+                    <div class="swiper-slide" data-city="{{ property.city }}" data-type="{{ property.listing_type }}">
                         <div class="property-card">
                             <div class="property-img">
                                 {% for img in property.images.all|slice:":1" %}
                                     <img src="{{ img.image.url }}" alt="{{ property.title }}">
                                 {% endfor %}
                                 <div class="property-badge">
-                                    <span class="badge-type">
-                                        {% if property.property_type %}
-                                            {{ property.property_type.name }}
-                                        {% else %}
-                                            Premium
-                                        {% endif %}
+                                    <!-- Updated property type badge with icon -->
+                                    <span class="badge-type {% if property.property_type.name %}badge-{{ property.property_type.name|lower }}{% endif %}">
+                                        <i class="fas 
+                                            {% if property.property_type.name == 'APARTMENT' %}fa-building
+                                            {% elif property.property_type.name == 'VILLA' %}fa-home
+                                            {% elif property.property_type.name == 'PLOT' %}fa-vector-square
+                                            {% elif property.property_type.name == 'COMMERCIAL' %}fa-store
+                                            {% elif property.property_type.name == 'INDEPENDENT_HOUSE' %}fa-house-user
+                                            {% elif property.property_type.name == 'TOWNHOUSE' %}fa-city
+                                            {% else %}fa-home{% endif %}">
+                                        </i>
+                                        {{ property.property_type.name|default:"Premium"|title }}
                                     </span>
                                     {% if property.is_featured %}
-                                    <span class="badge-featured">Featured</span>
+                                        <span class="badge-featured">Featured</span>
                                     {% endif %}
                                 </div>
                             </div>
                             <div class="property-info">
                                 <h3>{{ property.title|default:"Premium Property" }}</h3>
                                 {% if property.price %}
-                                <p class="property-price">₹{{ property.price|floatformat:"0" }}</p>
+                                    <p class="property-price">₹{{ property.price|floatformat:"0" }}</p>
                                 {% endif %}
                                 <p>{{ property.description|truncatewords:15 }}</p>
+                                
                                 <div class="property-details">
-                                    {% if property.bedrooms %}
-                                    <span><i class="fas fa-bed"></i> {{ property.bedrooms }} Beds</span>
+                                    {% with pt=property.property_type.name %}
+                                    {% if pt == 'APARTMENT' %}
+                                        {% if property.bedrooms %}<span><i class="fas fa-bed"></i> {{ property.bedrooms }} Beds</span>{% endif %}
+                                        {% if property.bathrooms %}<span><i class="fas fa-bath"></i> {{ property.bathrooms }} Baths</span>{% endif %}
+                                        {% if property.sqft %}<span><i class="fas fa-ruler-combined"></i> {{ property.sqft }} sq.ft</span>{% endif %}
+                                        {% if property.floor_number %}<span>Floor: {{ property.floor_number }}/{{ property.total_floors }}</span>{% endif %}
+                                        {% if property.building_age %}<span>Age: {{ property.building_age }} yrs</span>{% endif %}
+                                        {% if property.maintenance_charges %}<span>Maintenance: ₹{{ property.maintenance_charges }}</span>{% endif %}
+                                    {% elif pt == 'VILLA' %}
+                                        {% if property.plot_area %}<span>Plot Area: {{ property.plot_area }} sq.ft</span>{% endif %}
+                                        {% if property.builtup_area %}<span>Built-up: {{ property.builtup_area }} sq.ft</span>{% endif %}
+                                        {% if property.facing_direction %}<span>Facing: {{ property.facing_direction }}</span>{% endif %}
+                                        {% if property.garden_area %}<span>Garden: {{ property.garden_area }} sq.ft</span>{% endif %}
+                                    {% elif pt == 'PLOT' %}
+                                        {% if property.plot_length and property.plot_width %}<span>Plot: {{ property.plot_length }} x {{ property.plot_width }} ft</span>{% endif %}
+                                        {% if property.water_availability %}<span>Water: {{ property.water_availability }}</span>{% endif %}
+                                        {% if property.soil_type %}<span>Soil: {{ property.soil_type }}</span>{% endif %}
+                                    {% elif pt == 'COMMERCIAL' %}
+                                        {% if property.commercial_type %}<span>Type: {{ property.commercial_type }}</span>{% endif %}
+                                        {% if property.floor_height %}<span>Floor Height: {{ property.floor_height }} ft</span>{% endif %}
+                                        {% if property.loading_capacity %}<span>Loading Capacity: {{ property.loading_capacity }}</span>{% endif %}
+                                        {% if property.parking_capacity %}<span>Parking: {{ property.parking_capacity }}</span>{% endif %}
+                                    {% elif pt == 'INDEPENDENT_HOUSE' %}
+                                        {% if property.office_type %}<span>Type: {{ property.office_type }}</span>{% endif %}
+                                        {% if property.furnishing_type %}<span>Furnishing: {{ property.furnishing_type }}</span>{% endif %}
+                                        {% if property.conference_rooms %}<span>Conference Rooms: {{ property.conference_rooms }}</span>{% endif %}
+                                        {% if property.reception_area %}<span>Reception: {{ property.reception_area }}</span>{% endif %}
+                                    {% elif pt == 'TOWNHOUSE' %}
+                                        {% if property.units_in_complex %}<span>Units in Complex: {{ property.units_in_complex }}</span>{% endif %}
+                                        {% if property.corner_unit %}<span>Corner Unit: {{ property.corner_unit }}</span>{% endif %}
+                                        {% if property.end_unit %}<span>End Unit: {{ property.end_unit }}</span>{% endif %}
+                                        {% if property.hoa_fee %}<span>HOA Fee: ₹{{ property.hoa_fee }}</span>{% endif %}
                                     {% endif %}
-                                    {% if property.bathrooms %}
-                                    <span><i class="fas fa-bath"></i> {{ property.bathrooms }} Baths</span>
-                                    {% endif %}
-                                    {% if property.sqft %}
-                                    <span><i class="fas fa-ruler-combined"></i> {{ property.sqft }} sq.ft</span>
-                                    {% endif %}
+                                    {% endwith %}
                                 </div>
+
                                 <a href="{% url 'mck_website:property_detail' property.id %}" class="btn">View Details</a>
                             </div>
                         </div>
                     </div>
                     {% endfor %}
                 </div>
-                
-                <!-- Navigation arrows -->
+
                 <div class="swiper-button-next"></div>
                 <div class="swiper-button-prev"></div>
-                
-                <!-- Pagination -->
                 <div class="swiper-pagination"></div>
             </div>
         </div>
 
-        <!-- Grid layout for when there are 3 or fewer properties -->
+        <!-- Grid layout for 3 or fewer properties -->
         <div class="properties-grid">
             {% for property in property %}
-            <div class="property-card" data-city="{{ property.city }}">
+            <div class="property-card" data-city="{{ property.city }}" data-type="{{ property.property_type.name }}">
                 <div class="property-img">
                     {% for img in property.images.all|slice:":1" %}
                         <img src="{{ img.image.url }}" alt="{{ property.title }}">
                     {% endfor %}
                     <div class="property-badge">
-                        <span class="badge-type">
-                            {% if property.property_type %}
-                                {{ property.property_type.name }}
-                            {% else %}
-                                Premium
-                            {% endif %}
+                        <!-- Updated property type badge with icon -->
+                        <span class="badge-type {% if property.property_type.name %}badge-{{ property.property_type.name|lower }}{% endif %}">
+                            <i class="fas 
+                                {% if property.property_type.name == 'APARTMENT' %}fa-building
+                                {% elif property.property_type.name == 'VILLA' %}fa-home
+                                {% elif property.property_type.name == 'PLOT' %}fa-vector-square
+                                {% elif property.property_type.name == 'COMMERCIAL' %}fa-store
+                                {% elif property.property_type.name == 'INDEPENDENT_HOUSE' %}fa-house-user
+                                {% elif property.property_type.name == 'TOWNHOUSE' %}fa-city
+                                {% else %}fa-home{% endif %}">
+                            </i>
+                            {{ property.property_type.name|default:"Premium"|title }}
                         </span>
                         {% if property.is_featured %}
-                        <span class="badge-featured">Featured</span>
+                            <span class="badge-featured">Featured</span>
                         {% endif %}
                     </div>
                 </div>
                 <div class="property-info">
                     <h3>{{ property.title|default:"Premium Property" }}</h3>
                     {% if property.price %}
-                    <p class="property-price">₹{{ property.price|floatformat:"0" }}</p>
+                        <p class="property-price">₹{{ property.price|floatformat:"0" }}</p>
                     {% endif %}
                     <p>{{ property.description|truncatewords:15 }}</p>
+                    
                     <div class="property-details">
-                        {% if property.bedrooms %}
-                        <span><i class="fas fa-bed"></i> {{ property.bedrooms }} Beds</span>
+                        {% with pt=property.property_type.name %}
+                        {% if pt == 'APARTMENT' %}
+                            {% if property.bedrooms %}<span><i class="fas fa-bed"></i> {{ property.bedrooms }} Beds</span>{% endif %}
+                            {% if property.bathrooms %}<span><i class="fas fa-bath"></i> {{ property.bathrooms }} Baths</span>{% endif %}
+                            {% if property.sqft %}<span><i class="fas fa-ruler-combined"></i> {{ property.sqft }} sq.ft</span>{% endif %}
+                            {% if property.floor_number %}<span>Floor: {{ property.floor_number }}/{{ property.total_floors }}</span>{% endif %}
+                            {% if property.building_age %}<span>Age: {{ property.building_age }} yrs</span>{% endif %}
+                            {% if property.maintenance_charges %}<span>Maintenance: ₹{{ property.maintenance_charges }}</span>{% endif %}
+                        {% elif pt == 'VILLA' %}
+                            {% if property.plot_area %}<span>Plot Area: {{ property.plot_area }} sq.ft</span>{% endif %}
+                            {% if property.builtup_area %}<span>Built-up: {{ property.builtup_area }} sq.ft</span>{% endif %}
+                            {% if property.facing_direction %}<span>Facing: {{ property.facing_direction }}</span>{% endif %}
+                            {% if property.garden_area %}<span>Garden: {{ property.garden_area }} sq.ft</span>{% endif %}
+                        {% elif pt == 'PLOT' %}
+                            {% if property.plot_length and property.plot_width %}<span>Plot: {{ property.plot_length }} x {{ property.plot_width }} ft</span>{% endif %}
+                            {% if property.water_availability %}<span>Water: {{ property.water_availability }}</span>{% endif %}
+                            {% if property.soil_type %}<span>Soil: {{ property.soil_type }}</span>{% endif %}
+                        {% elif pt == 'COMMERCIAL' %}
+                            {% if property.commercial_type %}<span>Type: {{ property.commercial_type }}</span>{% endif %}
+                            {% if property.floor_height %}<span>Floor Height: {{ property.floor_height }} ft</span>{% endif %}
+                            {% if property.loading_capacity %}<span>Loading Capacity: {{ property.loading_capacity }}</span>{% endif %}
+                            {% if property.parking_capacity %}<span>Parking: {{ property.parking_capacity }}</span>{% endif %}
+                        {% elif pt == 'INDEPENDENT_HOUSE' %}
+                            {% if property.office_type %}<span>Type: {{ property.office_type }}</span>{% endif %}
+                            {% if property.furnishing_type %}<span>Furnishing: {{ property.furnishing_type }}</span>{% endif %}
+                            {% if property.conference_rooms %}<span>Conference Rooms: {{ property.conference_rooms }}</span>{% endif %}
+                            {% if property.reception_area %}<span>Reception: {{ property.reception_area }}</span>{% endif %}
+                        {% elif pt == 'TOWNHOUSE' %}
+                            {% if property.units_in_complex %}<span>Units in Complex: {{ property.units_in_complex }}</span>{% endif %}
+                            {% if property.corner_unit %}<span>Corner Unit: {{ property.corner_unit }}</span>{% endif %}
+                            {% if property.end_unit %}<span>End Unit: {{ property.end_unit }}</span>{% endif %}
+                            {% if property.hoa_fee %}<span>HOA Fee: ₹{{ property.hoa_fee }}</span>{% endif %}
                         {% endif %}
-                        {% if property.bathrooms %}
-                        <span><i class="fas fa-bath"></i> {{ property.bathrooms }} Baths</span>
-                        {% endif %}
-                        {% if property.sqft %}
-                        <span><i class="fas fa-ruler-combined"></i> {{ property.sqft }} sq.ft</span>
-                        {% endif %}
+                        {% endwith %}
                     </div>
+
                     <a href="{% url 'mck_website:property_detail' property.id %}" class="btn">View Details</a>
                 </div>
             </div>
@@ -130,25 +189,276 @@
     </div>
 </section>
 
-
-
+<!-- Add Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
+<style>
+.properties {
+    padding: 60px 0;
+    background-color: #f8f9fa;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #2c3e50;
+    font-weight: 700;
+}
+
+.property-type-filter {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.filter-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 30px;
+    background-color: #fff;
+    color: #6c757d;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.filter-btn:hover, .filter-btn.active {
+    background-color: #2c3e50;
+    color: #fff;
+}
+
+.property-card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.property-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.property-img {
+    position: relative;
+    height: 220px;
+    overflow: hidden;
+}
+
+.property-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.property-card:hover .property-img img {
+    transform: scale(1.05);
+}
+
+.property-badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.badge-type {
+    padding: 6px 12px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.badge-type i {
+    font-size: 10px;
+}
+
+/* Color coding for property types */
+.badge-apartment {
+    background-color: #3498db;
+}
+
+.badge-villa {
+    background-color: #e74c3c;
+}
+
+.badge-plot {
+    background-color: #2ecc71;
+}
+
+.badge-commercial {
+    background-color: #f39c12;
+}
+
+.badge-independent_house {
+    background-color: #9b59b6;
+}
+
+.badge-townhouse {
+    background-color: #1abc9c;
+}
+
+.badge-featured {
+    padding: 6px 12px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 600;
+    background-color: #ffd700;
+    color: #333;
+}
+
+.property-info {
+    padding: 20px;
+}
+
+.property-info h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #2c3e50;
+}
+
+.property-price {
+    font-size: 20px;
+    font-weight: 700;
+    color: #e74c3c;
+    margin-bottom: 10px;
+}
+
+.property-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 15px 0;
+    font-size: 14px;
+    color: #7f8c8d;
+}
+
+.property-details span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.property-details i {
+    color: #3498db;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #2c3e50;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #1a252f;
+}
+
+.properties-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    grid-column: 1 / -1;
+}
+
+.empty-state i {
+    color: #bdc3c7;
+    margin-bottom: 15px;
+}
+
+.empty-state h4 {
+    color: #7f8c8d;
+    margin-bottom: 10px;
+}
+
+.btn-contact {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 25px;
+    background-color: #3498db;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* Swiper slider styles */
+.properties-slider-container {
+    margin: 0 -15px;
+    padding: 0 15px;
+}
+
+.swiper-button-next, .swiper-button-prev {
+    color: #2c3e50;
+    background: rgba(255, 255, 255, 0.9);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.swiper-button-next:after, .swiper-button-prev:after {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.swiper-pagination-bullet-active {
+    background: #2c3e50;
+}
+
+@media (max-width: 768px) {
+    .property-type-filter {
+        overflow-x: auto;
+        justify-content: flex-start;
+        padding-bottom: 10px;
+    }
+    
+    .properties-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Initialize Swiper slider if needed
-        let propertiesSwiper = null;
-        const propertyCount = document.querySelectorAll('.property-card').length;
-        const sliderContainer = document.querySelector('.properties-slider-container');
-        const gridContainer = document.querySelector('.properties-grid');
-        
-        // Show slider if more than 3 properties, otherwise show grid
-        if (propertyCount > 3) {
+document.addEventListener('DOMContentLoaded', function() {
+    const propertyCards = document.querySelectorAll('.property-card');
+    const sliderContainer = document.querySelector('.properties-slider-container');
+    const gridContainer = document.querySelector('.properties-grid');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    let propertiesSwiper = null;
+
+    // Initialize Swiper if more than 3 properties
+    function initSwiper() {
+        if (propertyCards.length > 3) {
             sliderContainer.style.display = 'block';
             gridContainer.style.display = 'none';
             
-            // Initialize Swiper
+            if (propertiesSwiper) {
+                propertiesSwiper.destroy(true, true);
+            }
+            
             propertiesSwiper = new Swiper('.properties-slider', {
                 slidesPerView: 1,
                 spaceBetween: 20,
@@ -163,99 +473,57 @@
                 breakpoints: {
                     640: {
                         slidesPerView: 2,
-                        spaceBetween: 20,
                     },
                     1024: {
                         slidesPerView: 3,
-                        spaceBetween: 30,
                     },
-                }
+                },
             });
         } else {
             sliderContainer.style.display = 'none';
             gridContainer.style.display = 'grid';
         }
-        
-        // City Filter Functionality
-        const filterButtons = document.querySelectorAll('.properties-filter button');
-        const propertyCards = document.querySelectorAll('.property-card');
-        const sliderSlides = document.querySelectorAll('.swiper-slide');
-        const dynamicTitle = document.getElementById('dynamic-title');
-        const dynamicSubtitle = document.getElementById('dynamic-subtitle');
-        const emptyStateTitle = document.getElementById('empty-state-title');
-        
-        filterButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                // Update active button
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                this.classList.add('active');
-                
-                const selectedCity = this.getAttribute('data-city');
-                
-                // Update dynamic text
-                if (selectedCity === 'all') {
-                    dynamicTitle.textContent = 'Featured Real Estate Projects';
-                    dynamicSubtitle.innerHTML = '<i class="fas fa-star"></i> Curated collection of luxury properties';
+    }
+
+    initSwiper();
+
+    // Property type filtering
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Update active button
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            
+            const type = this.dataset.type;
+            let visibleCount = 0;
+            
+            propertyCards.forEach(card => {
+                if (type === 'all' || card.dataset.type === type) {
+                    card.style.display = 'block';
+                    visibleCount++;
                 } else {
-                    dynamicTitle.textContent = `Premium Properties in ${selectedCity}`;
-                    dynamicSubtitle.innerHTML = `<i class="fas fa-map-marker-alt"></i> Exclusive selections in ${selectedCity}`;
-                }
-                
-                // Filter properties
-                let visibleCount = 0;
-                
-                // Handle grid view
-                propertyCards.forEach(card => {
-                    const cardCity = card.getAttribute('data-city');
-                    
-                    if (selectedCity === 'all' || cardCity === selectedCity) {
-                        card.style.display = 'block';
-                        visibleCount++;
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-                
-                // Handle slider view
-                sliderSlides.forEach(slide => {
-                    const slideCity = slide.getAttribute('data-city');
-                    
-                    if (selectedCity === 'all' || slideCity === selectedCity) {
-                        slide.style.display = 'block';
-                    } else {
-                        slide.style.display = 'none';
-                    }
-                });
-                
-                // Update Swiper if it exists
-                if (propertiesSwiper) {
-                    propertiesSwiper.update();
-                }
-                
-                // Update empty state if needed
-                if (emptyStateTitle) {
-                    const noPropertiesDiv = document.querySelector('.no-properties');
-                    if (visibleCount === 0 && selectedCity !== 'all') {
-                        emptyStateTitle.textContent = `Currently no properties in ${selectedCity}`;
-                        if (noPropertiesDiv) noPropertiesDiv.style.display = 'block';
-                    } else if (visibleCount === 0) {
-                        emptyStateTitle.textContent = 'No properties available';
-                        if (noPropertiesDiv) noPropertiesDiv.style.display = 'block';
-                    } else {
-                        if (noPropertiesDiv) noPropertiesDiv.style.display = 'none';
-                    }
+                    card.style.display = 'none';
                 }
             });
-        });
-        
-        // Check for URL parameter to set initial filter
-        const urlParams = new URLSearchParams(window.location.search);
-        const cityParam = urlParams.get('city');
-        if (cityParam) {
-            const cityBtn = document.querySelector(`.properties-filter button[data-city="${cityParam}"]`);
-            if (cityBtn) {
-                cityBtn.click();
+            
+            // Update empty state if no properties match the filter
+            const emptyState = document.querySelector('.no-properties');
+            if (emptyState) {
+                emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
             }
+            
+            // Reinitialize swiper if needed
+            if (propertiesSwiper) {
+                propertiesSwiper.update();
+            }
+        });
+    });
+
+    // Window resize handler
+    window.addEventListener('resize', function() {
+        if (propertiesSwiper) {
+            propertiesSwiper.update();
         }
     });
+});
 </script>
