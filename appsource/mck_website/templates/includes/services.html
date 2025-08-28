@@ -1,7 +1,7 @@
 <style>
 .services {
     background: #fff;
-    padding: 70px 20px;
+    
     text-align: center;
 }
 
@@ -56,6 +56,29 @@
         font-size: 24px;
     }
 }
+.service-icon {
+    width: 70px;  
+    height: 70px;
+    margin: 0 auto 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 15px; /* rounded corners for modern look */
+    transition: transform 0.3s ease;
+}
+
+.service-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* keep aspect ratio */
+    transition: transform 0.3s ease;
+}
+
+.service-item:hover .service-icon img {
+    transform: scale(1.1); /* zoom effect on hover */
+}
+
 </style>
 
 <section class="services">
@@ -63,45 +86,57 @@
     <h2 class="section-title">Our Services</h2>
     <div class="services-line">
 
-      <a href="{% url 'mck_website:mck_property_page' %}" class="service-item">
-        <div class="service-icon"><i class="fas fa-home"></i></div>
-        <h3>Buy</h3>
-      </a>
+      
+<a href="{% url 'mck_website:mck_property_page' %}" class="service-item">
+  <div class="service-icon">
+    <img src="https://cdn-icons-png.flaticon.com/512/619/619034.png" alt="Buy">
+  </div>
+  <h3>Buy</h3>
+</a>
 
-      <a href="{% url 'mck_website:mck_property_create_page' %}" class="service-item">
-        <div class="service-icon"><i class="fas fa-key"></i></div>
-        <h3>Rent</h3>
-      </a>
+<a href="{% url 'mck_website:mck_property_create_page' %}" class="service-item">
+  <div class="service-icon">
+    <img src="https://cdn-icons-png.flaticon.com/512/3063/3063827.png" alt="Rent">
+  </div>
+  <h3>Rent</h3>
+</a>
 
-      <a href="{% url 'mck_website:property_maintenance_page' %}" class="service-item">
-        <div class="service-icon"><i class="fas fa-building"></i></div>
-        <h3>Maintenance</h3>
-      </a>
+<a href="{% url 'mck_website:property_maintenance_page' %}" class="service-item">
+  <div class="service-icon">
+    <img src="https://cdn-icons-png.flaticon.com/512/1256/1256650.png" alt="Maintenance">
+  </div>
+  <h3>Maintenance</h3>
+</a>
 
-      <a href="{% url 'mck_website:property_legal_services_page' %}" class="service-item">
-        <div class="service-icon"><i class="fas fa-hard-hat"></i></div>
-        <h3>Legal Services</h3>
-      </a>
+<a href="{% url 'mck_website:property_legal_services_page' %}" class="service-item">
+  <div class="service-icon">
+    <img src="https://cdn-icons-png.flaticon.com/512/891/891399.png" alt="Legal Services">
+  </div>
+  <h3>Legal Services</h3>
+</a>
 
-      <a href="{% url 'mck_website:fencing_page' %}" class="service-item">
-        <div class="service-icon"><i class="fas fa-landmark"></i></div>
-        <h3>Fencing</h3>
-      </a>
+<a href="{% url 'mck_website:fencing_page' %}" class="service-item">
+  <div class="service-icon">
+    <img src="https://cdn-icons-png.flaticon.com/512/3176/3176366.png" alt="Fencing">
+  </div>
+  <h3>Fencing</h3>
+</a>
 
-      <a href="{% url 'mck_website:land_levelling_page' %}" class="service-item">
-        <div class="service-icon"><i class="fas fa-city"></i></div>
-        <h3>Land Levelling</h3>
-      </a>
+<a href="{% url 'mck_website:land_levelling_page' %}" class="service-item">
+  <div class="service-icon">
+    <img src="https://cdn-icons-png.flaticon.com/512/684/684908.png" alt="Land Levelling">
+  </div>
+  <h3>Land Levelling</h3>
+</a>
 
-      <a href="https://www.mckbytes.com/contact-us/" class="service-item">
-        <div class="service-icon"><i class="fas fa-warehouse"></i></div>
-        <h3>Advertisement</h3>
-      </a>
 
-      <a href="https://www.mckbytes.com/contact-us/" class="service-item">
-        <div class="service-icon"><i class="fas fa-paint-roller"></i></div>
-        <h3>Digital Marketing</h3>
-      </a>
+
+<a href="https://www.mckbytes.com/contact-us/" class="service-item">
+  <div class="service-icon">
+    <img src="https://cdn-icons-png.flaticon.com/512/3771/3771461.png" alt="Digital Marketing">
+  </div>
+  <h3>Digital Marketing</h3>
+</a>
 
     </div>
   </div>

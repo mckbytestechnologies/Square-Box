@@ -1,15 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Property Enquiry — Contact Us</title>
+{% extends "layouts/base.html" %}
+{% load static %}
 
-  <!-- Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+{% block content %}
   <style>
     /* =========
        CSS RESET
@@ -204,7 +196,7 @@
       min-height: 420px;
       overflow: hidden; /* keep rounded corner clip clean */
     }
-    .hero {
+    .hero-e {
       position: absolute;
       inset: 0;
       /* clip-path creates the soft wavy boundary on the left */
@@ -222,7 +214,7 @@
         18% 10%
       );
     }
-    .hero img {
+    .hero-e img {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -296,7 +288,7 @@
     @media (max-width: 980px) {
       .content { grid-template-columns: 1fr; }
       .right { order: -1; min-height: 280px; }
-      .hero { clip-path: none; }
+      .hero-e { clip-path: none; }
       .curve { display: none; }
       .left { padding-top: 18px; }
       .topbar { padding: 22px 22px; }
@@ -306,10 +298,76 @@
       .actions { justify-content: space-between; }
       .btn { flex: 1 1 auto; text-align: center; }
     }
+    
+             :root {
+      --primary: #ffd200;
+      --secondary: #000;
+      --accent: #00509e;
+      --light: #f8f9fa;
+      --dark: #111;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, var(--primary) 60%, #fff 40%);
+      padding: 100px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+    
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 20px;
+    }
+    
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      max-width: 600px;
+    }
+    
   </style>
 </head>
 <body>
-  {% comment %} {% include "includes/header.html" %} {% endcomment %}
+<section class="hero" id="contact-hero">
+  <div class="container">
+    <div class="row align-items-center">
+      
+      <!-- Left Content -->
+      <div class="col-lg-6 hero-content">
+        <h1>Get in Touch With Us</h1>
+        <p>
+          Have questions about buying, selling, or renting a property?  
+          Our team is here to guide you with expert advice and tailored solutions.  
+          Reach out today and let’s make your property journey smooth and successful.
+        </p>
+      </div>
+      
+      <!-- Right Image -->
+      <div class="col-lg-6">
+        <img src="https://images.pexels.com/photos/887751/pexels-photo-887751.jpeg" 
+             class="img-fluid rounded-3" 
+             alt="Contact Us">
+      </div>
+      
+    </div>
+  </div>
+</section>
+
   <!-- ===============================
        WHITE CARD CONTAINER (SHEET)
        =============================== -->
@@ -351,26 +409,26 @@
             <!-- Name -->
             <div class="field">
               <label for="name">Full Name</label>
-              <input id="name" name="name" type="text" placeholder="John Smith" required />
-              <span class="icon" aria-hidden="true"></span>
+              <input id="name" name="name" type="text" placeholder="Square Box" required />
+              
             </div>
             
             <!-- Email -->
             <div class="field">
               <label for="email">Email Address</label>
-              <input id="email" name="email" type="email" placeholder="john.smith@example.com" required />
-              <span class="icon" aria-hidden="true"></span>
+              <input id="email" name="email" type="email" placeholder="2024squarebox@gmail.com" required />
+              
             </div>
             
             <!-- Phone -->
             <div class="field full">
               <label for="phone">Phone Number</label>
-              <input id="phone" name="phone" type="tel" placeholder="+1 234 567 8900" required />
-              <span class="icon" aria-hidden="true"></span>
+              <input id="phone" name="phone" type="tel" placeholder="99945 55962" required />
+              
             </div>
             
             <!-- Property Type -->
-            <div class="field full">
+            <!-- <div class="field full">
               <label for="property_type">Property Type</label>
               <select id="property_type" name="property_type" required>
                 <option value="" disabled selected>Select property type</option>
@@ -382,19 +440,27 @@
                 <option value="Commercial">Commercial</option>
               </select>
               <span class="icon" aria-hidden="true"></span>
+            </div> -->
+
+             <div class="field full">
+              <label for="message">Location</label>
+              <textarea id="location" name="location" placeholder="Enter Your Location..." required></textarea>
+              
             </div>
             
             <!-- Message -->
             <div class="field full">
               <label for="message">Message</label>
               <textarea id="message" name="message" placeholder="Tell us about your requirements..." required></textarea>
-              <span class="icon" aria-hidden="true"></span>
+              
             </div>
+
+
           </div>
 
           <!-- Actions -->
           <div class="actions">
-            <button type="button" class="btn secondary" onclick="window.location.href='#'">View Properties</button>
+            <!-- <button type="button" class="btn secondary" onclick="window.location.href='#'">View Properties</button> -->
             <button type="submit" class="btn primary" id="submitBtn">
               <i class="fas fa-paper-plane me-2"></i> Submit Enquiry
             </button>
@@ -413,14 +479,14 @@
         </svg>
 
         <!-- Scenic image (placeholder used) -->
-        <div class="hero" role="img" aria-label="Luxury property">
+        <div class="hero-e" role="img" aria-label="Luxury property">
           <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="Luxury modern villa with swimming pool" />
         </div>
       </aside>
     </section>
   </main>
 
-  {% include "includes/footer_main.html" %}
+
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('enquiryForm');
@@ -496,5 +562,4 @@
   });
 </script>
 
-</body>
-</html>
+{% endblock %}

@@ -81,18 +81,27 @@ class PropertyPage(TemplateView):
         context["lead"] = Lead.objects.exclude(datamode='D').order_by('-updated_on')
 
         city = request.GET.get('city')
+        listing_type = request.GET.get("listing_type")
         property_type = request.GET.get('property_type')
         budget = request.GET.get('budget')
 
         if city:
             qs = qs.filter(city__iexact=city)
+
         if property_type:
+            # property_type is likely a ForeignKey, so keep __name
             qs = qs.filter(property_type__name__iexact=property_type)
+
+        if listing_type:
+            # FIX: listing_type is CharField with choices → no __name
+            qs = qs.filter(listing_type__iexact=listing_type)
+
         if budget:
             try:
                 qs = qs.filter(price__lte=float(budget))
             except ValueError:
                 pass
+
         context["properties"] = (
             qs.prefetch_related(
                 Prefetch(

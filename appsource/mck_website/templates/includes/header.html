@@ -13,10 +13,9 @@
 <header class="navbar">
     <div class="container nav-inner">
         <a class="logo" href="{% url 'mck_website:home_page' %}" aria-label="Homepage">
-  <div class="logo-mark" style="background:black; padding:5px; border-radius:8px;">
-    
-  </div> 
+
   <div class="logo-text">
+    <div class="logo-mark">SB</div>
     Square<span class="highlight">Box</span>
   </div>
 </a>
@@ -38,12 +37,12 @@
 
             </li>
             <li>
-                <a href="{% url 'mck_website:mck_property_create_page' %}" role="menuitem" aria-haspopup="true">Rent ▾</a>
-                <div class="dropdown" role="menu">
+                <a href="{% url 'mck_website:mck_property_page' %}?listing_type=rent" role="menuitem" aria-haspopup="true">Rent </a>
+                <!-- <div class="dropdown" role="menu">
                     <a href="{% url 'mck_website:mck_property_create_page' %}?furnishing=Furnished">Furnished</a>
                     <a href="{% url 'mck_website:mck_property_create_page' %}?furnishing=Semi-furnished">Semi-furnished</a>
                     <a href="{% url 'mck_website:mck_property_create_page' %}?property_type=PG">PG / Co-Living</a>
-                </div>
+                </div> -->
             </li>
             <li>
                 <a href="{% url 'mck_website:mck_property_create_page' %}" role="menuitem">Sell</a>
@@ -56,6 +55,7 @@
                     <a href="{% url 'mck_website:land_levelling_page' %}">Land Levelling</a>
                     <a href="{% url 'mck_website:property_maintenance_page' %}">Property Management</a>
                     <a href="{% url 'mck_website:fencing_page' %}">Fencing</a>
+                     <a href="{% url 'mck_website:solar_page' %}">Solar Roadmap</a>
                 </div>
             </li>
             <li>
@@ -77,29 +77,6 @@
     </div>
 </header>
 
-<!-- Mobile Sheet -->
-<div class="mobile-sheet" id="mobileSheet" aria-hidden="true">
-    <div class="mobile-panel">
-        <div style="display:flex; align-items:center; justify-content:space-between;">
-            <div class="f-logo"><div class="logo-mark">SB</div><b>SquareBox</b></div>
-            <button class="btn btn--light" id="closeMobile">Close</button>
-        </div>
-        <div class="section">
-            <a class="mobile-link" href="{% url 'mck_website:mck_property_page' %}">Buy</a>
-            <a class="mobile-link" href="{% url 'mck_website:mck_property_create_page' %}">Rent</a>
-            <a class="mobile-link" href="{% url 'mck_website:mck_property_create_page' %}">Sell</a>
-            <a class="mobile-link" href="#">Services</a>
-            <a class="mobile-link" href="{% url 'mck_website:property_maintenance_page' %}">Maintenance</a>
-        </div>
-        <div class="section">
-            <a class="mobile-link" href="{% url 'mck_website:mck_property_page' %}" style="color: var(--accent-gold);">
-                <i class="fas fa-plus-circle me-2"></i> List Property
-            </a>
-            <a class="mobile-link" href="#">Sign In</a>
-            <a class="mobile-link" href="#">Register</a>
-        </div>
-    </div>
-</div>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {

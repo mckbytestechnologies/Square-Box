@@ -1,237 +1,735 @@
-<!DOCTYPE html><html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>SunSource | Power Your Home, Empower Your Future</title> <style> /* Base Styles */ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; color: #333; line-height: 1.6; } .container { width: 90%; max-width: 1200px; margin: 0 auto; } .btn-primary { display: inline-block; padding: 12px 30px; background-color: #FF9800; color: white; text-decoration: none; border-radius: 30px; font-weight: bold; border: none; cursor: pointer; transition: background-color 0.3s; } .btn-primary:hover { background-color: #F57C00; } section { padding: 60px 0; } h2 { text-align: center; margin-bottom: 40px; color: #2C3E50; }
-text
-    /* Header & Hero */
-    header {
-        background-color: white;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        position: sticky;
-        top: 0;
-        z-index: 100;
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block content %}
+  <style>
+    :root {
+      --primary: #ffd200;
+      --secondary: #000;
+      --accent: #00509e;
+      --light: #f8f9fa;
+      --dark: #111;
     }
-    .header-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 15px 0;
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #333;
+      line-height: 1.6;
     }
-    .logo {
-        font-size: 1.8rem;
-        font-weight: bold;
-        color: #FF9800;
+    
+    /* Header */
+    .navbar {
+      background-color: var(--secondary);
+      padding: 15px 0;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
-    .logo span {
-        color: #2C3E50;
+    
+    .navbar-brand {
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 1.8rem;
     }
-    nav ul {
-        display: flex;
-        list-style: none;
-        margin: 0;
-        padding: 0;
+    
+    .nav-link {
+      color: #fff;
+      font-weight: 500;
+      margin: 0 10px;
+      transition: color 0.3s;
     }
-    nav li {
-        margin-left: 25px;
+    
+    .nav-link:hover {
+      color: var(--primary);
     }
-    nav a {
-        text-decoration: none;
-        color: #2C3E50;
-        font-weight: 500;
+    
+    .navbar-toggler {
+      border: none;
+      color: #fff;
     }
-    nav a:hover {
-        color: #FF9800;
-    }
+    
+    /* Hero Section */
     .hero {
-        background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-4.0.3') no-repeat center center/cover;
-        color: white;
-        text-align: center;
-        padding: 100px 0;
+      background: linear-gradient(135deg, var(--primary) 60%, #fff 40%);
+      padding: 100px 0;
+      position: relative;
+      overflow: hidden;
     }
+    
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+    
     .hero h1 {
-        font-size: 2.8rem;
-        margin-bottom: 20px;
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 20px;
     }
+    
     .hero p {
-        font-size: 1.2rem;
-        max-width: 700px;
-        margin: 0 auto 30px;
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      max-width: 600px;
     }
-
-    /* Why Choose Us */
-    .benefits-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 30px;
+    
+    .btn-primary {
+      background-color: var(--accent);
+      border-color: var(--accent);
+      padding: 12px 30px;
+      font-weight: 600;
+      border-radius: 8px;
     }
-    .benefit-card {
-        text-align: center;
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        transition: transform 0.3s;
+    
+    .btn-primary:hover {
+      background-color: #003b7a;
+      border-color: #003b7a;
     }
-    .benefit-card:hover {
-        transform: translateY(-10px);
+    
+    .btn-outline-primary {
+      border-color: var(--primary);
+      color: var(--dark);
+      font-weight: 600;
+      border-radius: 8px;
+      padding: 12px 30px;
     }
-    .benefit-icon {
-        font-size: 2.5rem;
-        color: #FF9800;
-        margin-bottom: 15px;
+    
+    .btn-outline-primary:hover {
+      background-color: var(--primary);
+      border-color: var(--primary);
+      color: var(--dark);
     }
-
-    /* How It Works */
-    .process-steps {
-        display: flex;
-        justify-content: space-around;
-        flex-wrap: wrap;
-        margin-top: 40px;
+    
+    /* Section Titles */
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 40px;
+      text-align: center;
+      position: relative;
+      padding-bottom: 15px;
     }
-    .step {
-        text-align: center;
-        width: 200px;
-        position: relative;
-        margin-bottom: 20px;
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: var(--primary);
     }
+    
+    /* Features Section */
+    .features {
+      padding: 80px 0;
+      background: var(--light);
+    }
+    
+    .feature-box {
+      background: #fff;
+      border-radius: 12px;
+      padding: 30px;
+      margin: 15px 0;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+      height: 100%;
+    }
+    
+    .feature-box:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+    
+    .feature-icon {
+      width: 80px;
+      height: 80px;
+      background: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+    }
+    
+    .feature-icon i {
+      font-size: 2rem;
+      color: var(--dark);
+    }
+    
+    /* Services Section */
+    .services {
+      padding: 80px 0;
+    }
+    
+    .service-card-s {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      margin-bottom: 30px;
+      transition: transform 0.3s;
+    }
+    
+    .service-card-s:hover {
+      transform: translateY(-10px);
+    }
+    
+    .service-img {
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+    }
+    
+    .service-content {
+      padding: 25px;
+      background: #fff;
+    }
+    
+    /* Highlight Section */
+    .highlight-section {
+      background: var(--primary);
+      padding: 80px 0;
+      text-align: center;
+      position: relative;
+    }
+    
+    .stats {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      margin-top: 40px;
+    }
+    
+    .stat-item {
+      text-align: center;
+      margin: 15px;
+    }
+    
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 10px;
+    }
+    
+    /* Testimonials */
+    .testimonials {
+      padding: 80px 0;
+      background: var(--light);
+    }
+    
+    .testimonial-card {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      margin: 15px;
+      position: relative;
+    }
+    
+    .testimonial-card::before {
+      content: '"';
+      font-size: 5rem;
+      color: var(--primary);
+      position: absolute;
+      top: 10px;
+      left: 20px;
+      opacity: 0.2;
+      line-height: 1;
+    }
+    
+    .testimonial-text {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 20px;
+    }
+    
+    .client-info {
+      display: flex;
+      align-items: center;
+    }
+    
+    .client-image {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 700;
+      margin-right: 15px;
+    }
+    
+    /* Process Section */
+    .process {
+      padding: 80px 0;
+    }
+    
+    .process-step {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 30px;
+    }
+    
     .step-number {
-        width: 50px;
-        height: 50px;
-        background-color: #FF9800;
-        color: white;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.5rem;
-        font-weight: bold;
-        margin: 0 auto 15px;
+      width: 50px;
+      height: 50px;
+      background: var(--primary);
+      color: var(--dark);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-right: 20px;
+      flex-shrink: 0;
     }
-    .step:not(:last-child):after {
-        content: "→";
-        position: absolute;
-        top: 15px;
-        right: -40px;
-        font-size: 1.5rem;
-        color: #ccc;
+    
+    /* Contact Section */
+    .contact {
+      padding: 80px 0;
+      background: var(--light);
     }
-
-    /* CTA Section */
-    .cta {
-        background-color: #2C3E50;
-        color: white;
-        text-align: center;
+    
+    .contact-info-s {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
     }
-    .cta h2 {
-        color: white;
+    
+    .contact-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
     }
-
+    
+    .contact-icon {
+      width: 50px;
+      height: 50px;
+      background: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+      flex-shrink: 0;
+    }
+    
+    .contact-icon i {
+      color: var(--dark);
+      font-size: 1.2rem;
+    }
+    
+    .map-container {
+      border-radius: 12px;
+      overflow: hidden;
+      height: 550px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
     /* Footer */
     footer {
-        background-color: #1A252F;
-        color: #bbb;
-        padding: 40px 0 20px;
+      background: var(--dark);
+      color: #fff;
+      padding: 60px 0 30px;
     }
-    .footer-content {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 30px;
+    
+    .footer-links {
+      list-style: none;
+      padding: 0;
     }
-    .footer-column h3 {
-        color: #fff;
-        margin-bottom: 20px;
+    
+    .footer-links li {
+      margin-bottom: 10px;
     }
-    .footer-column ul {
-        list-style: none;
-        padding: 0;
+    
+    .footer-links a {
+      color: #fff;
+      text-decoration: none;
+      transition: color 0.3s;
     }
-    .footer-column li {
-        margin-bottom: 10px;
+    
+    .footer-links a:hover {
+      color: var(--primary);
     }
-    .footer-column a {
-        color: #bbb;
-        text-decoration: none;
+    
+    .social-icons {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
     }
-    .footer-column a:hover {
-        color: #FF9800;
+    
+    .social-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s;
     }
-    .copyright {
-        text-align: center;
-        margin-top: 40px;
-        padding-top: 20px;
-        border-top: 1px solid #444;
+    
+    .social-icon:hover {
+      background: var(--primary);
     }
-</style>
-</head> <body>
+    
+    .social-icon i {
+      color: #fff;
+      font-size: 1.2rem;
+    }
+    
+    .social-icon:hover i {
+      color: var(--dark);
+    }
+    
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+      }
+      
+      .hero-buttons {
+        flex-direction: column;
+      }
+      
+      .stats {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
 
-          {% include "includes/header.html" %}
-
-<section class="hero">
+  <!-- Header -->
+  
+  <!-- Hero Section -->
+  <section class="hero" id="home">
     <div class="container">
-        <h1>Harness the Sun. Slash Your Bills.</h1>
-        <p>Join the energy revolution with a custom-designed solar system for your home. Start saving money and reducing your carbon footprint from day one.</p>
-        <a href="#contact" class="btn-primary">Calculate Your Savings</a>
-    </div>
-</section>
-
-<section id="why">
-    <div class="container">
-        <h2>Why Make SunSource Your Energy Partner?</h2>
-        <div class="benefits-grid">
-            <div class="benefit-card">
-                <div class="benefit-icon">💰</div>
-                <h3>Maximum Savings</h3>
-                <p>Drastically reduce or even eliminate your electricity bill. Lock in your energy rate for decades and protect yourself from rising utility costs.</p>
-            </div>
-            <div class="benefit-card">
-                <div class="benefit-icon">🌍</div>
-                <h3>Planet Positive</h3>
-                <p>Generate clean, renewable energy right from your rooftop. Reduce your reliance on fossil fuels and make a direct impact on a greener future.</p>
-            </div>
-            <div class="benefit-card">
-                <div class="benefit-icon">🛡️</div>
-                <h3>Worry-Free Warranty</h3>
-                <p>Sleep soundly with our industry-leading 25-year performance warranty and robust product guarantees on all our installations.</p>
-            </div>
-            <div class="benefit-card">
-                <div class="benefit-icon">📈</div>
-                <h3>Increase Home Value</h3>
-                <p>Homes with solar panels sell faster and for more money. It's an upgrade that pays you back now and later.</p>
-            </div>
+      <div class="row align-items-center">
+        <div class="col-lg-6 hero-content">
+          <h1>Professional Solar Roadmap Services</h1>
+          <p>Strategic planning, implementation, and maintenance of solar energy solutions for a sustainable future. Powering your journey to energy independence.</p>
+          
         </div>
-    </div>
-</section>
-
-<section id="process" style="background-color: #f9f9f9;">
-    <div class="container">
-        <h2>The Simple Path to Solar Power</h2>
-        <div class="process-steps">
-            <div class="step">
-                <div class="step-number">1</div>
-                <h3>Consult & Plan</h3>
-                <p>We analyze your energy needs and design a custom system for your home.</p>
-            </div>
-            <div class="step">
-                <div class="step-number">2</div>
-                <h3>Approval & Permits</h3>
-                <p>Our team handles all the paperwork, from permits to utility approvals.</p>
-            </div>
-            <div class="step">
-                <div class="step-number">3</div>
-                <h3>Professional Install</h3>
-                <p>Our certified technicians install your system quickly and cleanly.</p>
-            </div>
-            <div class="step">
-                <div class="step-number">4</div>
-                <h3>Power On!</h3>
-                <p>We get final approval from your utility, and you flip the switch to free energy.</p>
-            </div>
+        <div class="col-lg-6">
+          <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="img-fluid rounded-3" alt="Solar Roadmap">
         </div>
+      </div>
     </div>
-</section>
+  </section>
 
-<section class="cta" id="contact">
+  <!-- Features Section -->
+  <section class="features">
     <div class="container">
-        <h2>Ready to Take Control of Your Energy?</h2>
-        <p>Request a free, no-obligation quote today. See how much you can save.</p>
-        <a href="#contact" class="btn-primary" style="background-color: white; color: #2C3E50;">Get Your Free Quote</a>
+      <h2 class="section-title">Why Choose Our Solar Roadmap?</h2>
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <div class="feature-box">
+            <div class="feature-icon">
+              <i class="fas fa-solar-panel"></i>
+            </div>
+            <h4>Energy Independence</h4>
+            <p>Reduce reliance on traditional energy sources and take control of your power generation with customized solar solutions.</p>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="feature-box">
+            <div class="feature-icon">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <h4>Cost Efficiency</h4>
+            <p>Maximize your return on investment with strategic planning that optimizes energy production and reduces utility costs.</p>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="feature-box">
+            <div class="feature-icon">
+              <i class="fas fa-leaf"></i>
+            </div>
+            <h4>Sustainability</h4>
+            <p>Contribute to environmental conservation while benefiting from clean, renewable energy sources for your property.</p>
+          </div>
+        </div>
+      </div>
     </div>
-</section>
+  </section>
 
-</body> </html>
+  <!-- Services Section -->
+  <section class="services" id="services">
+    <div class="container">
+      <h2 class="section-title">Our Solar Roadmap Services</h2>
+      <div class="row">
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="service-card-s">
+            <div class="service-img" style="background-image: url('https://i.pinimg.com/736x/79/44/19/7944196097aec39bb6211dd64df5807f.jpg');"></div>
+            <div class="service-content">
+              <h4>Solar Feasibility Studies</h4>
+              <p>Comprehensive analysis of your property's solar potential, including sun exposure, shading, and energy needs assessment.</p>
+              <a href="#" class="btn btn-sm btn-outline-dark">Learn More</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="service-card-s">
+            <div class="service-img" style="background-image: url('https://i.pinimg.com/1200x/37/0e/a8/370ea805bc3196aca49e7a009cc41161.jpg');"></div>
+            <div class="service-content">
+              <h4>System Design & Planning</h4>
+              <p>Custom solar system designs tailored to your specific energy requirements, property layout, and budget constraints.</p>
+              <a href="#" class="btn btn-sm btn-outline-dark">Learn More</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="service-card-s">
+            <div class="service-img" style="background-image: url('https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+            <div class="service-content">
+              <h4>Financial Analysis</h4>
+              <p>Detailed cost-benefit analysis, ROI projections, and identification of available incentives and financing options.</p>
+              <a href="#" class="btn btn-sm btn-outline-dark">Learn More</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="service-card-s">
+            <div class="service-img" style="background-image: url('https://images.unsplash.com/photo-1466611653911-95081537e5b7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+            <div class="service-content">
+              <h4>Implementation Roadmap</h4>
+              <p>Step-by-step plan for solar implementation, including timelines, vendor selection, and regulatory compliance.</p>
+              <a href="#" class="btn btn-sm btn-outline-dark">Learn More</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="service-card-s">
+            <div class="service-img" style="background-image: url('https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+            <div class="service-content">
+              <h4>Maintenance Planning</h4>
+              <p>Long-term maintenance strategies to ensure optimal performance and longevity of your solar energy system.</p>
+              <a href="#" class="btn btn-sm btn-outline-dark">Learn More</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="service-card-s">
+            <div class="service-img" style="background-image: url('https://i.pinimg.com/736x/ab/c4/47/abc44752557973afc271a7cd619184c5.jpg');"></div>
+            <div class="service-content">
+              <h4>Performance Monitoring</h4>
+              <p>Ongoing monitoring solutions to track energy production, system efficiency, and environmental impact.</p>
+              <a href="#" class="btn btn-sm btn-outline-dark">Learn More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Highlight Section -->
+  <section class="highlight-section">
+    <div class="container">
+      <h2>Plan Your Solar Future with Confidence</h2>
+      <p class="lead">Over 1,500+ satisfied clients have transitioned to solar energy with our comprehensive roadmap services.</p>
+      <a href="#contact" class="btn btn-dark mt-3">Get a Free Quote</a>
+      
+      <div class="stats">
+        <div class="stat-item">
+          <div class="stat-number">8+</div>
+          <div class="stat-label">Years Experience</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">1,500+</div>
+          <div class="stat-label">Happy Clients</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">25MW+</div>
+          <div class="stat-label">Solar Capacity Planned</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">24/7</div>
+          <div class="stat-label">Support</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process Section -->
+  <section class="process" id="process">
+    <div class="container">
+      <h2 class="section-title">Our Solar Roadmap Process</h2>
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="process-step">
+            <div class="step-number">1</div>
+            <div>
+              <h4>Initial Consultation</h4>
+              <p>We discuss your energy needs, goals, and property specifics to understand your solar requirements.</p>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="step-number">2</div>
+            <div>
+              <h4>Site Assessment</h4>
+              <p>Our experts evaluate your property's solar potential, including sun exposure, shading, and structural considerations.</p>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="step-number">3</div>
+            <div>
+              <h4>Energy Analysis</h4>
+              <p>We analyze your current energy consumption patterns and project future needs to size your system appropriately.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="process-step">
+            <div class="step-number">4</div>
+            <div>
+              <h4>Financial Planning</h4>
+              <p>We outline costs, incentives, financing options, and return on investment projections for your solar transition.</p>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="step-number">5</div>
+            <div>
+              <h4>Roadmap Development</h4>
+              <p>We create a comprehensive, step-by-step implementation plan tailored to your specific situation.</p>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="step-number">6</div>
+            <div>
+              <h4>Implementation Support</h4>
+              <p>We provide guidance and support throughout the installation process and beyond.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials" id="testimonials">
+    <div class="container">
+      <h2 class="section-title">What Our Clients Say</h2>
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <div class="testimonial-card">
+            <div class="testimonial-text">
+              <p>"The solar roadmap provided clear guidance for our transition to renewable energy. We've reduced our electricity bills by 80% and couldn't be happier with the results!"</p>
+            </div>
+            <div class="client-info">
+              <div class="client-image">SM</div>
+              <div>
+                <strong>Sarah M.</strong>
+                <p>Homeowner</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="testimonial-card">
+            <div class="testimonial-text">
+              <p>"The comprehensive financial analysis helped us understand the ROI of going solar. The implementation was smooth, and we're already seeing significant savings."</p>
+            </div>
+            <div class="client-info">
+              <div class="client-image">JK</div>
+              <div>
+                <strong>James K.</strong>
+                <p>Business Owner</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="testimonial-card">
+            <div class="testimonial-text">
+              <p>"The maintenance planning service has been invaluable. Our solar system continues to perform optimally thanks to the proactive maintenance schedule provided."</p>
+            </div>
+            <div class="client-info">
+              <div class="client-image">PT</div>
+              <div>
+                <strong>Priya T.</strong>
+                <p>Property Manager</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact-section" id="contact">
+    <div class="container">
+      <h2 class="section-title">Contact Us</h2>
+      <div class="row">
+        <div class="col-lg-6 mb-4">
+          <div class="contact-info-s">
+            <h3 class="mb-4">Get In Touch</h3>
+            
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-map-marker-alt"></i>
+              </div>
+              <div>
+                <h5>Address</h5>
+                <p>1st West Main Rd, Suthanthira Ponvizha Nagar,<br>Gandhinagar West, Gandhi Nagar,<br>Vellore, Tamil Nadu, India</p>
+              </div>
+            </div>
+            
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-phone-alt"></i>
+              </div>
+              <div>
+                <h5>Phone</h5>
+                <p><a href="tel:09994555962">099945 55962</a></p>
+              </div>
+            </div>
+            
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <div>
+                <h5>Email</h5>
+                <p><a href="mailto:2024squarebox@gmail.com">2024squarebox@gmail.com</a></p>
+              </div>
+            </div>
+            
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-clock"></i>
+              </div>
+              <div>
+                <h5>Business Hours</h5>
+                <p>Always Open</p>
+              </div>
+            </div>
+            
+           
+          </div>
+        </div>
+        
+        <div class="col-lg-6">
+          <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15566.07407129524!2d79.132452!3d12.729999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDQzJzQ4LjAiTiA3OcKwMDcnNTYuOCJF!5e0!3m2!1sen!2sin!4v1623833221127!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Footer -->
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+{% endblock %}

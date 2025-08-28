@@ -14,6 +14,48 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> {% endcomment %}
     <style>
+         
+             :root {
+      --primary: #ffd200;
+      --secondary: #000;
+      --accent: #00509e;
+      --light: #f8f9fa;
+      --dark: #111;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, var(--primary) 60%, #fff 40%);
+      padding: 100px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+    
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 20px;
+    }
+    
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      max-width: 600px;
+    }
+    
         /* Main Container Styles */
         .maintenance-creation-container {
             padding: 30px 0;
@@ -479,10 +521,82 @@
                 width: 100%;
             }
         }
+        /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, var(--primary) 60%, #fff 40%);
+      padding: 100px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+    
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 20px;
+    }
+    
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      max-width: 600px;
+    }
+    
+    .btn-primary {
+      background-color: var(--accent);
+      border-color: var(--accent);
+      padding: 12px 30px;
+      font-weight: 600;
+      border-radius: 8px;
+    }
+    
+    .btn-primary:hover {
+      background-color: #003b7a;
+      border-color: #003b7a;
+    }
+    
+    .btn-outline-primary {
+      border-color: var(--primary);
+      color: var(--dark);
+      font-weight: 600;
+      border-radius: 8px;
+      padding: 12px 30px;
+    }
+    
+    .btn-outline-primary:hover {
+      background-color: var(--primary);
+      border-color: var(--primary);
+      color: var(--dark);
+    }
+    
     </style>
 </head>
 <body>
     
+
+    <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 hero-content">
+          <h1>Property Maintenance</h1>
+          <p>Strategic planning, implementation, and maintenance of maintenance solutions for a sustainable future. </p>
+          <div class="hero-buttons d-flex gap-3">
+            <!-- <a href="#contact" class="btn btn-primary">Get Free Consultation</a>
+            <a href="#services" class="btn btn-outline-primary">Our Services</a> -->
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <img src="https://images.pexels.com/photos/8293646/pexels-photo-8293646.jpeg" class="img-fluid rounded-3" alt="Solar Roadmap">
+        </div>
+      </div>
+    </div>
+  </section>
 
     <div class="maintenance-creation-container">
         <div class="container">

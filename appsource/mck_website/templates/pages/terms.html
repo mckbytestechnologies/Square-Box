@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -521,21 +523,54 @@
                 height: 300px;
             }
         }
+         /* Service Cards */
+    .service-card-s {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      transition: var(--transition);
+      border: 1px solid rgba(0,0,0,0.05);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      height: 100%;
+    }
+    .service-card-s:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      border-color: rgba(0,0,0,0.05); 
+    }
+    .service-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: rgba(212,175,55,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      font-size: 2rem;
+      color: var(--secondary);
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
     </style>
 </head>
 <body>
 
 <!-- Modern Hero Section -->
-
-<!-- Hero Section -->
-<section class="hero-about" style="background-image: url('https://images.unsplash.com/photo-1521791055366-0d553872125f?...');">
+<section class="hero-about">
     <div class="container">
         <div class="hero-content">
-            <h1>Meet Our Team</h1>
-            <p class="lead">The visionaries and professionals shaping LuxeLiving’s success.</p>
+            <h1>Information We Collect</h1>
+            <p class="lead">We collect personal data such as name, email, and contact information when you reach out to us through our website forms or subscribe to our updates.</p>
         </div>
     </div>
 </section>
+
+
+
 
 <!-- Team Section -->
 <section class="section team-section">
@@ -560,7 +595,7 @@
             <div class="col-md-4">
                 <div class="team-card">
                     <div class="team-image">
-                        <img src="https://images.unsplash.com/photo-1603415526960-f7e0328a7e82?..." alt="COO">
+                        <img src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?..." alt="COO">
                     </div>
                     <div class="team-info">
                         <h4 class="team-name">Sarah Mitchell</h4>
@@ -584,6 +619,8 @@
         </div>
     </div>
 </section>
+
+
 
 <script>
     // Animated Counter

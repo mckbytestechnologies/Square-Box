@@ -1,257 +1,204 @@
-<!-- 
-  <div id="bannerCarousel" class="carousel slide hero-carousel" data-bs-ride="carousel" data-bs-interval="3000">
-
-    <div class="carousel-inner">
-      <div class="carousel-item active" data-bs-interval="3000">
-        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" class="d-block w-100" alt="Banner 1">
-      </div>
-      <div class="carousel-item" data-bs-interval="3000">
-        <img src="https://i.pinimg.com/1200x/67/ab/61/67ab617d3a7564b53663de57bb3421dc.jpg" class="d-block w-100" alt="Banner 2">
-      </div>
-    </div>
-
-
-    <button class="carousel-control-prev" type="button" data-bs-target="#bannerCarousel" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#bannerCarousel" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
-
-
-
-    
-    <div class="hero-overlay">
-      <h1 class="text-white">Your <span class="highlight-yellow ">Dream Home</span> Starts Here</h1>
-      <p>Explore premium homes, smart financing & verified agents – all in one place</p>
-
-      <div class="top-buttons d-flex justify-content-center flex-wrap position-relative mt-3" id="propertyOptions">
-  <a href="{% url 'vlr_website:mck_property_page' %}" class="btn nav-btn active" data-type="buy">Buy Now</a>
-  <a href="{% url 'mck_website:mck_property_create_page' %}" class="btn nav-btn" data-type="rent">Rent Today</a>
-  <a href="{% url 'mck_website:mck_property_create_page' %}" class="btn nav-btn" data-type="pg">Sell Now</a>
-  <a href="{% url 'mck_website:mck_property_create_page' %}" class="btn nav-btn" data-type="land">Land & Plots</a>
-  <a href="{% url 'mck_website:property_maintenance_page' %}" class="btn nav-btn" data-type="commercial">Maintenance</a>
-  <div class="active-indicator position-absolute"></div>
-</div>
-
-
-      
-<div class="container search-box mt-4">
-    <form method="GET" action="{% url 'mck_website:mck_property_page' %}">
-        <div class="row g-3 align-items-center">
-          
-            <div class="col-md-3">
-                <select class="form-select" name="city">
-                    <option value="">Location</option>
-                    {% for city in cities %}
-                        <option value="{{ city }}" {% if selected_city == city %}selected{% endif %}>
-                            {{ city }}
-                        </option>
-                    {% endfor %}
-                </select>
-            </div>
-
-  
-            <div class="col-md-3">
-                <select class="form-select" name="property_type">
-                    <option value="">Property Type</option>
-                    {% for ptype in property_type %}
-                        <option value="{{ ptype }}" {% if selected_type == ptype %}selected{% endif %}>{{ ptype }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-
-    
-            <div class="col-md-3">
-                <select class="form-select" name="budget">
-                    <option value="">Budget</option>
-                    <option value="Below 100" {% if selected_budget == 'Below 100' %}selected{% endif %}>Below $100,000</option>
-                    <option value="100k - 300k" {% if selected_budget == '100k - 300k' %}selected{% endif %}>$100k - $300k</option>
-                    <option value="Above 300k" {% if selected_budget == 'Above 300k' %}selected{% endif %}>Above $300k</option>
-                </select>
-            </div>
-
-            <div class="col-md-3">
-                <button class="btn w-100 search-btn" type="submit">Search</button>
-            </div>
-        </div>
-    </form>
-</div>
-
-
-
-    </div>
-    </div>
-  </div> -->
-
-    <!-- Prompt 3: Hero Section with Advanced Search Box -->
-     <style>
-      /* Center the search panel */
-.search-panel {
+<style>
+.hero {
+  position: relative;
+  min-height: 75vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  margin-top: 2rem;
-}
-
-/* Filters form: horizontal row */
-.filters {
-  display: flex;
   justify-content: center;
-  align-items: center;
-  gap: 1rem; /* space between fields */
-  flex-wrap: wrap; /* wrap on small screens */
-  margin-top: 1.5rem;
-}
-
-/* Each field styling */
-.field {
-  display: flex;
-  flex-direction: column;
-}
-
-/* Labels larger */
-.field label {
-  font-size: 1rem !important;
-  font-weight: 600;
-  margin-bottom: 0.3rem;
-  color: #111 !important;
-  text-align: left;
-}
-
-/* Inputs & selects bigger */
-.field select,
-.field input {
-  padding: 0.6rem 1rem;
-  font-size: 1rem;
-  border: 1px solid rgba(0,0,0,.35);
-  border-radius: 6px;
-  min-width: 180px;
-}
-
-/* Search button styling */
-.search-btn {
-  padding: 0.7rem 1.8rem;
-  font-size: 1.05rem;
-  border-radius: 8px;
-  background: var(--brand);
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  margin-top: 1.6rem; /* aligns with fields on small screens */
-}
-
-/* Optional: keep all in one line on larger screens */
-@media (min-width: 768px) {
-  .filters {
-    flex-wrap: nowrap;
-  }
-  .search-btn {
-    margin-top: 0;
-    align-self: flex-end;
-  }
-}
-
-      .hero__inner {
-  max-width: 1200px;
-  width: 100%;
-  padding: 4rem 1rem;
-  color: #111;   /* changed from white to black */
   text-align: center;
+  color: #fff;
+  padding: 2rem;
+  background: url("https://images.pexels.com/photos/1475938/pexels-photo-1475938.jpeg") center/cover no-repeat;
+  isolation: isolate;
 }
 
-.hero h1,
-.hero p,
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+ 
+/* background: rgba(12, 12, 12, 0.1); */
+  
+  z-index: 0;
+}
+
+.hero__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1000px;
+  width: 100%;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
 .hero-subtitle {
-  color: #111 !important;  /* ensure black text */
-}
-
-.tab-btn {
-  padding: .55rem .9rem;
-  border-radius: 999px;
-  border: 1px solid rgba(0,0,0,.35); /* dark border instead of white */
-  color: #111 !important;            /* black text */
-  font-weight: 600;
-  cursor: pointer;
-  background: transparent;
-  opacity: .9;
-}
-
-.tab-btn[aria-selected="true"] {
-  background: #111;
-  color: #fff !important;   /* white text when active */
-  border-color: #111;
-}
-
-.field label {
-  font-size: .8rem;
-  color: #111 !important;   /* black labels */
+  margin-top: .7rem;
+  font-size: 1.2rem;
   opacity: .95;
 }
 
-.field select,
-.field input {
-  color: #111; /* already dark */
+.tabs-1 {
+  border: none;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: .7rem;
+  margin: 1.5rem 0;
+}
+.tab-btn {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .6rem 1.2rem;
+
+  font-weight: 600;
+  color: #0a0a0a;
+  border: 1px solid #000;   /* ✅ black border */
+  border-radius: 8px;       /* optional: rounded corners */
+  background: transparent;
+
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.tab-btn.active,
+.tab-btn:hover {
+  background: #fff;
+  color: #000;
+  border-color: #000;  /* keep border black on hover/active */
+}
+
+.tab-btn {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .6rem 1.2rem;
+  
+  font-weight: 600;
+  color: #0a0a0a;
+
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.tab-btn.active,
+.tab-btn:hover {
+  background: #fff;
+  color: #000;
+}
+
+.search-panel {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 20px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+
+.filters select,
+.filters input {
+  padding: .7rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  flex: 1;
+  min-width: 180px;
 }
 
 .search-btn {
-  background: var(--brand);
-  color: #fff;  /* keep button text white for contrast */
+  background: linear-gradient(135deg, #999600, #f1e20b);
+  color: #fff;
+  font-weight: bold;
+  padding: .8rem 2rem;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-     </style>
-  
-    <section class="hero" role="region" aria-label="Hero">
+.search-btn:hover {
+  background: linear-gradient(135deg, #080808, #0c0c0c);
+}
+</style>
+
+<section class="hero">
   <div class="hero__inner">
-    <h1 class="test-dark">Your <span class="highlight-yellow">Dream Home</span> Starts Here</h1>
-    <h3 class="hero-subtitle">Explore premium homes, smart financing & verified agents – all in one place</h3>
-    
+    <h1 class="text-dark">Real Estate Made Real Easy</h1>
+    <h2 class="hero-subtitle text-dark">We’ve got you covered! From finding the perfect property to <span style="color:#0c0c0c;">Transactions</span></h2>
+
+    <!-- Tabs -->
+    <div class="tabs-1" id="propertyTabs">
+      <!-- Buy & Rent -->
+      <button class="tab-btn active" data-target="listing" data-value="sale">Buy</button>
+      <button class="tab-btn" data-target="listing" data-value="rent">Rent</button>
+      <!-- Property Types -->
+      <button class="tab-btn active" data-target="property" data-value="APARTMENT">Apartment</button>
+      <button class="tab-btn" data-target="property" data-value="VILLA">Villa</button>
+      <button class="tab-btn" data-target="property" data-value="INDEPENDENT_HOUSE">Independent House</button>
+      <button class="tab-btn" data-target="property" data-value="PLOT">Plot / Land</button>
+      <button class="tab-btn" data-target="property" data-value="COMMERCIAL">Commercial Property</button>
+    </div>
+
+    <!-- Search Panel -->
     <div class="search-panel">
-      <div class="tabs" role="tablist" aria-label="Property type tabs" id="propertyOptions">
-        <a href="{% url 'vlr_website:mck_property_page' %}" class="tab-btn active" role="tab" aria-selected="true" data-type="buy">Buy</a>
-        <a href="{% url 'mck_website:mck_property_create_page' %}" class="tab-btn" role="tab" aria-selected="false" data-type="rent">Rent</a>
-        <a href="{% url 'mck_website:mck_property_create_page' %}" class="tab-btn" role="tab" aria-selected="false" data-type="pg">Sell</a>
-        <a href="{% url 'mck_website:mck_property_page' %}" class="tab-btn" role="tab" aria-selected="false" data-type="land">Plots</a>
-        <a href="{% url 'mck_website:property_maintenance_page' %}" class="tab-btn" role="tab" aria-selected="false" data-type="commercial">Maintenance</a>
-        <div class="active-indicator"></div>
-      </div>
-      
-      <form method="GET" action="{% url 'mck_website:mck_property_page' %}" class="filters">
-        <div class="field">
-          <label for="city">City</label>
-          <select id="city" name="city">
-            <option value="">Select City</option>
-            {% for city in cities %}
-              <option value="{{ city }}" {% if selected_city == city %}selected{% endif %}>{{ city }}</option>
-            {% endfor %}
-          </select>
-        </div>
-        
-        <div class="field">
-          <label for="property_type">Property Type</label>
-          <select id="property_type" name="property_type">
-            <option value="">Property Type</option>
-            {% for ptype in property_type %}
-              <option value="{{ ptype }}" {% if selected_type == ptype %}selected{% endif %}>{{ ptype }}</option>
-            {% endfor %}
-          </select>
-        </div>
-        
-        <div class="field">
-          <label for="budget">Budget</label>
-          <select id="budget" name="budget">
-            <option value="">Budget</option>
-            <option value="Below 50L" {% if selected_budget == 'Below 50L' %}selected{% endif %}>Below ₹50 Lakh</option>
-            <option value="50L - 1Cr" {% if selected_budget == '50L - 1Cr' %}selected{% endif %}>₹50 Lakh - ₹1 Crore</option>
-            <option value="1Cr - 2Cr" {% if selected_budget == '1Cr - 2Cr' %}selected{% endif %}>₹1 Crore - ₹2 Crore</option>
-            <option value="Above 2Cr" {% if selected_budget == 'Above 2Cr' %}selected{% endif %}>Above ₹2 Crore</option>
-          </select>
-        </div>
-        
+      <form class="filters" method="GET" action="{% url 'mck_website:mck_property_page' %}">
+        <!-- Hidden inputs -->
+        <input type="hidden" id="selectedListing" name="listing_type" value="sale">
+        <input type="hidden" id="selectedType" name="property_type" value="APARTMENT">
+
+        <select name="city">
+          <option value="">Select City</option>
+          {% for city in cities %}
+            <option value="{{ city }}" {% if selected_city == city %}selected{% endif %}>{{ city }}</option>
+          {% endfor %}
+        </select>
+
+        <select name="budget">
+          <option value="">Budget</option>
+          <option value="Below 100k" {% if selected_budget == 'Below 100k' %}selected{% endif %}>Below 100k</option>
+          <option value="100k - 300k" {% if selected_budget == '100k - 300k' %}selected{% endif %}>100k - 300k</option>
+          <option value="Above 300k" {% if selected_budget == 'Above 300k' %}selected{% endif %}>Above 300k</option>
+        </select>
+
+        <select name="possession">
+          <option value="">Possession Status</option>
+          <option value="Ready">Ready</option>
+          <option value="Under Construction">Under Construction</option>
+        </select>
+
         <button class="search-btn" type="submit">Search</button>
       </form>
     </div>
   </div>
 </section>
+
+<script>
+  document.querySelectorAll("#propertyTabs .tab-btn").forEach(btn => {
+  btn.addEventListener("click", function () {
+    // Remove active only from same target group
+    document.querySelectorAll(`#propertyTabs .tab-btn[data-target="${this.dataset.target}"]`)
+      .forEach(b => b.classList.remove("active"));
+
+    this.classList.add("active");
+
+    // Update hidden input
+    if (this.dataset.target === "listing") {
+      document.getElementById("selectedListing").value = this.dataset.value;
+    } else if (this.dataset.target === "property") {
+      document.getElementById("selectedType").value = this.dataset.value;
+    }
+  });
+});
+
+</script>

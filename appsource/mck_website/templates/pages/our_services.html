@@ -521,46 +521,118 @@
                 height: 300px;
             }
         }
+         /* Service Cards */
+    .service-card-s {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      transition: var(--transition);
+      border: 1px solid rgba(0,0,0,0.05);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      height: 100%;
+    }
+    .service-card-s:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      border-color: rgba(0,0,0,0.05); 
+    }
+    .service-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: rgba(212,175,55,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      font-size: 2rem;
+      color: var(--secondary);
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
     </style>
 </head>
 <body>
 
-<section class="hero-about" style="background-image: url('https://images.unsplash.com/photo-1581092795360-6c84fb45d575?...');">
+<!-- Modern Hero Section -->
+<section class="hero-about">
     <div class="container">
         <div class="hero-content">
-            <h1>Our Services</h1>
-            <p class="lead text-black">Delivering world-class solutions across residential, commercial, and sustainable developments.</p>
+            <h1>Information We Collect</h1>
+            <p class="lead">We collect personal data such as name, email, and contact information when you reach out to us through our website forms or subscribe to our updates.</p>
         </div>
     </div>
 </section>
 
+
+
+
 <!-- Services Grid -->
-<section class="section values-section">
-    <div class="container">
-        <div class="row g-4">
-            <div class="col-md-4">
-                <div class="value-card">
-                    <div class="value-icon">🏢</div>
-                    <h3>Residential Development</h3>
-                    <p>Luxury apartments and villas designed with elegance and comfort.</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="value-card">
-                    <div class="value-icon">🏬</div>
-                    <h3>Commercial Spaces</h3>
-                    <p>Smart offices and retail hubs redefining business environments.</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="value-card">
-                    <div class="value-icon">🌱</div>
-                    <h3>Sustainable Living</h3>
-                    <p>Green-certified buildings prioritizing eco-friendly design.</p>
-                </div>
-            </div>
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">What We Offer</h2>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4">
+        <div class="service-card-s">
+          <div class="service-icon">🏠</div>
+          <h3>Property Buying</h3>
+          <p>Helping you find and secure your dream property with expert guidance and market insights.</p>
         </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="service-card-s">
+          <div class="service-icon">💼</div>
+          <h3>Property Selling</h3>
+          <p>Maximize your property’s value with professional listings, marketing, and negotiation services.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="service-card-s">
+          <div class="service-icon">🔧</div>
+          <h3>Maintenance</h3>
+          <p>End-to-end maintenance solutions to keep your property in top condition year-round.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="service-card-s">
+          <div class="service-icon">⚖️</div>
+          <h3>Legal Services</h3>
+          <p>From title verification to dispute resolution – complete legal support for peace of mind.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="service-card-s">
+          <div class="service-icon">🚧</div>
+          <h3>Fencing</h3>
+          <p>Secure your land with customized fencing solutions tailored to your property needs.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="service-card-s">
+          <div class="service-icon">🌱</div>
+          <h3>Land Levelling</h3>
+          <p>Professional land development and levelling services to prepare sites for construction.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="service-card-s">
+          <div class="service-icon">☀️</div>
+          <h3>Solar Solutions</h3>
+          <p>Sustainable solar panel installation for energy efficiency and reduced costs.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="service-card-s">
+          <div class="service-icon">🛣️</div>
+          <h3>Roadmap & Infrastructure</h3>
+          <p>Strategic infrastructure planning including roads, utilities, and community amenities.</p>
+        </div>
+      </div>
     </div>
+  </div>
 </section>
 
 

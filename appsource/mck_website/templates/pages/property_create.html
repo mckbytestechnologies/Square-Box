@@ -3,7 +3,47 @@
 
 {% block content %}
 
-    <style>
+  <style>
+             :root {
+      --primary: #ffd200;
+      --secondary: #000;
+      --accent: #00509e;
+      --light: #f8f9fa;
+      --dark: #111;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, var(--primary) 60%, #fff 40%);
+      padding: 100px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+    
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 20px;
+    }
+    
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      max-width: 600px;
+    }
         /* Main Container Styles */
         .property-creation-container {
             padding: 30px 0;
@@ -341,6 +381,25 @@
     </style>
 </head>
 <body>
+
+     <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 hero-content">
+          <h1>Property Rent And Sell</h1>
+          <p>Strategic planning, implementation, and maintenance of maintenance solutions for a sustainable future. </p>
+          <div class="hero-buttons d-flex gap-3">
+            <!-- <a href="#contact" class="btn btn-primary">Get Free Consultation</a>
+            <a href="#services" class="btn btn-outline-primary">Our Services</a> -->
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <img src="https://i.pinimg.com/1200x/1d/5c/9c/1d5c9c11b561c3623aa6ed6c7637d7c1.jpg" class="img-fluid rounded-3" alt="Solar Roadmap">
+        </div>
+      </div>
+    </div>
+  </section>
     
     <div class="property-creation-container">
         <div class="container">
@@ -393,13 +452,13 @@
                                             <label class="form-label">Property Type<span class="text-danger">*</span></label>
                                             <select name="property_type" id="property_type" class="form-select" required>
                                                 <option value="">Select Option</option>
-                                                <option value="apartment">Apartment</option>
-                                                <option value="villa">Villa</option>
-                                                <option value="house">House</option>
-                                                <option value="land">Land/Plot</option>
-                                                <option value="commercial">Commercial</option>
-                                                <option value="office">Office Space</option>
-                                                <option value="townhouse">Townhouse</option>
+                                                <option value="APARTMENT">Apartment</option>
+                                                <option value="VILLA">Villa</option>
+                                                <!-- <option value="house">House</option> -->
+                                                <option value="PLOT">Land/Plot</option>
+                                                <option value="COMMERCIAL">Commercial</option>
+                                                <option value="INDEPENDENT_HOUSE">House</option>
+                                                <!-- <option value="townhouse">Townhouse</option> -->
                                             </select>
                                             <div class="invalid-feedback">Please select property type</div>
                                         </div>
@@ -408,7 +467,7 @@
                                     <!-- Property Type Specific Fields -->
                                     <div id="property_type_fields">
                                         <!-- Apartment Fields -->
-                                        <div class="property-type-fields" id="apartment_fields">
+                                        <div class="property-type-fields" id="APARTMENT_fields">
                                             <h5 class="mb-3"><i class="fas fa-building me-2"></i>Apartment Details</h5>
                                             <div class="row g-3">
                                                 <div class="col-md-6">
@@ -434,7 +493,7 @@
                                         </div>
                                         
                                         <!-- Villa Fields -->
-                                        <div class="property-type-fields" id="villa_fields">
+                                        <div class="property-type-fields" id="VILLA_fields">
                                             <h5 class="mb-3"><i class="fas fa-home me-2"></i>Villa Details</h5>
                                             <div class="row g-3">
                                                 <div class="col-md-6">
@@ -467,7 +526,7 @@
                                         </div>
                                         
                                         <!-- Land/Plot Fields -->
-                                        <div class="property-type-fields" id="land_fields">
+                                        <div class="property-type-fields" id="PLOT_fields">
                                             <h5 class="mb-3"><i class="fas fa-map me-2"></i>Land Details</h5>
                                             <div class="row g-3">
                                                 <div class="col-md-6">
@@ -519,7 +578,7 @@
                                         </div>
                                         
                                         <!-- Commercial Fields -->
-                                        <div class="property-type-fields" id="commercial_fields">
+                                        <div class="property-type-fields" id="COMMERCIAL_fields">
                                             <h5 class="mb-3"><i class="fas fa-store me-2"></i>Commercial Property Details</h5>
                                             <div class="row g-3">
                                                 <div class="col-md-6">
@@ -587,7 +646,7 @@
                                         </div>
                                         
                                         <!-- Townhouse Fields -->
-                                        <div class="property-type-fields" id="townhouse_fields">
+                                        <div class="property-type-fields" id="INDEPENDENT_HOUSE_fields">
                                             <h5 class="mb-3"><i class="fas fa-house-user me-2"></i>Townhouse Details</h5>
                                             <div class="row g-3">
                                                 <div class="col-md-6">
@@ -677,9 +736,9 @@
                                             <div class="invalid-feedback">Please enter price</div>
                                         </div>
                                         
-                                        <div class="col-md-6">
+                                        <!-- <div class="col-md-6">
                                             <label class="form-label">Bedrooms<span class="text-danger">*</span></label>
-                                            <select name="bedrooms" class="form-select" required>
+                                            <select name="bedrooms" class="form-select" >
                                                 <option value="">Select bedrooms</option>
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
@@ -696,13 +755,13 @@
                                         
                                         <div class="col-md-6">
                                             <label class="form-label">Square Feet<span class="text-danger">*</span></label>
-                                            <input type="number" name="sqft" class="form-control" required placeholder="Total area in sqft">
+                                            <input type="number" name="sqft" class="form-control"  placeholder="Total area in sqft">
                                             <div class="invalid-feedback">Please enter square footage</div>
                                         </div>
 
                                         <div class="col-md-6">
                                             <label class="form-label">Garage<span class="text-danger">*</span></label>
-                                            <select name="garage" class="form-select" required>
+                                            <select name="garage" class="form-select" >
                                                 <option value="">Select garage spaces</option>
                                                 <option value="0">None</option>
                                                 <option value="1">1</option>
@@ -711,7 +770,7 @@
                                                 <option value="4">4</option>
                                             </select>
                                             <div class="invalid-feedback">Please select garage spaces</div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             </div>

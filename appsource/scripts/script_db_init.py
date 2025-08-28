@@ -84,14 +84,18 @@ def run_migrations():
     result = False
     try:
         # remove migration files
-        app_list = [ app for app in settings.INSTALLED_APPS if app.startswith("mck_") or app.startswith("mck_") ]
+        app_list = [
+    app for app in settings.INSTALLED_APPS 
+    if app.startswith("mck_") or app.startswith("squarebox")
+]
+
         for apps in app_list:
             apps = apps.replace(".","/")
             migration_path = os.path.join(settings.BASE_DIR, '%s/migrations'%(apps))
             print(migration_path)
             for file in glob.glob(migration_path+"/0*.py"):
                 os.remove(file)
-        all_app_list = [ app for app in settings.INSTALLED_APPS if app.startswith("mck_")]
+        all_app_list = [ app for app in settings.INSTALLED_APPS if app.startswith("mck_") or app.startswith("squarebox")]
         for apps in all_app_list:
             try:
                 call_command('makemigrations','--pythonpath', apps, interactive=False)

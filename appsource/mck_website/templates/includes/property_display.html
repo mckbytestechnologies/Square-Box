@@ -8,8 +8,8 @@
             {% endif %}
         </h2>
         
-        <!-- Slider container for more than 3 properties -->
-        <div class="properties-slider-container" style="display: none;">
+        <!-- Slider container for more than 4 properties -->
+        <div class="properties-slider-container" id="slider-container" style="display: none;">
             <div class="swiper properties-slider">
                 <div class="swiper-wrapper">
                     {% for property in property %}
@@ -20,7 +20,6 @@
                                     <img src="{{ img.image.url }}" alt="{{ property.title }}">
                                 {% endfor %}
                                 <div class="property-badge">
-                                    <!-- Updated property type badge with icon -->
                                     <span class="badge-type {% if property.property_type.name %}badge-{{ property.property_type.name|lower }}{% endif %}">
                                         <i class="fas 
                                             {% if property.property_type.name == 'APARTMENT' %}fa-building
@@ -95,8 +94,8 @@
             </div>
         </div>
 
-        <!-- Grid layout for 3 or fewer properties -->
-        <div class="properties-grid">
+        <!-- Grid layout for 4 or fewer properties -->
+        <div class="properties-grid" id="grid-container">
             {% for property in property %}
             <div class="property-card" data-city="{{ property.city }}" data-type="{{ property.property_type.name }}">
                 <div class="property-img">
@@ -104,7 +103,6 @@
                         <img src="{{ img.image.url }}" alt="{{ property.title }}">
                     {% endfor %}
                     <div class="property-badge">
-                        <!-- Updated property type badge with icon -->
                         <span class="badge-type {% if property.property_type.name %}badge-{{ property.property_type.name|lower }}{% endif %}">
                             <i class="fas 
                                 {% if property.property_type.name == 'APARTMENT' %}fa-building
@@ -195,329 +193,379 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
 <style>
-.properties {
-    padding: 60px 0;
-    background-color: #f8f9fa;
-}
-
-.section-title {
-    text-align: center;
-    margin-bottom: 30px;
-    color: #2c3e50;
-    font-weight: 700;
-}
-
-.property-type-filter {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 30px;
-}
-
-.filter-btn {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 30px;
-    background-color: #fff;
-    color: #6c757d;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.filter-btn:hover, .filter-btn.active {
-    background-color: #2c3e50;
-    color: #fff;
-}
-
-.property-card {
-    background: #fff;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.property-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-}
-
-.property-img {
-    position: relative;
-    height: 220px;
-    overflow: hidden;
-}
-
-.property-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-}
-
-.property-card:hover .property-img img {
-    transform: scale(1.05);
-}
-
-.property-badge {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.badge-type {
-    padding: 6px 12px;
-    border-radius: 30px;
-    font-size: 12px;
-    font-weight: 600;
-    color: white;
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.badge-type i {
-    font-size: 10px;
-}
-
-/* Color coding for property types */
-.badge-apartment {
-    background-color: #3498db;
-}
-
-.badge-villa {
-    background-color: #e74c3c;
-}
-
-.badge-plot {
-    background-color: #2ecc71;
-}
-
-.badge-commercial {
-    background-color: #f39c12;
-}
-
-.badge-independent_house {
-    background-color: #9b59b6;
-}
-
-.badge-townhouse {
-    background-color: #1abc9c;
-}
-
-.badge-featured {
-    padding: 6px 12px;
-    border-radius: 30px;
-    font-size: 12px;
-    font-weight: 600;
-    background-color: #ffd700;
-    color: #333;
-}
-
-.property-info {
-    padding: 20px;
-}
-
-.property-info h3 {
-    font-size: 18px;
-    margin-bottom: 10px;
-    color: #2c3e50;
-}
-
-.property-price {
-    font-size: 20px;
-    font-weight: 700;
-    color: #e74c3c;
-    margin-bottom: 10px;
-}
-
-.property-details {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin: 15px 0;
-    font-size: 14px;
-    color: #7f8c8d;
-}
-
-.property-details span {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.property-details i {
-    color: #3498db;
-}
-
-.btn {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #2c3e50;
-    color: white;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: background-color 0.3s ease;
-}
-
-.btn:hover {
-    background-color: #1a252f;
-}
-
-.properties-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 25px;
-}
-
-.empty-state {
-    text-align: center;
-    padding: 40px 20px;
-    grid-column: 1 / -1;
-}
-
-.empty-state i {
-    color: #bdc3c7;
-    margin-bottom: 15px;
-}
-
-.empty-state h4 {
-    color: #7f8c8d;
-    margin-bottom: 10px;
-}
-
-.btn-contact {
-    display: inline-block;
-    margin-top: 15px;
-    padding: 10px 25px;
-    background-color: #3498db;
-    color: white;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: 600;
-}
-
-/* Swiper slider styles */
-.properties-slider-container {
-    margin: 0 -15px;
-    padding: 0 15px;
-}
-
-.swiper-button-next, .swiper-button-prev {
-    color: #2c3e50;
-    background: rgba(255, 255, 255, 0.9);
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-
-.swiper-button-next:after, .swiper-button-prev:after {
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.swiper-pagination-bullet-active {
-    background: #2c3e50;
-}
-
-@media (max-width: 768px) {
-    .property-type-filter {
-        overflow-x: auto;
-        justify-content: flex-start;
-        padding-bottom: 10px;
-    }
-    
-    .properties-grid {
-        grid-template-columns: 1fr;
-    }
-}
-</style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .properties {
+            padding: 60px 0;
+            background-color: #f8f9fa;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #2c3e50;
+            font-size: 32px;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: #FFD700;
+        }
+        
+        .properties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); /* wider cards */
+            /* grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); */
+            gap: 25px;
+        }
+        
+        .property-card {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+        }
+        
+        .property-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .property-img {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .property-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .property-card:hover .property-img img {
+            transform: scale(1.05);
+        }
+        
+        .property-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .badge-type {
+            padding: 6px 12px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #333;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background-color: #ffd700;
+        }
+        
+        .badge-type i {
+            font-size: 10px;
+        }
+        
+        .badge-featured {
+            padding: 6px 12px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 600;
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .property-info {
+            padding: 20px;
+        }
+        
+        .property-info h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #2c3e50;
+            line-height: 1.3;
+        }
+        
+        .property-price {
+            font-size: 20px;
+            font-weight: 700;
+            color: #e74c3c;
+            margin-bottom: 10px;
+        }
+        
+        .property-info > p {
+            color: #7f8c8d;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .property-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+        
+        .property-details span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .property-details i {
+            color: #3498db;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #FFD700;
+            color: black;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .btn:hover {
+            background-color: #f3f025;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            grid-column: 1 / -1;
+        }
+        
+        .empty-state i {
+            color: #bdc3c7;
+            margin-bottom: 15px;
+        }
+        
+        .empty-state h4 {
+            color: #7f8c8d;
+            margin-bottom: 10px;
+            font-size: 22px;
+        }
+        
+        .empty-state p {
+            margin-bottom: 20px;
+            color: #95a5a6;
+        }
+        
+        .btn-contact {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 12px 25px;
+            background-color: #3498db;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        
+        .btn-contact:hover {
+            background-color: #2980b9;
+        }
+        
+        /* Slider styles */
+        .properties-slider-container {
+            margin: 0 -15px;
+            padding: 0 15px 40px;
+            position: relative;
+        }
+        
+        .swiper {
+            padding: 10px 5px 40px;
+        }
+        
+        .swiper-slide {
+            height: auto;
+        }
+        
+        .swiper-button-next, .swiper-button-prev {
+            color: #2c3e50;
+            background: rgba(255, 255, 255, 0.9);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .swiper-button-next:hover, .swiper-button-prev:hover {
+            background: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        
+        .swiper-button-next:after, .swiper-button-prev:after {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .swiper-pagination {
+            bottom: 0;
+        }
+        
+        .swiper-pagination-bullet {
+            width: 12px;
+            height: 12px;
+            background: #bdc3c7;
+            opacity: 1;
+        }
+        
+        .swiper-pagination-bullet-active {
+            background: #2c3e50;
+        }
+        
+        @media (max-width: 768px) {
+            .properties-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+            
+            .section-title {
+                font-size: 28px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .properties {
+                padding: 40px 0;
+            }
+            
+            .section-title {
+                font-size: 24px;
+                margin-bottom: 30px;
+            }
+            
+            .property-img {
+                height: 180px;
+            }
+        }
+    </style>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const propertyCards = document.querySelectorAll('.property-card');
     const sliderContainer = document.querySelector('.properties-slider-container');
     const gridContainer = document.querySelector('.properties-grid');
+    const propertyCards = document.querySelectorAll('.property-card');
     const filterButtons = document.querySelectorAll('.filter-btn');
     let propertiesSwiper = null;
-
-    // Initialize Swiper if more than 3 properties
-    function initSwiper() {
-        if (propertyCards.length > 3) {
-            sliderContainer.style.display = 'block';
-            gridContainer.style.display = 'none';
-            
-            if (propertiesSwiper) {
-                propertiesSwiper.destroy(true, true);
-            }
-            
-            propertiesSwiper = new Swiper('.properties-slider', {
-                slidesPerView: 1,
-                spaceBetween: 20,
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
+    
+    // Determine whether to show slider or grid based on number of properties
+    if (propertyCards.length > 4) {
+        // Show slider for more than 4 properties
+        sliderContainer.style.display = 'block';
+        gridContainer.style.display = 'none';
+        
+        // Initialize Swiper
+        propertiesSwiper = new Swiper('.properties-slider', {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
                 },
-                pagination: {
-                    el: '.swiper-pagination',
-                    clickable: true,
+                768: {
+                    slidesPerView: 3,
+                    spaceBetween: 25,
                 },
-                breakpoints: {
-                    640: {
-                        slidesPerView: 2,
-                    },
-                    1024: {
-                        slidesPerView: 3,
-                    },
+                1024: {
+                    slidesPerView: 4, // Show 4 cards on desktop
+                    spaceBetween: 30,
                 },
-            });
-        } else {
-            sliderContainer.style.display = 'none';
-            gridContainer.style.display = 'grid';
-        }
+            },
+        });
+    } else {
+        // Show grid for 4 or fewer properties
+        sliderContainer.style.display = 'none';
+        gridContainer.style.display = 'grid';
     }
 
-    initSwiper();
-
     // Property type filtering
-    filterButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            // Update active button
-            filterButtons.forEach(btn => btn.classList.remove('active'));
-            this.classList.add('active');
-            
-            const type = this.dataset.type;
-            let visibleCount = 0;
-            
-            propertyCards.forEach(card => {
-                if (type === 'all' || card.dataset.type === type) {
-                    card.style.display = 'block';
-                    visibleCount++;
-                } else {
-                    card.style.display = 'none';
+    if (filterButtons.length) {
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Update active button
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                
+                const type = this.dataset.type;
+                let visibleCount = 0;
+                
+                propertyCards.forEach(card => {
+                    if (type === 'all' || card.dataset.type === type) {
+                        card.style.display = 'block';
+                        visibleCount++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                
+                // Update empty state if no properties match the filter
+                const emptyState = document.querySelector('.no-properties');
+                if (emptyState) {
+                    emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+                }
+                
+                // Reinitialize swiper if needed
+                if (propertiesSwiper) {
+                    propertiesSwiper.update();
                 }
             });
-            
-            // Update empty state if no properties match the filter
-            const emptyState = document.querySelector('.no-properties');
-            if (emptyState) {
-                emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
-            }
-            
-            // Reinitialize swiper if needed
-            if (propertiesSwiper) {
-                propertiesSwiper.update();
-            }
         });
-    });
+    }
 
     // Window resize handler
     window.addEventListener('resize', function() {

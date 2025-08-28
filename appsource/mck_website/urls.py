@@ -6,7 +6,7 @@ app_name = "mck_website"
 
 urlpatterns = [
 
-    path(".well-known/pki-validation/0021C33903EBC802E268A3D626130F22.txt", views.pki_validation_view, name="pki_validation"),
+    # path(".well-known/pki-validation/0021C33903EBC802E268A3D626130F22.txt", views.pki_validation_view, name="pki_validation"),
     path('', views.HomePage.as_view(), name='home_page'),
     path('about/', views.AboutPage.as_view(), name='about_page'),
     path('property-legal-sevices/', views.PropertyLegalServicesPage.as_view(), name='property_legal_services_page'),

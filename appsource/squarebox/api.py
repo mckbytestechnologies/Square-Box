@@ -951,6 +951,8 @@ def ajax_enquiry_save(request):
             name=request.POST.get("name", ""),
             email=request.POST.get("email", ""),
             phone=request.POST.get("phone", ""),
+            location=request.POST.get("location", ""),
+            message=request.POST.get("message", ""),
             property_type=request.POST.get("property_type", ""),
             
         
