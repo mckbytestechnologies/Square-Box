@@ -7,6 +7,8 @@ from config import app_logger
 from mck_auth import api as auth_api
 from django.utils.dateparse import parse_datetime
 from squarebox.models import *
+from django.core.mail import send_mail, EmailMessage
+from django.conf import settings
 
 log_name = "app"
 logger = app_logger.createLogger(log_name)
@@ -934,10 +936,68 @@ def ajax_maintenance_save(request):
     
     return result, message
 
-
-
 @app_logger.functionlogs(log=log_name)
 def ajax_enquiry_save(request):
+    result = False
+    message = "Failed to save enquiry"
+    
+    try:
+        pDict = request.POST
+        files = request.FILES
+        logger.info("Processing enquiry save")
+        
+        # Create Lead first
+        lead_obj = Lead(
+            name=request.POST.get("name", ""),
+            email=request.POST.get("email", ""),
+            phone=request.POST.get("phone", ""),
+            location=request.POST.get("location", ""),
+            message=request.POST.get("message", ""),
+            property_type=request.POST.get("property_type", ""),
+            created_by=1,
+            updated_by=1
+        )
+        lead_obj.save()
+        logger.info("lead object created with ID: %s", lead_obj.id)
+
+        # -------- Send Email to User -----------
+        subject = "Thank you for your enquiry!"
+        body = f"""
+        Hi {lead_obj.name},
+
+        Thank you for contacting us! 
+        We have received your enquiry with the following details:
+
+        📍 Location: {lead_obj.location}
+        🏠 Property Type: {lead_obj.property_type}
+        📞 Phone: {lead_obj.phone}
+        💬 Message: {lead_obj.message}
+
+        Our team will get back to you shortly.
+
+        Regards,  
+        Your Company Team
+        """
+
+        send_mail(
+            subject,
+            body,
+            settings.DEFAULT_FROM_EMAIL,    # From
+            [lead_obj.email],               # To user who submitted enquiry
+            fail_silently=False,
+        )
+
+        result = True
+        message = "Lead saved and confirmation email sent to user"
+
+    except Exception as e:
+        logger.exception("Error in ajax_enquiry_save")
+        message = f"Error saving lead: {str(e)}"
+    
+    return result, message
+
+@app_logger.functionlogs(log=log_name)
+def ajax_equiry_save(request):
     result = False
     message = "Failed to save enquiry"
     

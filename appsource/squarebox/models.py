@@ -4,6 +4,7 @@ from django.conf import settings
 from config import app_gv as gv
 from django.utils import timezone
 from django.utils.timezone import now
+from django.core.mail import send_mail, EmailMessage
 
 
 class PropertyType(models.Model):
@@ -44,9 +45,9 @@ class Property(models.Model):
     zipcode = models.CharField(max_length=20)
     description = models.TextField(blank=True)
     price = models.IntegerField()
-    bedrooms = models.IntegerField()
+    bedrooms = models.IntegerField(blank=True, null=True)
     bathrooms = models.IntegerField(blank=True, null=True)
-    sqft = models.IntegerField()
+    sqft = models.IntegerField(blank=True, null=True)
     garage = models.IntegerField(default=0)
     is_published = models.BooleanField(default=True,blank=True, null=True)
     list_date = models.DateTimeField(auto_now_add=True,blank=True, null=True)

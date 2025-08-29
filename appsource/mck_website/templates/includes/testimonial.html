@@ -1,54 +1,138 @@
-
-    <!-- Testimonials Section -->
-    <section class="testimonials">
-        <div class="container">
-            <h2 class="section-title">What Our Clients Say</h2>
+<!-- Testimonials Section -->
+<section class="testimonials">
+    <div class="container">
+        <h2 class="section-title">What Our Clients Say</h2>
+        
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-text">
+                    <i class="fa fa-quote-left quote-icon"></i>
+                    "SquareBox helped me find my dream home in just two weeks. Their service was exceptional and the process was smooth and hassle-free."
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-img">
+                        <img src="https://i.pinimg.com/736x/89/02/71/890271787e0502dc59293d27457f9af6.jpg" alt="Karthik">
+                    </div>
+                    <div class="author-info">
+                        <h4>Karthik R.</h4>
+                        <div class="author-role">Software Engineer, Chennai</div>
+                    </div>
+                </div>
+            </div>
             
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        "SquareBox helped me find my dream home in just two weeks. Their service was exceptional and they made the entire process smooth and hassle-free."
+            <div class="testimonial-card">
+                <div class="testimonial-text">
+                    <i class="fa fa-quote-left quote-icon"></i>
+                    "As a first-time home buyer, I was nervous. The team at SquareBox guided me perfectly and found the ideal home for my budget."
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-img">
+                        <img src="https://i.pinimg.com/1200x/c3/0f/9f/c30f9fee0c03007a27cb8d897e7f7af4.jpg" alt="Meena">
                     </div>
-                    <div class="testimonial-author">
-                        <div class="author-img">
-                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="John Doe">
-                        </div>
-                        <div class="author-info">
-                            <h4>John Doe</h4>
-                            <div class="author-role">Software Engineer</div>
-                        </div>
+                    <div class="author-info">
+                        <h4>Meena S.</h4>
+                        <div class="author-role">Marketing Manager, Coimbatore</div>
                     </div>
                 </div>
-                
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        "As a first-time home buyer, I was nervous about the process. The team at PropertyPro guided me through every step and found the perfect home for my budget."
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-img">
-                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Jane Smith">
-                        </div>
-                        <div class="author-info">
-                            <h4>Jane Smith</h4>
-                            <div class="author-role">Marketing Manager</div>
-                        </div>
-                    </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-text">
+                    <i class="fa fa-quote-left quote-icon"></i>
+                    "I've worked with several real estate companies, but SquareBox stands out for professionalism and excellent property choices. Highly recommended!"
                 </div>
-                
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        "I've worked with several real estate companies, but PropertyPro stands out for their professionalism and extensive property database. Highly recommended!"
+                <div class="testimonial-author">
+                    <div class="author-img">
+                        <img src="https://i.pinimg.com/736x/16/49/04/1649048de7bd98c0289944ad4318a0a2.jpg" alt="Vignesh">
                     </div>
-                    <div class="testimonial-author">
-                        <div class="author-img">
-                            <img src="https://randomuser.me/api/portraits/men/62.jpg" alt="Robert Johnson">
-                        </div>
-                        <div class="author-info">
-                            <h4>Robert Johnson</h4>
-                            <div class="author-role">Business Owner</div>
-                        </div>
+                    <div class="author-info">
+                        <h4>Vignesh B.</h4>
+                        <div class="author-role">Business Owner, Madurai</div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
+<style>
+/* Testimonials Section */
+.testimonials {
+    padding: 80px 0;
+    background: #f9f9f9;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 50px;
+    color: #222;
+    font-weight: 700;
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.testimonial-card {
+    background-color: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+}
+
+.testimonial-text {
+    font-style: italic;
+    margin-bottom: 25px;
+    color: #555;
+    position: relative;
+    padding-left: 30px;
+}
+
+.quote-icon {
+    color: #ff6f61;
+    margin-right: 10px;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.author-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #ff6f61;
+    flex-shrink: 0;
+}
+
+.author-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.author-info h4 {
+    margin-bottom: 5px;
+    color: #222;
+    font-weight: 600;
+}
+
+.author-role {
+    color: #777;
+    font-size: 14px;
+}
+</style>

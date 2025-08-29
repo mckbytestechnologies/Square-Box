@@ -1,3 +1,4 @@
+{% load static %}
 <style>
 .services {
     background: #fff;
@@ -80,64 +81,69 @@
 }
 
 </style>
-
 <section class="services">
   <div class="container">
     <h2 class="section-title">Our Services</h2>
     <div class="services-line">
 
-      
-<a href="{% url 'mck_website:mck_property_page' %}" class="service-item">
-  <div class="service-icon">
-    <img src="https://cdn-icons-png.flaticon.com/512/619/619034.png" alt="Buy">
-  </div>
-  <h3>Buy</h3>
-</a>
+      <!-- Buy -->
+      <a href="{% url 'mck_website:mck_property_page' %}" class="service-item">
+        <div class="service-icon">
+          <img src="https://cdn-icons-png.flaticon.com/512/619/619034.png" alt="Buy">
+        </div>
+        <h3>Buy</h3>
+      </a>
 
-<a href="{% url 'mck_website:mck_property_create_page' %}" class="service-item">
-  <div class="service-icon">
-    <img src="https://cdn-icons-png.flaticon.com/512/3063/3063827.png" alt="Rent">
-  </div>
-  <h3>Rent</h3>
-</a>
+      <!-- Rent -->
+      <a href="{% url 'mck_website:mck_property_create_page' %}" class="service-item">
+        <div class="service-icon">
+          <img src="{% static 'images/section/sell-or-rent-property.png' %}" alt="Rent">
+        </div>
+        <h3>Rent</h3>
+      </a>
 
-<a href="{% url 'mck_website:property_maintenance_page' %}" class="service-item">
-  <div class="service-icon">
-    <img src="https://cdn-icons-png.flaticon.com/512/1256/1256650.png" alt="Maintenance">
-  </div>
-  <h3>Maintenance</h3>
-</a>
+      <!-- Maintenance -->
+      <a href="{% url 'mck_website:property_maintenance_page' %}" class="service-item">
+        <div class="service-icon">
+          <img src="{% static 'images/section/property-management.png' %}" alt="Maintenance">
 
-<a href="{% url 'mck_website:property_legal_services_page' %}" class="service-item">
-  <div class="service-icon">
-    <img src="https://cdn-icons-png.flaticon.com/512/891/891399.png" alt="Legal Services">
-  </div>
-  <h3>Legal Services</h3>
-</a>
+        </div>
+        <h3>Maintenance</h3>
+      </a>
 
-<a href="{% url 'mck_website:fencing_page' %}" class="service-item">
-  <div class="service-icon">
-    <img src="https://cdn-icons-png.flaticon.com/512/3176/3176366.png" alt="Fencing">
-  </div>
-  <h3>Fencing</h3>
-</a>
+      <!-- Legal Services -->
+      <a href="{% url 'mck_website:property_legal_services_page' %}" class="service-item">
+        <div class="service-icon">
+          <img src="{% static 'images/section/property-legal-services.png' %}" alt="Legal Services">
+        </div>
+        <h3>Legal Services</h3>
+      </a>
 
-<a href="{% url 'mck_website:land_levelling_page' %}" class="service-item">
-  <div class="service-icon">
-    <img src="https://cdn-icons-png.flaticon.com/512/684/684908.png" alt="Land Levelling">
-  </div>
-  <h3>Land Levelling</h3>
-</a>
+      <!-- Fencing -->
+      <a href="{% url 'mck_website:fencing_page' %}" class="service-item">
+        <div class="service-icon">
+          <img src="{% static 'images/section/fencing.png' %}" alt="Fencing">
+        </div>
+        <h3>Fencing</h3>
+      </a>
 
+      <!-- Land Levelling -->
+      <a href="{% url 'mck_website:land_levelling_page' %}" class="service-item">
+        <div class="service-icon">
+          <img src="{% static 'images/section/b.jpg' %}" alt="Land Levelling">
+        </div>
+        <h3>Land Levelling</h3>
+      </a>    
 
-
-<a href="https://www.mckbytes.com/contact-us/" class="service-item">
-  <div class="service-icon">
-    <img src="https://cdn-icons-png.flaticon.com/512/3771/3771461.png" alt="Digital Marketing">
-  </div>
-  <h3>Digital Marketing</h3>
-</a>
+      <!-- Solar -->
+      <a href="{% url 'mck_website:solar_page' %}" class="service-item">
+        <div class="service-icon">
+          <img src="{% static 'images/section/solar.png' %}" alt="Solar">
+        </div>
+        <h3>Solar</h3>
+      </a>
 
     </div>
   </div>
 </section>
+

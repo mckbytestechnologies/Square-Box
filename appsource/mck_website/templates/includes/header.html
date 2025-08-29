@@ -1,121 +1,196 @@
-
-
-
-<!-- Prompt 1: Top Announcement Bar (with Close Button) -->
+<!-- Top Announcement Bar -->
 <div class="announce" id="announceBar" role="region" aria-label="Announcement">
-    <div class="announce__track">Vellore's No.1 Real Estate Platform • Find Homes, Plots & Commercial Spaces • Trusted Agents • Verified Listings • Secure Deals • Mumbai's No.1 Real Estate Platform • Find Homes, Plots & Commercial Spaces • Trusted Agents • Verified Listings • Secure Deals • </div>
-    <button class="announce__close" id="announceClose" aria-label="Close announcement"><i class="fas fa-times" aria-hidden="true"></i></button>
-</div>
-
-<!-- =============================================================
-     NAVBAR
-============================================================= -->
-<header class="navbar">
-    <div class="container nav-inner">
-        <a class="logo" href="{% url 'mck_website:home_page' %}" aria-label="Homepage">
-
-  <div class="logo-text">
-    <div class="logo-mark">SB</div>
-    Square<span class="highlight">Box</span>
+  <div class="announce__track">
+    Vellore's No.1 Real Estate Platform • Find Homes, Plots & Commercial Spaces • Trusted Agents • Verified Listings • Secure Deals •
+    Mumbai's No.1 Real Estate Platform • Find Homes, Plots & Commercial Spaces • Trusted Agents • Verified Listings • Secure Deals •
   </div>
-</a>
+  <button class="announce__close" id="announceClose" aria-label="Close announcement">
+    <i class="fas fa-times" aria-hidden="true"></i>
+  </button>
+</div>
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="container nav-inner">
+    <!-- Logo -->
+    <a class="logo" href="{% url 'mck_website:home_page' %}" aria-label="Homepage">
+      <div class="logo-mark">SB</div>
+      <div class="logo-text">
+        Square<span class="highlight">Box</span>
+      </div>
+    </a>
 
-</a>
-
-
-        <ul class="nav" role="menubar" aria-label="Primary">
-            <li>
-                <a href="{% url 'mck_website:mck_property_page' %}" role="menuitem" aria-haspopup="true">Buy ▾</a>
-                <div class="dropdown" role="menu">
-                    <a href="{% url 'mck_website:mck_property_page' %}?property_type=Apartment">Apartments</a>
-                    <a href="{% url 'mck_website:mck_property_page' %}?property_type=Independent_House">Independent House</a>
-                    <a href="{% url 'mck_website:mck_property_page' %}?property_type=Villa">Villa</a>
-                    <a href="{% url 'mck_website:mck_property_page' %}?property_type=Plot / Land">Plot / Land</a>
-                    <a href="{% url 'mck_website:mck_property_page' %}?property_type=Commercial Property">Commercial Property</a>
-                    <a href="{% url 'mck_website:mck_property_page' %}?status=New Launch">New Launch</a>
-                </div>
-
-            </li>
-            <li>
-                <a href="{% url 'mck_website:mck_property_page' %}?listing_type=rent" role="menuitem" aria-haspopup="true">Rent </a>
-                <!-- <div class="dropdown" role="menu">
-                    <a href="{% url 'mck_website:mck_property_create_page' %}?furnishing=Furnished">Furnished</a>
-                    <a href="{% url 'mck_website:mck_property_create_page' %}?furnishing=Semi-furnished">Semi-furnished</a>
-                    <a href="{% url 'mck_website:mck_property_create_page' %}?property_type=PG">PG / Co-Living</a>
-                </div> -->
-            </li>
-            <li>
-                <a href="{% url 'mck_website:mck_property_create_page' %}" role="menuitem">Sell</a>
-            </li>
-            <li>
-                <a href="#" role="menuitem" aria-haspopup="true">Services ▾</a>
-                <div class="dropdown" role="menu">
-                    <a href="{% url 'mck_website:property_legal_services_page' %}">Property Legal Services</a>
-                    
-                    <a href="{% url 'mck_website:land_levelling_page' %}">Land Levelling</a>
-                    <a href="{% url 'mck_website:property_maintenance_page' %}">Property Management</a>
-                    <a href="{% url 'mck_website:fencing_page' %}">Fencing</a>
-                     <a href="{% url 'mck_website:solar_page' %}">Solar Roadmap</a>
-                </div>
-            </li>
-            <li>
-                <a href="{% url 'mck_website:property_maintenance_page' %}" role="menuitem">Maintenance</a>
-            </li>
-        </ul>
-
-        <div class="nav-buttons">
-            <a href="{% url 'mck_website:mck_property_page' %}" class="btn-warning">
-                <i class="fas fa-plus-circle"></i> List Property
-            </a>
-            <div class="account-dropdown">
-             
-                
-            </div>
+    <!-- Desktop Nav -->
+    <ul class="nav desktop-nav" role="menubar" aria-label="Primary">
+      <li>
+        <a href="{% url 'mck_website:mck_property_page' %}?listing_type=sale" role="menuitem" aria-haspopup="true">Buy ▾</a>
+        <div class="dropdown" role="menu">
+          <a href="{% url 'mck_website:mck_property_page' %}?listing_type=sale&property_type=Apartment">Apartments</a>
+          <a href="{% url 'mck_website:mck_property_page' %}?listing_type=sale&property_type=Independent_House">Independent House</a>
+          <a href="{% url 'mck_website:mck_property_page' %}?listing_type=sale&property_type=Villa">Villa</a>
+          <a href="{% url 'mck_website:mck_property_page' %}?listing_type=sale&property_type=Plot">Plot / Land</a>
+          <a href="{% url 'mck_website:mck_property_page' %}?listing_type=sale&property_type=Commercial">Commercial Property</a>
+          <a href="{% url 'mck_website:mck_property_page' %}">New Launch</a>
         </div>
+      </li>
+      <li>
+        <a href="{% url 'mck_website:mck_property_page' %}?listing_type=rent" role="menuitem" aria-haspopup="true">Rent ▾</a>
+        <div class="dropdown" role="menu">
+          <a href="{% url 'mck_website:mck_property_page' %}?listing_type=rent&property_type=Apartment">Apartments</a>
+          <a href="{% url 'mck_website:mck_property_page' %}?listing_type=rent&property_type=Independent_House">Independent House</a>
+          <a href="{% url 'mck_website:mck_property_page' %}?listing_type=rent&property_type=Villa">Villa</a>
+          <a href="{% url 'mck_website:mck_property_page' %}?listing_type=rent&property_type=Plot">Plot / Land</a>
+          <a href="{% url 'mck_website:mck_property_page' %}?listing_type=rent&property_type=Commercial">Commercial Property</a>
+          <a href="{% url 'mck_website:mck_property_page' %}?listing_type=rent&status=New Launch">New Launch</a>
+        </div>
+      </li>
+      <li><a href="{% url 'mck_website:mck_property_create_page' %}">Sell</a></li>
+      <li>
+        <a href="#" aria-haspopup="true">Services ▾</a>
+        <div class="dropdown" role="menu">
+          <a href="{% url 'mck_website:property_legal_services_page' %}">Property Legal Services</a>
+          <a href="{% url 'mck_website:land_levelling_page' %}">Land Levelling</a>
+          <a href="{% url 'mck_website:property_maintenance_page' %}">Property Management</a>
+          <a href="{% url 'mck_website:fencing_page' %}">Fencing</a>
+          <a href="{% url 'mck_website:solar_page' %}">Solar Roadmap</a>
+        </div>
+      </li>
+      <li><a href="{% url 'mck_website:property_maintenance_page' %}">Maintenance</a></li>
+    </ul>
 
-        <button class="hamburger" aria-label="Open menu" id="openMobile">☰</button>
+    <!-- Hamburger (Mobile Only) -->
+    <button class="hamburger" aria-label="Open menu" id="openMobile">☰</button>
+  </div>
+</nav>
+
+<!-- Mobile Nav Drawer -->
+<div class="mobile-sheet" id="mobileSheet" aria-hidden="true">
+  <div class="mobile-panel">
+    <!-- Close Button -->
+    <button class="hamburger" id="closeMobile" aria-label="Close menu">✕</button>
+
+    <div class="section">
+      <!-- Buy -->
+      <button class="mobile-link mobile-toggle" aria-expanded="false">Buy ▾</button>
+      <div class="mobile-dropdown">
+        <a href="{% url 'mck_website:mck_property_page' %}?listing_type=sale&property_type=Apartment">Apartments</a>
+        <a href="{% url 'mck_website:mck_property_page' %}?listing_type=sale&property_type=Independent_House">Independent House</a>
+        <a href="{% url 'mck_website:mck_property_page' %}?listing_type=sale&property_type=Villa">Villa</a>
+        <a href="{% url 'mck_website:mck_property_page' %}?listing_type=sale&property_type=Plot">Plot / Land</a>
+        <a href="{% url 'mck_website:mck_property_page' %}?listing_type=sale&property_type=Commercial">Commercial Property</a>
+        <a href="{% url 'mck_website:mck_property_page' %}">New Launch</a>
+      </div>
+
+      <!-- Rent -->
+      <button class="mobile-link mobile-toggle" aria-expanded="false">Rent ▾</button>
+      <div class="mobile-dropdown">
+        <a href="{% url 'mck_website:mck_property_page' %}?listing_type=rent&property_type=Apartment">Apartments</a>
+        <a href="{% url 'mck_website:mck_property_page' %}?listing_type=rent&property_type=Independent_House">Independent House</a>
+        <a href="{% url 'mck_website:mck_property_page' %}?listing_type=rent&property_type=Villa">Villa</a>
+        <a href="{% url 'mck_website:mck_property_page' %}?listing_type=rent&property_type=Plot">Plot / Land</a>
+        <a href="{% url 'mck_website:mck_property_page' %}?listing_type=rent&property_type=Commercial">Commercial Property</a>
+        <a href="{% url 'mck_website:mck_property_page' %}?listing_type=rent&status=New Launch">New Launch</a>
+      </div>
+
+      <!-- Sell -->
+      <a class="mobile-link" href="{% url 'mck_website:mck_property_create_page' %}">Sell</a>
+
+      <!-- Services -->
+      <button class="mobile-link mobile-toggle" aria-expanded="false">Services ▾</button>
+      <div class="mobile-dropdown">
+        <a href="{% url 'mck_website:property_legal_services_page' %}">Property Legal Services</a>
+        <a href="{% url 'mck_website:land_levelling_page' %}">Land Levelling</a>
+        <a href="{% url 'mck_website:property_maintenance_page' %}">Property Management</a>
+        <a href="{% url 'mck_website:fencing_page' %}">Fencing</a>
+        <a href="{% url 'mck_website:solar_page' %}">Solar Roadmap</a>
+      </div>
+
+      <!-- Maintenance -->
+      <a class="mobile-link" href="{% url 'mck_website:property_maintenance_page' %}">Maintenance</a>
     </div>
-</header>
-
+  </div>
+</div>
+<style>
+.mobile-toggle {
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: none;
+  font-weight: 600;
+  padding: .7rem .8rem;
+  color: #e7f1fb;
+  cursor: pointer;
+}
+.mobile-toggle[aria-expanded="true"] { background: rgba(255,255,255,.08); }
+.mobile-dropdown {
+  display: none;
+  padding-left: 1rem;
+}
+.mobile-dropdown a {
+  display: block;
+  padding: .6rem .8rem;
+  font-weight: 500;
+  color: #e7f1fb;
+}
+.mobile-dropdown a:hover {
+  background: rgba(255,255,255,.1);
+  border-radius: 8px;
+}
+</style>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Announcement bar close functionality
-        const announceBar = document.getElementById('announceBar');
-        const announceClose = document.getElementById('announceClose');
-        
-        if (announceClose) {
-            announceClose.addEventListener('click', function() {
-                announceBar.style.display = 'none';
-            });
-        }
-        
-        // Mobile menu functionality
-        const openMobile = document.getElementById('openMobile');
-        const closeMobile = document.getElementById('closeMobile');
-        const mobileSheet = document.getElementById('mobileSheet');
-        
-        if (openMobile) {
-            openMobile.addEventListener('click', function() {
-                mobileSheet.setAttribute('aria-hidden', 'false');
-                document.body.style.overflow = 'hidden';
-            });
-        }
-        
-        if (closeMobile) {
-            closeMobile.addEventListener('click', function() {
-                mobileSheet.setAttribute('aria-hidden', 'true');
-                document.body.style.overflow = 'auto';
-            });
-        }
-        
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', function(event) {
-            if (!event.target.closest('.mobile-sheet') && !event.target.closest('.hamburger') && mobileSheet.getAttribute('aria-hidden') === 'false') {
-                mobileSheet.setAttribute('aria-hidden', 'true');
-                document.body.style.overflow = 'auto';
-            }
-        });
-    });
-</script>
+document.addEventListener("DOMContentLoaded", function() {
+  const openMobile = document.getElementById("openMobile");
+  const closeMobile = document.getElementById("closeMobile");
+  const mobileSheet = document.getElementById("mobileSheet");
 
+  // Open / Close drawer
+  if (openMobile) {
+    openMobile.addEventListener("click", () => {
+      mobileSheet.classList.add("active");
+      mobileSheet.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    });
+  }
+  if (closeMobile) {
+    closeMobile.addEventListener("click", () => {
+      mobileSheet.classList.remove("active");
+      mobileSheet.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "auto";
+    });
+  }
+
+  // Mobile dropdown toggles
+  const toggles = document.querySelectorAll(".mobile-toggle");
+  toggles.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const expanded = btn.getAttribute("aria-expanded") === "true";
+      btn.setAttribute("aria-expanded", String(!expanded));
+
+      const dropdown = btn.nextElementSibling;
+      dropdown.style.display = expanded ? "none" : "block";
+    });
+  });
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+  // Mobile menu
+  const openMobile = document.getElementById("openMobile");
+  const closeMobile = document.getElementById("closeMobile");
+  const mobileSheet = document.getElementById("mobileSheet");
+
+  if (openMobile) {
+    openMobile.addEventListener("click", () => {
+      mobileSheet.classList.add("active");
+      mobileSheet.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    });
+  }
+  if (closeMobile) {
+    closeMobile.addEventListener("click", () => {
+      mobileSheet.classList.remove("active");
+      mobileSheet.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "auto";
+    });
+  }
+});
+</script>

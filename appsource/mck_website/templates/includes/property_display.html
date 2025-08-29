@@ -14,80 +14,44 @@
                 <div class="swiper-wrapper">
                     {% for property in property %}
                     <div class="swiper-slide" data-city="{{ property.city }}" data-type="{{ property.listing_type }}">
-                        <div class="property-card">
-                            <div class="property-img">
-                                {% for img in property.images.all|slice:":1" %}
-                                    <img src="{{ img.image.url }}" alt="{{ property.title }}">
-                                {% endfor %}
-                                <div class="property-badge">
-                                    <span class="badge-type {% if property.property_type.name %}badge-{{ property.property_type.name|lower }}{% endif %}">
-                                        <i class="fas 
-                                            {% if property.property_type.name == 'APARTMENT' %}fa-building
-                                            {% elif property.property_type.name == 'VILLA' %}fa-home
-                                            {% elif property.property_type.name == 'PLOT' %}fa-vector-square
-                                            {% elif property.property_type.name == 'COMMERCIAL' %}fa-store
-                                            {% elif property.property_type.name == 'INDEPENDENT_HOUSE' %}fa-house-user
-                                            {% elif property.property_type.name == 'TOWNHOUSE' %}fa-city
-                                            {% else %}fa-home{% endif %}">
-                                        </i>
-                                        {{ property.property_type.name|default:"Premium"|title }}
-                                    </span>
-                                    {% if property.is_featured %}
-                                        <span class="badge-featured">Featured</span>
-                                    {% endif %}
+                        <a href="{% url 'mck_website:property_detail' property.id %}" class="property-card-link">
+                            <div class="property-card">
+                                <div class="property-img">
+                                    {% for img in property.images.all|slice:":1" %}
+                                        <img src="{{ img.image.url }}" alt="{{ property.title }}">
+                                    {% endfor %}
+                                    <div class="property-badge">
+                                        <span class="badge-type {% if property.property_type.name %}badge-{{ property.property_type.name|lower }}{% endif %}">
+                                            <i class="fas 
+                                                {% if property.property_type.name == 'APARTMENT' %}fa-building
+                                                {% elif property.property_type.name == 'VILLA' %}fa-home
+                                                {% elif property.property_type.name == 'PLOT' %}fa-vector-square
+                                                {% elif property.property_type.name == 'COMMERCIAL' %}fa-store
+                                                {% elif property.property_type.name == 'INDEPENDENT_HOUSE' %}fa-house-user
+                                                {% elif property.property_type.name == 'TOWNHOUSE' %}fa-city
+                                                {% else %}fa-home{% endif %}">
+                                            </i>
+                                            {{ property.property_type.name|default:"Premium"|title }}
+                                        </span>
+                                        {% if property.is_featured %}
+                                            <span class="badge-featured">Featured</span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="property-info">
+                                    <div class="property-content">
+                                        <h3>{{ property.title|default:"Premium Property" }}</h3>
+                                        {% if property.price %}
+                                            <p class="property-price">₹{{ property.price|floatformat:"0" }}</p>
+                                        {% endif %}
+                                        <p class="property-address">{{ property.description }}</p>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="property-info">
-                                <h3>{{ property.title|default:"Premium Property" }}</h3>
-                                {% if property.price %}
-                                    <p class="property-price">₹{{ property.price|floatformat:"0" }}</p>
-                                {% endif %}
-                                <p>{{ property.description|truncatewords:15 }}</p>
-                                
-                                <div class="property-details">
-                                    {% with pt=property.property_type.name %}
-                                    {% if pt == 'APARTMENT' %}
-                                        {% if property.bedrooms %}<span><i class="fas fa-bed"></i> {{ property.bedrooms }} Beds</span>{% endif %}
-                                        {% if property.bathrooms %}<span><i class="fas fa-bath"></i> {{ property.bathrooms }} Baths</span>{% endif %}
-                                        {% if property.sqft %}<span><i class="fas fa-ruler-combined"></i> {{ property.sqft }} sq.ft</span>{% endif %}
-                                        {% if property.floor_number %}<span>Floor: {{ property.floor_number }}/{{ property.total_floors }}</span>{% endif %}
-                                        {% if property.building_age %}<span>Age: {{ property.building_age }} yrs</span>{% endif %}
-                                        {% if property.maintenance_charges %}<span>Maintenance: ₹{{ property.maintenance_charges }}</span>{% endif %}
-                                    {% elif pt == 'VILLA' %}
-                                        {% if property.plot_area %}<span>Plot Area: {{ property.plot_area }} sq.ft</span>{% endif %}
-                                        {% if property.builtup_area %}<span>Built-up: {{ property.builtup_area }} sq.ft</span>{% endif %}
-                                        {% if property.facing_direction %}<span>Facing: {{ property.facing_direction }}</span>{% endif %}
-                                        {% if property.garden_area %}<span>Garden: {{ property.garden_area }} sq.ft</span>{% endif %}
-                                    {% elif pt == 'PLOT' %}
-                                        {% if property.plot_length and property.plot_width %}<span>Plot: {{ property.plot_length }} x {{ property.plot_width }} ft</span>{% endif %}
-                                        {% if property.water_availability %}<span>Water: {{ property.water_availability }}</span>{% endif %}
-                                        {% if property.soil_type %}<span>Soil: {{ property.soil_type }}</span>{% endif %}
-                                    {% elif pt == 'COMMERCIAL' %}
-                                        {% if property.commercial_type %}<span>Type: {{ property.commercial_type }}</span>{% endif %}
-                                        {% if property.floor_height %}<span>Floor Height: {{ property.floor_height }} ft</span>{% endif %}
-                                        {% if property.loading_capacity %}<span>Loading Capacity: {{ property.loading_capacity }}</span>{% endif %}
-                                        {% if property.parking_capacity %}<span>Parking: {{ property.parking_capacity }}</span>{% endif %}
-                                    {% elif pt == 'INDEPENDENT_HOUSE' %}
-                                        {% if property.office_type %}<span>Type: {{ property.office_type }}</span>{% endif %}
-                                        {% if property.furnishing_type %}<span>Furnishing: {{ property.furnishing_type }}</span>{% endif %}
-                                        {% if property.conference_rooms %}<span>Conference Rooms: {{ property.conference_rooms }}</span>{% endif %}
-                                        {% if property.reception_area %}<span>Reception: {{ property.reception_area }}</span>{% endif %}
-                                    {% elif pt == 'TOWNHOUSE' %}
-                                        {% if property.units_in_complex %}<span>Units in Complex: {{ property.units_in_complex }}</span>{% endif %}
-                                        {% if property.corner_unit %}<span>Corner Unit: {{ property.corner_unit }}</span>{% endif %}
-                                        {% if property.end_unit %}<span>End Unit: {{ property.end_unit }}</span>{% endif %}
-                                        {% if property.hoa_fee %}<span>HOA Fee: ₹{{ property.hoa_fee }}</span>{% endif %}
-                                    {% endif %}
-                                    {% endwith %}
-                                </div>
-
-                                <a href="{% url 'mck_website:property_detail' property.id %}" class="btn">View Details</a>
-                            </div>
-                        </div>
+                        </a>
                     </div>
                     {% endfor %}
                 </div>
-
                 <div class="swiper-button-next"></div>
                 <div class="swiper-button-prev"></div>
                 <div class="swiper-pagination"></div>
@@ -97,76 +61,55 @@
         <!-- Grid layout for 4 or fewer properties -->
         <div class="properties-grid" id="grid-container">
             {% for property in property %}
-            <div class="property-card" data-city="{{ property.city }}" data-type="{{ property.property_type.name }}">
-                <div class="property-img">
-                    {% for img in property.images.all|slice:":1" %}
-                        <img src="{{ img.image.url }}" alt="{{ property.title }}">
-                    {% endfor %}
-                    <div class="property-badge">
-                        <span class="badge-type {% if property.property_type.name %}badge-{{ property.property_type.name|lower }}{% endif %}">
-                            <i class="fas 
-                                {% if property.property_type.name == 'APARTMENT' %}fa-building
-                                {% elif property.property_type.name == 'VILLA' %}fa-home
-                                {% elif property.property_type.name == 'PLOT' %}fa-vector-square
-                                {% elif property.property_type.name == 'COMMERCIAL' %}fa-store
-                                {% elif property.property_type.name == 'INDEPENDENT_HOUSE' %}fa-house-user
-                                {% elif property.property_type.name == 'TOWNHOUSE' %}fa-city
-                                {% else %}fa-home{% endif %}">
-                            </i>
-                            {{ property.property_type.name|default:"Premium"|title }}
-                        </span>
-                        {% if property.is_featured %}
-                            <span class="badge-featured">Featured</span>
-                        {% endif %}
+            <a href="{% url 'mck_website:property_detail' property.id %}" class="property-card-link">
+                <div class="property-card" data-city="{{ property.city }}" data-type="{{ property.property_type.name }}">
+                    <div class="property-img">
+                        {% for img in property.images.all|slice:":1" %}
+                            <img src="{{ img.image.url }}" alt="{{ property.title }}">
+                        {% endfor %}
+                        <div class="property-badge">
+                            <span class="badge-type {% if property.property_type.name %}badge-{{ property.property_type.name|lower }}{% endif %}">
+                                <i class="fas 
+                                    {% if property.property_type.name == 'APARTMENT' %}fa-building
+                                    {% elif property.property_type.name == 'VILLA' %}fa-home
+                                    {% elif property.property_type.name == 'PLOT' %}fa-vector-square
+                                    {% elif property.property_type.name == 'COMMERCIAL' %}fa-store
+                                    {% elif property.property_type.name == 'INDEPENDENT_HOUSE' %}fa-house-user
+                                    {% elif property.property_type.name == 'TOWNHOUSE' %}fa-city
+                                    {% else %}fa-home{% endif %}">
+                                </i>
+                                {{ property.property_type.name|default:"Premium"|title }}
+                            </span>
+                            {% if property.is_featured %}
+                                <span class="badge-featured">Featured</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="property-info">
+                        <div class="property-content">
+                            <h3>{{ property.title|default:"Premium Property" }}</h3>
+                            {% if property.price %}
+                                <p class="property-price">₹{{ property.price|floatformat:"0" }}</p>
+                            {% endif %}
+                            <p class="property-address">{{ property.description }}</p>
+                            <div class="property-details">
+                                {% with pt=property.property_type.name %}
+                                {% if pt == 'APARTMENT' %}
+                                    {% if property.bedrooms %}<span><i class="fas fa-bed"></i> {{ property.bedrooms }} Beds</span>{% endif %}
+                                    {% if property.bathrooms %}<span><i class="fas fa-bath"></i> {{ property.bathrooms }} Baths</span>{% endif %}
+                                    {% if property.sqft %}<span><i class="fas fa-ruler-combined"></i> {{ property.sqft }} sq.ft</span>{% endif %}
+                                {% elif pt == 'VILLA' %}
+                                    {% if property.plot_area %}<span>Plot Area: {{ property.plot_area }} sq.ft</span>{% endif %}
+                                    {% if property.builtup_area %}<span>Built-up: {{ property.builtup_area }} sq.ft</span>{% endif %}
+                                {% elif pt == 'PLOT' %}
+                                    {% if property.plot_length and property.plot_width %}<span>Plot: {{ property.plot_length }} x {{ property.plot_width }} ft</span>{% endif %}
+                                {% endif %}
+                                {% endwith %}
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="property-info">
-                    <h3>{{ property.title|default:"Premium Property" }}</h3>
-                    {% if property.price %}
-                        <p class="property-price">₹{{ property.price|floatformat:"0" }}</p>
-                    {% endif %}
-                    <p>{{ property.description|truncatewords:15 }}</p>
-                    
-                    <div class="property-details">
-                        {% with pt=property.property_type.name %}
-                        {% if pt == 'APARTMENT' %}
-                            {% if property.bedrooms %}<span><i class="fas fa-bed"></i> {{ property.bedrooms }} Beds</span>{% endif %}
-                            {% if property.bathrooms %}<span><i class="fas fa-bath"></i> {{ property.bathrooms }} Baths</span>{% endif %}
-                            {% if property.sqft %}<span><i class="fas fa-ruler-combined"></i> {{ property.sqft }} sq.ft</span>{% endif %}
-                            {% if property.floor_number %}<span>Floor: {{ property.floor_number }}/{{ property.total_floors }}</span>{% endif %}
-                            {% if property.building_age %}<span>Age: {{ property.building_age }} yrs</span>{% endif %}
-                            {% if property.maintenance_charges %}<span>Maintenance: ₹{{ property.maintenance_charges }}</span>{% endif %}
-                        {% elif pt == 'VILLA' %}
-                            {% if property.plot_area %}<span>Plot Area: {{ property.plot_area }} sq.ft</span>{% endif %}
-                            {% if property.builtup_area %}<span>Built-up: {{ property.builtup_area }} sq.ft</span>{% endif %}
-                            {% if property.facing_direction %}<span>Facing: {{ property.facing_direction }}</span>{% endif %}
-                            {% if property.garden_area %}<span>Garden: {{ property.garden_area }} sq.ft</span>{% endif %}
-                        {% elif pt == 'PLOT' %}
-                            {% if property.plot_length and property.plot_width %}<span>Plot: {{ property.plot_length }} x {{ property.plot_width }} ft</span>{% endif %}
-                            {% if property.water_availability %}<span>Water: {{ property.water_availability }}</span>{% endif %}
-                            {% if property.soil_type %}<span>Soil: {{ property.soil_type }}</span>{% endif %}
-                        {% elif pt == 'COMMERCIAL' %}
-                            {% if property.commercial_type %}<span>Type: {{ property.commercial_type }}</span>{% endif %}
-                            {% if property.floor_height %}<span>Floor Height: {{ property.floor_height }} ft</span>{% endif %}
-                            {% if property.loading_capacity %}<span>Loading Capacity: {{ property.loading_capacity }}</span>{% endif %}
-                            {% if property.parking_capacity %}<span>Parking: {{ property.parking_capacity }}</span>{% endif %}
-                        {% elif pt == 'INDEPENDENT_HOUSE' %}
-                            {% if property.office_type %}<span>Type: {{ property.office_type }}</span>{% endif %}
-                            {% if property.furnishing_type %}<span>Furnishing: {{ property.furnishing_type }}</span>{% endif %}
-                            {% if property.conference_rooms %}<span>Conference Rooms: {{ property.conference_rooms }}</span>{% endif %}
-                            {% if property.reception_area %}<span>Reception: {{ property.reception_area }}</span>{% endif %}
-                        {% elif pt == 'TOWNHOUSE' %}
-                            {% if property.units_in_complex %}<span>Units in Complex: {{ property.units_in_complex }}</span>{% endif %}
-                            {% if property.corner_unit %}<span>Corner Unit: {{ property.corner_unit }}</span>{% endif %}
-                            {% if property.end_unit %}<span>End Unit: {{ property.end_unit }}</span>{% endif %}
-                            {% if property.hoa_fee %}<span>HOA Fee: ₹{{ property.hoa_fee }}</span>{% endif %}
-                        {% endif %}
-                        {% endwith %}
-                    </div>
-
-                    <a href="{% url 'mck_website:property_detail' property.id %}" class="btn">View Details</a>
-                </div>
-            </div>
+            </a>
             {% empty %}
             <div class="no-properties">
                 <div class="empty-state">
@@ -193,298 +136,176 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
 <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        
-        body {
-            font-family: 'Arial', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f8f9fa;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-        
-        .properties {
-            padding: 60px 0;
-            background-color: #f8f9fa;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 40px;
-            color: #2c3e50;
-            font-size: 32px;
-            font-weight: 700;
-            position: relative;
-            padding-bottom: 15px;
-        }
-        
-        .section-title:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 3px;
-            background-color: #FFD700;
-        }
-        
-        .properties-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); /* wider cards */
-            /* grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); */
-            gap: 25px;
-        }
-        
-        .property-card {
-            background: #fff;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            height: 100%;
-        }
-        
-        .property-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-        }
-        
-        .property-img {
-            position: relative;
-            height: 200px;
-            overflow: hidden;
-        }
-        
-        .property-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        
-        .property-card:hover .property-img img {
-            transform: scale(1.05);
-        }
-        
-        .property-badge {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        
-        .badge-type {
-            padding: 6px 12px;
-            border-radius: 30px;
-            font-size: 12px;
-            font-weight: 600;
-            color: #333;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            background-color: #ffd700;
-        }
-        
-        .badge-type i {
-            font-size: 10px;
-        }
-        
-        .badge-featured {
-            padding: 6px 12px;
-            border-radius: 30px;
-            font-size: 12px;
-            font-weight: 600;
-            background-color: #e74c3c;
-            color: white;
-        }
-        
-        .property-info {
-            padding: 20px;
-        }
-        
-        .property-info h3 {
-            font-size: 18px;
-            margin-bottom: 10px;
-            color: #2c3e50;
-            line-height: 1.3;
-        }
-        
-        .property-price {
-            font-size: 20px;
-            font-weight: 700;
-            color: #e74c3c;
-            margin-bottom: 10px;
-        }
-        
-        .property-info > p {
-            color: #7f8c8d;
-            margin-bottom: 15px;
-            line-height: 1.5;
-        }
-        
-        .property-details {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin: 15px 0;
-            font-size: 14px;
-            color: #7f8c8d;
-        }
-        
-        .property-details span {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        .property-details i {
-            color: #3498db;
-        }
-        
-        .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #FFD700;
-            color: black;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: background-color 0.3s ease;
-            text-align: center;
-            width: 100%;
-        }
-        
-        .btn:hover {
-            background-color: #f3f025;
-        }
-        
-        .empty-state {
-            text-align: center;
-            padding: 40px 20px;
-            grid-column: 1 / -1;
-        }
-        
-        .empty-state i {
-            color: #bdc3c7;
-            margin-bottom: 15px;
-        }
-        
-        .empty-state h4 {
-            color: #7f8c8d;
-            margin-bottom: 10px;
-            font-size: 22px;
-        }
-        
-        .empty-state p {
-            margin-bottom: 20px;
-            color: #95a5a6;
-        }
-        
-        .btn-contact {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 12px 25px;
-            background-color: #3498db;
-            color: white;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: background-color 0.3s ease;
-        }
-        
-        .btn-contact:hover {
-            background-color: #2980b9;
-        }
-        
-        /* Slider styles */
-        .properties-slider-container {
-            margin: 0 -15px;
-            padding: 0 15px 40px;
-            position: relative;
-        }
-        
-        .swiper {
-            padding: 10px 5px 40px;
-        }
-        
-        .swiper-slide {
-            height: auto;
-        }
-        
-        .swiper-button-next, .swiper-button-prev {
-            color: #2c3e50;
-            background: rgba(255, 255, 255, 0.9);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
-        }
-        
-        .swiper-button-next:hover, .swiper-button-prev:hover {
-            background: white;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-        }
-        
-        .swiper-button-next:after, .swiper-button-prev:after {
-            font-size: 18px;
-            font-weight: bold;
-        }
-        
-        .swiper-pagination {
-            bottom: 0;
-        }
-        
-        .swiper-pagination-bullet {
-            width: 12px;
-            height: 12px;
-            background: #bdc3c7;
-            opacity: 1;
-        }
-        
-        .swiper-pagination-bullet-active {
-            background: #2c3e50;
-        }
-        
-        @media (max-width: 768px) {
-            .properties-grid {
-                grid-template-columns: 1fr;
-                max-width: 400px;
-                margin: 0 auto;
-            }
-            
-            .section-title {
-                font-size: 28px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .properties {
-                padding: 40px 0;
-            }
-            
-            .section-title {
-                font-size: 24px;
-                margin-bottom: 30px;
-            }
-            
-            .property-img {
-                height: 180px;
-            }
-        }
-    </style>
+.property-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+/* Property Card */
+.property-card {
+     min-height: 320px;  /* reduce minimum height */
+    height: auto;  
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    min-height: 400px;
+    max-width: 380px;
+    margin: auto;
+    cursor: pointer;
+}
+.property-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.15);
+}
+
+/* Image */
+.property-img {
+    height: 220px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+.property-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+.property-card:hover .property-img img {
+    transform: scale(1.05);
+}
+.property-img::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40%;
+    background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+}
+
+/* Badges */
+.property-badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    z-index: 2;
+}
+.badge-type,
+.badge-featured {
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #0a0a0a;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.badge-type { background: linear-gradient(135deg, #ffbf00, #ffdf47); }
+.badge-featured { background: linear-gradient(135deg, #e74c3c, #ff7676); }
+
+/* Info */
+.property-info {
+    flex: 1;
+    padding: 15px 20px;
+    display: flex;
+    flex-direction: column;
+}
+.property-content {
+    flex: 1;
+    overflow: hidden;
+}
+.property-info h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: #2c3e50;
+}
+.property-price {
+    font-size: 18px;
+    font-weight: 700;
+    color: #e74c3c;
+    margin-bottom: 8px;
+}
+.property-address {
+    font-size: 14px;
+    color: #7f8c8d;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+.property-details {
+    font-size: 13px;
+    color: #555;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+.property-details span {
+    background: #f5f7fa;
+    border-radius: 6px;
+    padding: 4px 6px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.property-details i {
+    color: #f3f725;
+    font-size: 14px;
+}
+/* Swiper Navigation Arrows */
+.swiper-button-next,
+.swiper-button-prev {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: #fff;
+    color: #050505;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    font-size: 18px;
+}
+
+/* Hover Effect */
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+    background: #070707;
+    color: #fff;
+    transform: scale(1.1);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+}
+
+/* Position Tweaks */
+.swiper-button-next {
+    right: 15px;
+}
+.swiper-button-prev {
+    left: 15px;
+}
+
+/* Adjust default icon size */
+.swiper-button-next::after,
+.swiper-button-prev::after {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+</style>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -494,13 +315,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const filterButtons = document.querySelectorAll('.filter-btn');
     let propertiesSwiper = null;
     
-    // Determine whether to show slider or grid based on number of properties
     if (propertyCards.length > 4) {
-        // Show slider for more than 4 properties
         sliderContainer.style.display = 'block';
         gridContainer.style.display = 'none';
-        
-        // Initialize Swiper
         propertiesSwiper = new Swiper('.properties-slider', {
             slidesPerView: 1,
             spaceBetween: 20,
@@ -508,42 +325,25 @@ document.addEventListener('DOMContentLoaded', function() {
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev',
             },
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
+            pagination: { el: '.swiper-pagination', clickable: true },
             breakpoints: {
-                640: {
-                    slidesPerView: 2,
-                    spaceBetween: 20,
-                },
-                768: {
-                    slidesPerView: 3,
-                    spaceBetween: 25,
-                },
-                1024: {
-                    slidesPerView: 4, // Show 4 cards on desktop
-                    spaceBetween: 30,
-                },
+                640: { slidesPerView: 2, spaceBetween: 20 },
+                768: { slidesPerView: 3, spaceBetween: 25 },
+                1024: { slidesPerView: 4, spaceBetween: 30 },
             },
         });
     } else {
-        // Show grid for 4 or fewer properties
         sliderContainer.style.display = 'none';
         gridContainer.style.display = 'grid';
     }
 
-    // Property type filtering
     if (filterButtons.length) {
         filterButtons.forEach(button => {
             button.addEventListener('click', function() {
-                // Update active button
                 filterButtons.forEach(btn => btn.classList.remove('active'));
                 this.classList.add('active');
-                
                 const type = this.dataset.type;
                 let visibleCount = 0;
-                
                 propertyCards.forEach(card => {
                     if (type === 'all' || card.dataset.type === type) {
                         card.style.display = 'block';
@@ -552,26 +352,17 @@ document.addEventListener('DOMContentLoaded', function() {
                         card.style.display = 'none';
                     }
                 });
-                
-                // Update empty state if no properties match the filter
                 const emptyState = document.querySelector('.no-properties');
                 if (emptyState) {
                     emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
                 }
-                
-                // Reinitialize swiper if needed
-                if (propertiesSwiper) {
-                    propertiesSwiper.update();
-                }
+                if (propertiesSwiper) propertiesSwiper.update();
             });
         });
     }
 
-    // Window resize handler
     window.addEventListener('resize', function() {
-        if (propertiesSwiper) {
-            propertiesSwiper.update();
-        }
+        if (propertiesSwiper) propertiesSwiper.update();
     });
 });
 </script>
