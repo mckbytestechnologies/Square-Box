@@ -406,6 +406,174 @@
         flex-direction: column;
       }
     }
+     /* Hero Form - Single Line */
+    .hero-form {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      margin-top: 30px;
+    }
+    
+    .hero-form .form-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--dark);
+      text-align: center;
+    }
+    
+    .inline-form {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    .inline-form .form-input {
+      flex: 1;
+      min-width: 180px;
+      margin-bottom: 0;
+    }
+    
+    
+    
+    /* Form Styling */
+    .form-container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    }
+    
+    .form-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--dark);
+      text-align: center;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #444;
+    }
+    
+    .form-input {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+    
+    .form-input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(0, 80, 158, 0.2);
+    }
+    
+    textarea.form-input {
+      min-height: 100px;
+      resize: vertical;
+    }
+    
+    .btn {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .btn:hover {
+      background: #003b7a;
+      transform: translateY(-2px);
+    }
+    
+    .btn i {
+      margin-right: 8px;
+    }
+    
+    .success-message {
+      display: none;
+      background: #d4edda;
+      color: #155724;
+      padding: 12px;
+      border-radius: 8px;
+      margin-top: 20px;
+      text-align: center;
+    }
+    
+    .error-message {
+      display: none;
+      background: #f8d7da;
+      color: #721c24;
+      padding: 12px;
+      border-radius: 8px;
+      margin-top: 20px;
+      text-align: center;
+    }
+    
+    
+    
+    
+    
+    /* Contact Form - Single Line */
+    .contact-inline-form {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 15px;
+    }
+    
+    .contact-inline-form .form-group {
+      flex: 1;
+      min-width: 150px;
+      margin-bottom: 0;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+      }
+      
+      .hero-form {
+        margin: 30px auto;
+      }
+      
+      .inline-form {
+        flex-direction: column;
+      }
+      
+      .inline-form .form-input {
+        width: 100%;
+      }
+      
+      .contact-inline-form {
+        flex-direction: column;
+      }
+    }
   </style>
 </head>
 <body>
@@ -424,6 +592,30 @@
         <div class="col-lg-6">
           <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="img-fluid rounded-3" alt="Solar Roadmap">
         </div>
+         <div class="row mt-4">
+        <div class="col-lg-10 mx-auto">
+          <div class="hero-form">
+            <h3 class="form-title">Get Free Legal Consultation</h3>
+            <form id="heroEnquiryForm">
+              {% csrf_token %}
+              <div class="inline-form">
+                <input type="text" name="name" class="form-input" placeholder="Your Name" required>
+                <input type="tel" name="phone" class="form-input" placeholder="Phone Number" required>
+                <input type="hidden" name="message" value="Came from Homepage Hero Section">
+                <button type="submit" class="btn">
+                  <i class="fas fa-paper-plane"></i> Submit
+                </button>
+              </div>
+              <div id="heroSuccessMessage" class="success-message">
+                ✅ Your enquiry was submitted successfully!
+              </div>
+              <div id="heroErrorMessage" class="error-message">
+                ❌ <span id="heroErrorText"></span>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
       </div>
     </div>
   </section>
@@ -672,8 +864,8 @@
     <div class="container">
       <h2 class="section-title">Contact Us</h2>
       <div class="row">
-        <div class="col-lg-6 mb-4">
-          <div class="contact-info-s">
+        <div class="col-lg-5 mb-4">
+          <div class="contact-info-f">
             <h3 class="mb-4">Get In Touch</h3>
             
             <div class="contact-item">
@@ -715,21 +907,138 @@
                 <p>Always Open</p>
               </div>
             </div>
-            
-           
           </div>
         </div>
         
-        <div class="col-lg-6">
-          <div class="map-container">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15566.07407129524!2d79.132452!3d12.729999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDQzJzQ4LjAiTiA3OcKwMDcnNTYuOCJF!5e0!3m2!1sen!2sin!4v1623833221127!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        <div class="col-lg-7">
+          <div class="form-container">
+            <h3 class="form-title">Send us a Message</h3>
+            <form id="contactEnquiryForm">
+              {% csrf_token %}
+              
+              <!-- First row - single line -->
+              <div class="contact-inline-form">
+                <div class="form-group">
+                  <input type="text" name="name" class="form-input" placeholder="Full Name" required>
+                </div>
+                <div class="form-group">
+                  <input type="email" name="email" class="form-input" placeholder="Email Address" required>
+                </div>
+              </div>
+              
+              <!-- Second row - single line -->
+              <div class="contact-inline-form">
+                <div class="form-group">
+                  <input type="tel" name="phone" class="form-input" placeholder="Phone Number" required>
+                </div>
+                <div class="form-group">
+                  <input type="text" name="location" class="form-input" placeholder="Location" required>
+                </div>
+              </div>
+              
+              <!-- Message field -->
+              <div class="form-group">
+                <textarea name="message" class="form-input" placeholder="Tell us about your requirements..." required></textarea>
+              </div>
+              
+              <button type="submit" class="btn" style="width: 100%;">
+                <i class="fas fa-paper-plane"></i> Submit Enquiry
+              </button>
+              
+              <div id="contactSuccessMessage" class="success-message">
+                ✅ Your enquiry was submitted successfully!
+              </div>
+              <div id="contactErrorMessage" class="error-message">
+                ❌ <span id="contactErrorText"></span>
+              </div>
+            </form>
           </div>
         </div>
       </div>
     </div>
   </section>
-  <!-- Footer -->
-  
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Hero form submission
+      const heroForm = document.getElementById('heroEnquiryForm');
+      const heroSuccessMessage = document.getElementById('heroSuccessMessage');
+      const heroErrorMessage = document.getElementById('heroErrorMessage');
+      const heroErrorText = document.getElementById('heroErrorText');
+      
+      heroForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        submitForm(this, heroSuccessMessage, heroErrorMessage, heroErrorText);
+      });
+      
+      // Contact form submission
+      const contactForm = document.getElementById('contactEnquiryForm');
+      const contactSuccessMessage = document.getElementById('contactSuccessMessage');
+      const contactErrorMessage = document.getElementById('contactErrorMessage');
+      const contactErrorText = document.getElementById('contactErrorText');
+      
+      contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        submitForm(this, contactSuccessMessage, contactErrorMessage, contactErrorText);
+      });
+      
+      function submitForm(form, successElement, errorElement, errorTextElement) {
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        
+        // Show loading state
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+        submitBtn.disabled = true;
+        
+        successElement.style.display = 'none';
+        errorElement.style.display = 'none';
+        
+        const formData = new FormData(form);
+        
+        fetch("{% url 'mck_website:mck_ajax_enquiry_save' %}", {
+          method: "POST",
+          body: formData,
+          headers: {
+            "X-CSRFToken": getCSRFToken()
+          }
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.status === "success") {
+            successElement.style.display = "block";
+            form.reset();
+          } else {
+            errorTextElement.textContent = data.message || "There was an error submitting your enquiry";
+            errorElement.style.display = "block";
+          }
+        })
+        .catch(error => {
+          errorTextElement.textContent = "Network error. Please check your connection and try again.";
+          errorElement.style.display = "block";
+        })
+        .finally(() => {
+          submitBtn.innerHTML = originalText;
+          submitBtn.disabled = false;
+        });
+      }
+      
+      function getCSRFToken() {
+        const name = "csrftoken";
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== "") {
+          const cookies = document.cookie.split(";");
+          for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + "=")) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+            }
+          }
+        }
+        return cookieValue;
+      }
+    });
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 {% endblock %}

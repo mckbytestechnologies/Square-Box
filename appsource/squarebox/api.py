@@ -937,7 +937,7 @@ def ajax_maintenance_save(request):
     return result, message
 
 @app_logger.functionlogs(log=log_name)
-def ajax_enquiry_save(request):
+def ajax_eniry_save(request):
     result = False
     message = "Failed to save enquiry"
     
@@ -997,7 +997,7 @@ def ajax_enquiry_save(request):
     return result, message
 
 @app_logger.functionlogs(log=log_name)
-def ajax_equiry_save(request):
+def ajax_enquiry_save(request):
     result = False
     message = "Failed to save enquiry"
     

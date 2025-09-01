@@ -42,7 +42,8 @@
                                     <div class="property-content">
                                         <h3>{{ property.title|default:"Premium Property" }}</h3>
                                         {% if property.price %}
-                                            <p class="property-price">₹{{ property.price|floatformat:"0" }}</p>
+                                            <p class="property-
+                                            city"><i class="fa-solid fa-location-dot"></i> {{ property.city }}</p>
                                         {% endif %}
                                         <p class="property-address">{{ property.description }}</p>
                                     </div>
@@ -230,7 +231,7 @@
     margin-bottom: 5px;
     color: #2c3e50;
 }
-.property-price {
+.property-city {
     font-size: 18px;
     font-weight: 700;
     color: #e74c3c;

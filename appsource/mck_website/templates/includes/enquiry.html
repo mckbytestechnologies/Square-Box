@@ -3,14 +3,7 @@
 
 {% block content %}
   <style>
-    /* =========
-       CSS RESET
-       ========= */
-    *, *::before, *::after { box-sizing: border-box; }
-    html, body { height: 100%; }
-    body { margin: 0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; color: #0F172A; background: #EEF2F7; }
-    img { max-width: 100%; display: block; }
-
+   
     /* =========================================
        THE CARD (the big rounded white container)
        ========================================= */
@@ -49,17 +42,7 @@
       flex: 0 0 18px;
     }
     .brand-name { color: #0B1223; }
-    .nav {
-      display: flex;
-      gap: 28px;
-      font-weight: 500;
-    }
-    .nav a {
-      text-decoration: none;
-      color: #94A3B8;
-      transition: color .2s ease;
-    }
-    .nav a:hover { color: #0B1223; }
+    
 
     /* ===========================
        MAIN TWO-COLUMN LAYOUT
@@ -516,7 +499,7 @@
     function submitForm() {
       const formData = new FormData(form);
 
-      fetch("{% url 'vlr_website:mck_ajax_enquiry_save' %}", {
+      fetch("{% url 'mck_website:mck_ajax_enquiry_save' %}", {
         method: "POST",
         body: formData,
         headers: {

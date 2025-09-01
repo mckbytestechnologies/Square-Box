@@ -1,0 +1,210 @@
+
+    <style>
+       
+        
+        .fixed-bg {
+            background-image: url('https://i.pinimg.com/1200x/99/c9/54/99c954fe61d60100c58611588f101e9a.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+            height: 70vh;
+            width: 100%;
+            position: relative;
+        }
+        
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* background: rgba(0, 0, 0, 0.7); */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        
+        
+       
+        
+        h1 {
+            font-size: 3.5rem;
+            color: #fff;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .tagline {
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 40px;
+            max-width: 800px;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .btn-primary {
+            background: #ffbf00;
+            color: rgb(8, 8, 8);
+            border: 2px solid #ffbf00;
+        }
+        
+        .btn-primary:hover {
+            background: transparent;
+            color: #050505;
+        }
+        
+        .btn-secondary {
+            background: #ffbf00;
+            color: rgb(8, 8, 8);
+            border: 2px solid white;
+        }
+        
+        .btn-secondary:hover {
+            background: white;
+            color: #333;
+        }
+        
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        
+        .feature {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            width: 250px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature i {
+            font-size: 2.5rem;
+            color: #ffbf00;
+            margin-bottom: 15px;
+        }
+        
+        .feature h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .feature p {
+            color: #666;
+        }
+        
+        .stats {
+            background: #fff;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .stats h2 {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: #333;
+        }
+        
+        .stats-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .stat {
+            width: 200px;
+        }
+        
+        .stat i {
+            font-size: 2.5rem;
+            color: #ffbf00;
+            margin-bottom: 15px;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            color: #666;
+        }
+        
+       
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .tagline {
+                font-size: 1.2rem;
+            }
+            
+            .buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="fixed-bg">
+        <div class="overlay">
+          
+            <h1>Square Box</h1>
+            <h2>Find Your Dream Property</h2>
+            <p class="tagline text-dark">Looking to Buy a new property or Sell an existing one? RealHomes provides an easy solution!</p>
+            <div class="buttons">
+                <a href="{% url 'mck_website:mck_property_create_page' %}" class="btn btn-secondary">Submit Property</a>
+                <a href="{% url 'mck_website:mck_property_page' %}" class="btn btn-secondary">Browse Properties</a>
+            </div>
+            
+        </div>
+    </div>
+</body>
+</html>

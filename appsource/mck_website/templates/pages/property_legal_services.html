@@ -17,8 +17,65 @@
       line-height: 1.6;
     }
 
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, var(--primary) 60%, #fff 40%);
+      padding: 80px 0 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+    
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 20px;
+    }
+    
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      max-width: 600px;
+    }
+    
+    /* Hero Form - Single Line */
+    .hero-form {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      margin-top: 30px;
+    }
+    
+    .hero-form .form-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--dark);
+      text-align: center;
+    }
+    
+    .inline-form {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    .inline-form .form-input {
+      flex: 1;
+      min-width: 180px;
+      margin-bottom: 0;
+    }
+    
     /* Contact Section */
-    .contact {
+    .contact-section {
       padding: 80px 0;
       background: var(--light);
     }
@@ -28,6 +85,7 @@
       padding: 30px;
       border-radius: 12px;
       box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      height: 100%;
     }
     
     .contact-item {
@@ -47,6 +105,12 @@
       margin-right: 15px;
       flex-shrink: 0;
     }
+    
+    .contact-icon i {
+      color: var(--dark);
+      font-size: 1.2rem;
+    }
+    
     .map-container {
       border-radius: 12px;
       overflow: hidden;
@@ -54,30 +118,221 @@
       box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     }
     
-    .contact-icon i {
-      color: var(--dark);
-      font-size: 1.2rem;
+    /* Form Styling */
+    .form-container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
     }
-    /* Keep all CSS same as Solar Roadmap (just reused for consistency) */
-    .navbar { background-color: var(--secondary); padding: 15px 0; }
-    .navbar-brand { font-weight: 700; color: var(--primary); font-size: 1.8rem; }
-    .nav-link { color: #fff; margin: 0 10px; }
-    .nav-link:hover { color: var(--primary); }
-
-    .hero { background: linear-gradient(135deg, var(--primary) 60%, #fff 40%); padding: 100px 0; }
-    .hero h1 { font-size: 3rem; font-weight: 800; color: var(--dark); }
-    .hero p { font-size: 1.2rem; margin-bottom: 30px; max-width: 600px; }
-
-    .btn-primary { background-color: var(--accent); border-color: var(--accent); }
-    .btn-outline-primary { border-color: var(--primary); }
-
-    .section-title { font-size: 2.5rem; font-weight: 700; margin-bottom: 40px; text-align: center; }
-    .section-title::after { content: ''; display: block; margin: 10px auto; width: 80px; height: 4px; background: var(--primary); }
-
-    .features, .services, .process, .testimonials, .contact-section { padding: 80px 0; }
-    .feature-box, .service-card-1, .testimonial-card, .contact-info-s { border-radius: 12px; background: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
-
-    footer { background: var(--dark); color: #fff; padding: 60px 0 30px; }
+    
+    .form-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--dark);
+      text-align: center;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #444;
+    }
+    
+    .form-input {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+    
+    .form-input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(0, 80, 158, 0.2);
+    }
+    
+    textarea.form-input {
+      min-height: 100px;
+      resize: vertical;
+    }
+    
+    .btn {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .btn:hover {
+      background: #003b7a;
+      transform: translateY(-2px);
+    }
+    
+    .btn i {
+      margin-right: 8px;
+    }
+    
+    .success-message {
+      display: none;
+      background: #d4edda;
+      color: #155724;
+      padding: 12px;
+      border-radius: 8px;
+      margin-top: 20px;
+      text-align: center;
+    }
+    
+    .error-message {
+      display: none;
+      background: #f8d7da;
+      color: #721c24;
+      padding: 12px;
+      border-radius: 8px;
+      margin-top: 20px;
+      text-align: center;
+    }
+    
+    /* Section Titles */
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 40px;
+      text-align: center;
+      position: relative;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: var(--primary);
+    }
+    
+    /* Features */
+    .features {
+      padding: 80px 0;
+      background: var(--light);
+    }
+    
+    .feature-box {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      text-align: center;
+      height: 100%;
+      transition: transform 0.3s ease;
+    }
+    
+    .feature-box:hover {
+      transform: translateY(-10px);
+    }
+    
+    .feature-icon {
+      width: 70px;
+      height: 70px;
+      background: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+    }
+    
+    .feature-icon i {
+      font-size: 1.8rem;
+      color: var(--dark);
+    }
+    
+    /* Services */
+    .services {
+      padding: 80px 0;
+    }
+    
+    .service-card-1 {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      margin-bottom: 30px;
+      transition: transform 0.3s ease;
+      background: #fff;
+    }
+    
+    .service-card-1:hover {
+      transform: translateY(-10px);
+    }
+    
+    .service-img {
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+    }
+    
+    .service-content {
+      padding: 25px;
+    }
+    
+    /* Contact Form - Single Line */
+    .contact-inline-form {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 15px;
+    }
+    
+    .contact-inline-form .form-group {
+      flex: 1;
+      min-width: 150px;
+      margin-bottom: 0;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+      }
+      
+      .hero-form {
+        margin: 30px auto;
+      }
+      
+      .inline-form {
+        flex-direction: column;
+      }
+      
+      .inline-form .form-input {
+        width: 100%;
+      }
+      
+      .contact-inline-form {
+        flex-direction: column;
+      }
+    }
   </style>
 
   <!-- Hero Section -->
@@ -87,10 +342,35 @@
         <div class="col-lg-6 hero-content">
           <h1>Expert Property Legal Services</h1>
           <p>We provide trusted legal solutions for property buyers, sellers, and builders — ensuring compliance, safety, and peace of mind in every transaction.</p>
-          
         </div>
         <div class="col-lg-6">
           <img src="https://i.pinimg.com/1200x/53/f6/11/53f611f024f54432f064bd51839cd742.jpg" class="img-fluid rounded-3" alt="Property Legal Services">
+        </div>
+      </div>
+      
+      <!-- Hero Form - Single Line -->
+      <div class="row mt-4">
+        <div class="col-lg-10 mx-auto">
+          <div class="hero-form">
+            <h3 class="form-title">Get Free Legal Consultation</h3>
+            <form id="heroEnquiryForm">
+              {% csrf_token %}
+              <div class="inline-form">
+                <input type="text" name="name" class="form-input" placeholder="Your Name" required>
+                <input type="tel" name="phone" class="form-input" placeholder="Phone Number" required>
+                <input type="hidden" name="message" value="Came from Homepage Hero Section">
+                <button type="submit" class="btn">
+                  <i class="fas fa-paper-plane"></i> Submit
+                </button>
+              </div>
+              <div id="heroSuccessMessage" class="success-message">
+                ✅ Your enquiry was submitted successfully!
+              </div>
+              <div id="heroErrorMessage" class="error-message">
+                ❌ <span id="heroErrorText"></span>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
@@ -101,23 +381,29 @@
     <div class="container">
       <h2 class="section-title">Why Choose Our Legal Services?</h2>
       <div class="row">
-        <div class="col-md-4">
-          <div class="feature-box p-4 text-center">
-            <div class="feature-icon"><i class="fas fa-balance-scale"></i></div>
+        <div class="col-md-4 mb-4">
+          <div class="feature-box">
+            <div class="feature-icon">
+              <i class="fas fa-balance-scale"></i>
+            </div>
             <h4>Trusted Expertise</h4>
             <p>Experienced legal professionals specializing in property and real estate law.</p>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="feature-box p-4 text-center">
-            <div class="feature-icon"><i class="fas fa-file-contract"></i></div>
+        <div class="col-md-4 mb-4">
+          <div class="feature-box">
+            <div class="feature-icon">
+              <i class="fas fa-file-contract"></i>
+            </div>
             <h4>Clear Documentation</h4>
             <p>We ensure all agreements and contracts are legally sound and transparent.</p>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="feature-box p-4 text-center">
-            <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+        <div class="col-md-4 mb-4">
+          <div class="feature-box">
+            <div class="feature-icon">
+              <i class="fas fa-shield-alt"></i>
+            </div>
             <h4>Dispute Protection</h4>
             <p>Protect your property from fraud, disputes, and legal complications.</p>
           </div>
@@ -133,8 +419,8 @@
       <div class="row">
         <div class="col-md-6 col-lg-4 mb-4">
           <div class="service-card-1">
-            <div class="service-img" style="background-image:url('https://i.pinimg.com/736x/3f/ea/6d/3fea6d2d24d08a531a0981b1e97cfcd1.jpg'); height:200px;"></div>
-            <div class="service-content p-3">
+            <div class="service-img" style="background-image:url('https://i.pinimg.com/736x/3f/ea/6d/3fea6d2d24d08a531a0981b1e97cfcd1.jpg');"></div>
+            <div class="service-content">
               <h4>Title Verification</h4>
               <p>Ensure the property title is clear, legal, and free from disputes before purchase.</p>
               <a href="#" class="btn btn-sm btn-outline-dark">Learn More</a>
@@ -143,8 +429,8 @@
         </div>
         <div class="col-md-6 col-lg-4 mb-4">
           <div class="service-card-1">
-            <div class="service-img" style="background-image:url('https://i.pinimg.com/1200x/82/2f/aa/822faa140350e17e4ec1791297df2df3.jpg'); height:200px;"></div>
-            <div class="service-content p-3">
+            <div class="service-img" style="background-image:url('https://i.pinimg.com/1200x/82/2f/aa/822faa140350e17e4ec1791297df2df3.jpg');"></div>
+            <div class="service-content">
               <h4>Sale & Purchase Agreements</h4>
               <p>Drafting and reviewing sale deeds, agreements, and contracts for smooth transactions.</p>
               <a href="#" class="btn btn-sm btn-outline-dark">Learn More</a>
@@ -153,8 +439,8 @@
         </div>
         <div class="col-md-6 col-lg-4 mb-4">
           <div class="service-card-1">
-            <div class="service-img" style="background-image:url('https://i.pinimg.com/736x/7a/ef/1b/7aef1b9c8ac9f1bb2091c28cdfb1e00f.jpg'); height:200px;"></div>
-            <div class="service-content p-3">
+            <div class="service-img" style="background-image:url('https://i.pinimg.com/736x/7a/ef/1b/7aef1b9c8ac9f1bb2091c28cdfb1e00f.jpg');"></div>
+            <div class="service-content">
               <h4>Property Registration</h4>
               <p>Complete guidance for registering your property with local authorities hassle-free.</p>
               <a href="#" class="btn btn-sm btn-outline-dark">Learn More</a>
@@ -163,8 +449,8 @@
         </div>
         <div class="col-md-6 col-lg-4 mb-4">
           <div class="service-card-1">
-            <div class="service-img" style="background-image:url('https://i.pinimg.com/1200x/f2/bf/e8/f2bfe858c1b6a534f9024fade68aacc2.jpg'); height:200px;"></div>
-            <div class="service-content p-3">
+            <div class="service-img" style="background-image:url('https://i.pinimg.com/1200x/f2/bf/e8/f2bfe858c1b6a534f9024fade68aacc2.jpg');"></div>
+            <div class="service-content">
               <h4>Builder & Buyer Agreements</h4>
               <p>Protect your rights with properly drafted agreements between builders and buyers.</p>
               <a href="#" class="btn btn-sm btn-outline-dark">Learn More</a>
@@ -173,8 +459,8 @@
         </div>
         <div class="col-md-6 col-lg-4 mb-4">
           <div class="service-card-1">
-            <div class="service-img" style="background-image:url('https://i.pinimg.com/736x/ae/ce/86/aece8604b4336dcd836aaa220acf84ae.jpg'); height:200px;"></div>
-            <div class="service-content p-3">
+            <div class="service-img" style="background-image:url('https://i.pinimg.com/736x/ae/ce/86/aece8604b4336dcd836aaa220acf84ae.jpg');"></div>
+            <div class="service-content">
               <h4>Dispute Resolution</h4>
               <p>Legal assistance for resolving property disputes, encroachments, or litigation.</p>
               <a href="#" class="btn btn-sm btn-outline-dark">Learn More</a>
@@ -183,8 +469,8 @@
         </div>
         <div class="col-md-6 col-lg-4 mb-4">
           <div class="service-card-1">
-            <div class="service-img" style="background-image:url('https://i.pinimg.com/736x/e3/b9/91/e3b99121741256f702b420ffaf26b8e1.jpg'); height:200px;"></div>
-            <div class="service-content p-3">
+            <div class="service-img" style="background-image:url('https://i.pinimg.com/736x/e3/b9/91/e3b99121741256f702b420ffaf26b8e1.jpg');"></div>
+            <div class="service-content">
               <h4>Legal Compliance</h4>
               <p>Guidance for property tax, stamp duty, and regulatory compliance to avoid penalties.</p>
               <a href="#" class="btn btn-sm btn-outline-dark">Learn More</a>
@@ -195,13 +481,12 @@
     </div>
   </section>
 
-  <!-- Contact -->
-   <!-- Contact Section -->
+  <!-- Contact Section -->
   <section class="contact-section" id="contact">
     <div class="container">
       <h2 class="section-title">Contact Us</h2>
       <div class="row">
-        <div class="col-lg-6 mb-4">
+        <div class="col-lg-5 mb-4">
           <div class="contact-info-f">
             <h3 class="mb-4">Get In Touch</h3>
             
@@ -244,18 +529,136 @@
                 <p>Always Open</p>
               </div>
             </div>
-            
-           
           </div>
         </div>
         
-        <div class="col-lg-6">
-          <div class="map-container">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15566.07407129524!2d79.132452!3d12.729999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDQzJzQ4LjAiTiA3OcKwMDcnNTYuOCJF!5e0!3m2!1sen!2sin!4v1623833221127!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        <div class="col-lg-7">
+          <div class="form-container">
+            <h3 class="form-title">Send us a Message</h3>
+            <form id="contactEnquiryForm">
+              {% csrf_token %}
+              
+              <!-- First row - single line -->
+              <div class="contact-inline-form">
+                <div class="form-group">
+                  <input type="text" name="name" class="form-input" placeholder="Full Name" required>
+                </div>
+                <div class="form-group">
+                  <input type="email" name="email" class="form-input" placeholder="Email Address" required>
+                </div>
+              </div>
+              
+              <!-- Second row - single line -->
+              <div class="contact-inline-form">
+                <div class="form-group">
+                  <input type="tel" name="phone" class="form-input" placeholder="Phone Number" required>
+                </div>
+                <div class="form-group">
+                  <input type="text" name="location" class="form-input" placeholder="Location" required>
+                </div>
+              </div>
+              
+              <!-- Message field -->
+              <div class="form-group">
+                <textarea name="message" class="form-input" placeholder="Tell us about your requirements..." required></textarea>
+              </div>
+              
+              <button type="submit" class="btn" style="width: 100%;">
+                <i class="fas fa-paper-plane"></i> Submit Enquiry
+              </button>
+              
+              <div id="contactSuccessMessage" class="success-message">
+                ✅ Your enquiry was submitted successfully!
+              </div>
+              <div id="contactErrorMessage" class="error-message">
+                ❌ <span id="contactErrorText"></span>
+              </div>
+            </form>
           </div>
         </div>
       </div>
     </div>
   </section>
 
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Hero form submission
+      const heroForm = document.getElementById('heroEnquiryForm');
+      const heroSuccessMessage = document.getElementById('heroSuccessMessage');
+      const heroErrorMessage = document.getElementById('heroErrorMessage');
+      const heroErrorText = document.getElementById('heroErrorText');
+      
+      heroForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        submitForm(this, heroSuccessMessage, heroErrorMessage, heroErrorText);
+      });
+      
+      // Contact form submission
+      const contactForm = document.getElementById('contactEnquiryForm');
+      const contactSuccessMessage = document.getElementById('contactSuccessMessage');
+      const contactErrorMessage = document.getElementById('contactErrorMessage');
+      const contactErrorText = document.getElementById('contactErrorText');
+      
+      contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        submitForm(this, contactSuccessMessage, contactErrorMessage, contactErrorText);
+      });
+      
+      function submitForm(form, successElement, errorElement, errorTextElement) {
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        
+        // Show loading state
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+        submitBtn.disabled = true;
+        
+        successElement.style.display = 'none';
+        errorElement.style.display = 'none';
+        
+        const formData = new FormData(form);
+        
+        fetch("{% url 'mck_website:mck_ajax_enquiry_save' %}", {
+          method: "POST",
+          body: formData,
+          headers: {
+            "X-CSRFToken": getCSRFToken()
+          }
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.status === "success") {
+            successElement.style.display = "block";
+            form.reset();
+          } else {
+            errorTextElement.textContent = data.message || "There was an error submitting your enquiry";
+            errorElement.style.display = "block";
+          }
+        })
+        .catch(error => {
+          errorTextElement.textContent = "Network error. Please check your connection and try again.";
+          errorElement.style.display = "block";
+        })
+        .finally(() => {
+          submitBtn.innerHTML = originalText;
+          submitBtn.disabled = false;
+        });
+      }
+      
+      function getCSRFToken() {
+        const name = "csrftoken";
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== "") {
+          const cookies = document.cookie.split(";");
+          for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + "=")) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+            }
+          }
+        }
+        return cookieValue;
+      }
+    });
+  </script>
 {% endblock %}

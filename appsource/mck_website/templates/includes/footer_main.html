@@ -100,7 +100,7 @@
             transform: translateY(-3px);
         }
         
-        .footer-heading {
+        .footer-heading-f {
             font-size: 18px;
             font-weight: 600;
             margin-bottom: 20px;
@@ -109,7 +109,7 @@
             padding-bottom: 10px;
         }
         
-        .footer-heading::after {
+        .footer-heading-f::after {
             content: '';
             position: absolute;
             left: 0;
@@ -213,7 +213,7 @@
                 text-align: center;
             }
             
-            .footer-heading::after {
+            .footer-heading-f::after {
                 left: 50%;
                 transform: translateX(-50%);
             }
@@ -269,7 +269,7 @@
                 margin-bottom: 40px;
             }
             
-            .footer-heading {
+            .footer-heading-f {
                 font-size: 16px;
             }
             
@@ -337,7 +337,7 @@
                 </div>
                 
                 <div class="footer-links-column">
-                    <h4 class="footer-heading">Quick Links</h4>
+                    <h4 class="footer-heading-f">Quick Links</h4>
                     <ul class="footer-links">
                         <li><a href="{% url 'mck_website:mck_property_page' %}"><i class="fas fa-chevron-right"></i> Buy Property</a></li>
                         <li><a href="{% url 'mck_website:mck_property_create_page' %}"><i class="fas fa-chevron-right"></i> Rent Property</a></li>
@@ -348,7 +348,7 @@
                 </div>
                 
                 <div class="footer-links-column">
-                    <h4 class="footer-heading">Company</h4>
+                    <h4 class="footer-heading-f">Company</h4>
                     <ul class="footer-links">
                         {% comment %} <li><a href="{% url 'mck_website:about_page' %}"><i class="fas fa-chevron-right"></i> About Us</a></li> {% endcomment %}
                         {% comment %} <li><a href=""><i class="fas fa-chevron-right"></i> Service</a></li> {% endcomment %}
@@ -363,7 +363,7 @@
                 </div>
                 
                 <div class="footer-links-column">
-                    <h4 class="footer-heading">Contact Info</h4>
+                    <h4 class="footer-heading-f">Contact Info</h4>
                     <ul class="contact-info">
                         <li>
                             <i class="fas fa-map-marker-alt"></i>
