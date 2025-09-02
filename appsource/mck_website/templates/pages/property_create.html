@@ -17,7 +17,71 @@
       color: #333;
       line-height: 1.6;
     }
-    
+      /* ================= AUTH SECTION ================= */
+    .auth-required-section {
+      padding: 80px 0;
+      background-color: #f8f9fa;
+      text-align: center;
+    }
+    .auth-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 6px 30px rgba(0, 0, 0, 0.08);
+      padding: 40px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .auth-icon {
+      font-size: 64px;
+      color: #3498db;
+      margin-bottom: 20px;
+    }
+    .auth-title {
+      color: #2c3e50;
+      font-weight: 700;
+      font-size: 28px;
+      margin-bottom: 15px;
+    }
+    .auth-message {
+      color: #7f8c8d;
+      font-size: 16px;
+      margin-bottom: 30px;
+    }
+    .auth-buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-auth {
+      padding: 12px 30px;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    .btn-login {
+      background-color: #3498db;
+      color: white;
+      border: 2px solid #3498db;
+    }
+    .btn-login:hover {
+      background-color: #2980b9;
+      border-color: #2980b9;
+      transform: translateY(-2px);
+    }
+    .btn-signup {
+      background-color: white;
+      color: #3498db;
+      border: 2px solid #3498db;
+    }
+    .btn-signup:hover {
+      background-color: #f8fafc;
+      color: #2980b9;
+      border-color: #2980b9;
+      transform: translateY(-2px);
+    }
+
     
     /* Hero Section */
     .hero {
@@ -378,6 +442,95 @@
                 width: 100%;
             }
         }
+
+         .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: white;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .faq-question {
+            padding: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            padding: 0 20px 20px;
+            color: var(--text-light);
+        }
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .benefit-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .benefit-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(37, 99, 235, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .benefit-icon i {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        .benefit-card h3 {
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
     </style>
 </head>
 <body>
@@ -401,6 +554,7 @@
     </div>
   </section>
     
+  {% if user.is_authenticated %}
     <div class="property-creation-container">
         <div class="container">
             <div class="row justify-content-center">
@@ -809,11 +963,108 @@
                                 </button>
                             </div>
                         </form>
+                         {{ block.super }}
                     </div>
                 </div>
             </div>
         </div>
     </div>
+  {% else %}
+  <section class="auth-required-section">
+      <div class="container">
+        <div class="auth-card">
+          <div class="auth-icon"><i class="fas fa-lock"></i></div>
+          <h2 class="auth-title">Authentication Required</h2>
+          <p class="auth-message">Please login or create an account to list your property.</p>
+          <div class="auth-buttons">
+            <a href="{% url 'mck_auth:website_signin' %}" class="btn-auth btn-login"><i class="fas fa-sign-in-alt me-2"></i> Login</a>
+            <a href="{% url 'mck_auth:website_signup' %}" class="btn-auth btn-signup"><i class="fas fa-user-plus me-2"></i> Create Account</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  {% endif %}
+
+
+  <!-- Security Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="text-center">Your Security is Our Priority</h2>
+                <!-- <p>We implement robust measures to protect your information and property</p> -->
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>Data Privacy</h3>
+                    <p>Your personal information is encrypted and never shared without your permission.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <h3>Verified Visitors</h3>
+                    <p>We screen all potential buyers/tenants before they visit your property.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <h3>Controlled Viewings</h3>
+                    <h6>You maintain full control over when your property can be viewed.</h6>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section" style="background-color: #f1f5f9;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Frequently Asked Questions</h2>
+                <!-- <p>Get answers to common questions about listing your property</p> -->
+            </div>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Is there any cost to list my property? <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Listing your property on SquareBox is completely free. We only charge a success fee once your property is successfully sold or rented through our platform.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How long does it take to list a property? <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our streamlined process takes just 10-15 minutes to complete your listing. Once submitted, our team will verify and activate your listing within 24 hours.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Can I update my listing after publishing? <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, you can easily update your listing anytime through your dashboard. You can change photos, description, price, and other details as needed.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How do you help me determine the right price? <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our pricing tool analyzes similar properties in your area and current market trends to suggest an optimal price range. Our experts can also provide a free valuation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
 {% include "includes/property_display.html" %}
     <!-- jQuery and Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -995,6 +1246,17 @@
             }, 500);
         }
     });
+
+     // FAQ toggle functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+                const icon = question.querySelector('i');
+                icon.classList.toggle('fa-chevron-down');
+                icon.classList.toggle('fa-chevron-up');
+            });
+        });
     </script>
     
  

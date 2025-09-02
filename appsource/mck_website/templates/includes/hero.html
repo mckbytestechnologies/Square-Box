@@ -215,6 +215,22 @@
         background: #fff;
     }
 }
+.tab-dropdown {
+  padding: .6rem 1rem;
+  font-weight: 600;
+  border: 1px solid #000;
+  border-radius: 8px;
+  background: #fff;
+  color: #000;
+  cursor: pointer;
+  transition: 0.3s;
+  min-width: 130px;
+}
+
+.tab-dropdown:hover {
+  border-color: #333;
+}
+
 
 </style>
 
@@ -226,9 +242,15 @@
 
     <!-- Tabs -->
     <div class="tabs-1" id="propertyTabs">
+
+       <select id="listingDropdown" class="tab-dropdown" data-target="listing">
+        <option class="tab-btn" data-target="listing" data-value="">Buy/Rent</option>
+          <option class="tab-btn active" data-target="listing" data-value="sale">Buy</option>
+          <option class="tab-btn" data-target="listing" data-value="rent">Rent</option>
+        </select>
       <!-- Buy & Rent -->
-      <button class="tab-btn active" data-target="listing" data-value="sale">Buy</button>
-      <button class="tab-btn" data-target="listing" data-value="rent">Rent</button>
+      <!-- <button class="tab-btn active" data-target="listing" data-value="sale">Buy</button>
+      <button class="tab-btn" data-target="listing" data-value="rent">Rent</button> -->
       <!-- Property Types -->
       <button class="tab-btn active" data-target="property" data-value="APARTMENT">Apartment</button>
       <button class="tab-btn" data-target="property" data-value="VILLA">Villa</button>
@@ -271,6 +293,27 @@
 </section>
 
 <script>
+
+  // Handle Buy/Rent dropdown
+document.getElementById("listingDropdown").addEventListener("change", function () {
+  document.getElementById("selectedListing").value = this.value;
+});
+
+// Handle property type buttons
+document.querySelectorAll("#propertyTabs .tab-btn").forEach(btn => {
+  btn.addEventListener("click", function () {
+    // Remove active only from property group
+    document.querySelectorAll(`#propertyTabs .tab-btn[data-target="property"]`)
+      .forEach(b => b.classList.remove("active"));
+
+    this.classList.add("active");
+
+    // Update hidden input
+    document.getElementById("selectedType").value = this.dataset.value;
+  });
+});
+
+
   document.querySelectorAll("#propertyTabs .tab-btn").forEach(btn => {
   btn.addEventListener("click", function () {
     // Remove active only from same target group

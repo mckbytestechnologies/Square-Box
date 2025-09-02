@@ -53,7 +53,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # Add this for static files
+    'whitenoise.middleware.WhiteNoiseMiddleware',  
+    'mck_auth.middleware.AdminAccessMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'

@@ -790,7 +790,13 @@ def build_lead_table(request):
                                           can_show=True,
                                           class_name="",
                                           column_name="name",
-                                          search_key="name"))  
+                                          search_key="name")) 
+
+        table_data["columns"].append(dict(display_name="Message",  
+                                          can_show=True,
+                                          class_name="",
+                                          column_name="message",
+                                          search_key="message"))  
 
  
 

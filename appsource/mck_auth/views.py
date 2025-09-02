@@ -47,7 +47,7 @@ class LandingPage(TemplateView):
 
 class SignIn(TemplateView):
     """
-    Login Page
+    Admin Login Page
     """
     template_name = "signin.html"
 
@@ -65,7 +65,7 @@ class SignIn(TemplateView):
 
     @app_logger.functionlogs(log=LOG_NAME)
     def post(self, request, *args, **kwargs):
-        result, message, data = api.user_login(request)
+        result, message, data = api.user_login(request, for_admin=True)
         logger.info(f"{result} {message} {data}")
         if result:
             gDict = request.GET
@@ -80,14 +80,106 @@ class SignIn(TemplateView):
         return render(request, self.template_name, context)
 
 
+class WebsiteSignIn(TemplateView):
+    """
+    Website User Login Page
+    """
+    template_name = "auth/website_signin.html"
+
+    @app_logger.functionlogs(log=LOG_NAME)
+    def get(self, request, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_kwargs'] = seo.get_page_tags("website_signin")
+        if request.user.is_authenticated:
+            # Redirect to website home if already logged in
+            return HttpResponseRedirect(reverse("mck_website:home_page"))
+        return render(request, self.template_name, context)
+
+    @app_logger.functionlogs(log=LOG_NAME)
+    def post(self, request, *args, **kwargs):
+        result, message, data = api.user_login(request, for_admin=False)
+        logger.info(f"{result} {message} {data}")
+        if result:
+            return HttpResponseRedirect(reverse("mck_website:home_page"))
+        context = super().get_context_data(**kwargs)
+        context['page_kwargs'] = seo.get_page_tags("website_signin")
+        context['message'] = message
+        context['data'] = data
+        return render(request, self.template_name, context)
+
+
+class WebsiteSignUp(TemplateView):
+    """
+    Website User Registration Page
+    """
+    template_name = "auth/website_signup.html"
+
+    @app_logger.functionlogs(log=LOG_NAME)
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return HttpResponseRedirect(reverse("mck_website:home_page"))
+        
+        context = super().get_context_data(**kwargs)
+        context['page_kwargs'] = seo.get_page_tags("website_signup")
+        return render(request, self.template_name, context)
+
+    @csrf_exempt
+    @app_logger.functionlogs(log=LOG_NAME)
+    def post(self, request, *args, **kwargs):
+        result, message, data = api.website_user_register(request)
+        if result:
+            # Auto-login after registration
+            login_result, login_message, login_data = api.user_login(request, for_admin=False)
+            if login_result:
+                return HttpResponseRedirect(reverse("mck_website:home_page"))
+        
+        context = super().get_context_data(**kwargs)
+        context['page_kwargs'] = seo.get_page_tags("website_signup")
+        context['message'] = message
+        context['form_data'] = request.POST
+        return render(request, self.template_name, context)
+
+
 class LogOut(RedirectView):
     """
-    LogOut Page
+    Admin LogOut Page
     """
     @app_logger.functionlogs(log=LOG_NAME)
     def get_redirect_url(self, **kwargs):
         auth_logout(self.request)
         return reverse("mck_admin_console:mck_landing_page")
+
+
+class WebsiteLogOut(RedirectView):
+    """
+    Website User LogOut Page
+    """
+    @app_logger.functionlogs(log=LOG_NAME)
+    def get_redirect_url(self, **kwargs):
+        auth_logout(self.request)
+        return reverse("mck_website:home_page")
+    
+# mck_auth/views.py
+class WebsitePasswordReset(TemplateView):
+    """
+    Website User Password Reset
+    """
+    template_name = "website_password_reset.html"
+
+    @app_logger.functionlogs(log=LOG_NAME)
+    def get(self, request, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_kwargs'] = seo.get_page_tags("website_password_reset")
+        return render(request, self.template_name, context)
+
+    @csrf_exempt
+    @app_logger.functionlogs(log=LOG_NAME)
+    def post(self, request, *args, **kwargs):
+        # Implement password reset logic here
+        context = super().get_context_data(**kwargs)
+        context['page_kwargs'] = seo.get_page_tags("website_password_reset")
+        context['message'] = "Password reset instructions sent to your email."
+        return render(request, self.template_name, context)
 
 
 @method_decorator(login_required(login_url=settings.LOGIN_REDIRECT_URL), name='dispatch')

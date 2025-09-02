@@ -1,751 +1,1031 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>நில சமனாக்கம் | Tamil Nadu Land Leveling Solutions</title>
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block content %}
+<body>
+    
+
+    <!-- Trust Badges Section -->
+    <section class="trust-badges">
+        <div class="container">
+            <div class="badges-grid">
+                <div class="badge-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <h4>Verified Listings</h4>
+                    <p>Every property is thoroughly verified for authenticity</p>
+                </div>
+                <div class="badge-item">
+                    <i class="fas fa-handshake"></i>
+                    <h4>Trusted Agents</h4>
+                    <p>Professional and certified real estate experts</p>
+                </div>
+                <div class="badge-item">
+                    <i class="fas fa-lock"></i>
+                    <h4>Secure Transactions</h4>
+                    <p>Safe and transparent property dealings</p>
+                </div>
+                <div class="badge-item">
+                    <i class="fas fa-headset"></i>
+                    <h4>24/7 Support</h4>
+                    <p>Always available to assist you</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   
+    <!-- Properties Listing Section -->
+    <section class="properties-listing">
+        <div class="container">
+            <h2>Featured Properties</h2>
+
+            <!-- Property type filter buttons -->
+            <div class="property-type-filter">
+                <button class="filter-btn active" data-type="all">All Properties</button>
+                {% for type in property_types %}
+                    <button class="filter-btn" data-type="{{ type.name }}">{{ type.name|title }}</button>
+                {% endfor %}
+            </div>
+            
+            {% if properties %}
+                <div class="properties-grid">
+                    {% for prop in properties %}
+                        <div class="property-card" data-city="{{ prop.city }}" data-type="{{ prop.property_type.name }}">
+                            <div class="property-image">
+                                {% if prop.property_images_list.first %}
+                                    <img src="{{ prop.property_images_list.first.image.url }}" alt="{{ prop.title }}">
+                                {% else %}
+                                    <img src="{% static 'images/default-property.jpg' %}" alt="Default property image">
+                                {% endif %}
+                                <div class="property-badge">
+                                    <!-- Property type badge with icon -->
+                                    <span class="badge-type badge-{{ prop.property_type.name|lower }}">
+                                        <i class="fas 
+                                            {% if prop.property_type.name == 'APARTMENT' %}fa-building
+                                            {% elif prop.property_type.name == 'VILLA' %}fa-home
+                                            {% elif prop.property_type.name == 'PLOT' %}fa-vector-square
+                                            {% elif prop.property_type.name == 'COMMERCIAL' %}fa-store
+                                            {% elif prop.property_type.name == 'INDEPENDENT_HOUSE' %}fa-house-user
+                                            {% elif prop.property_type.name == 'TOWNHOUSE' %}fa-city
+                                            {% else %}fa-home{% endif %}">
+                                        </i>
+                                        {{ prop.property_type.name|default:"Premium"|title }}
+                                    </span>
+                                    {% if prop.is_featured %}
+                                        <span class="badge-featured">Featured</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="property-content">
+                                <h3 class="property-title">{{ prop.title }}</h3>
+                                <div class="property-location">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    {{ prop.city }}, {{ prop.state }}
+                                </div>
+                                <!-- <div class="property-price">₹{{ prop.price|floatformat:"0" }}</div> -->
+                                
+                                <!-- Property details based on type -->
+                                <div class="property-details">
+                                    {% with pt=prop.property_type.name %}
+                                    {% if pt == 'APARTMENT' %}
+                                        {% if prop.bedrooms %}<span><i class="fas fa-bed"></i> {{ prop.bedrooms }} Beds</span>{% endif %}
+                                        {% if prop.bathrooms %}<span><i class="fas fa-bath"></i> {{ prop.bathrooms }} Baths</span>{% endif %}
+                                        {% if prop.sqft %}<span><i class="fas fa-ruler-combined"></i> {{ prop.sqft }} sq.ft</span>{% endif %}
+                                        {% if prop.floor_number %}<span>Floor: {{ prop.floor_number }}/{{ prop.total_floors }}</span>{% endif %}
+                                        {% if prop.building_age %}<span>Age: {{ prop.building_age }} yrs</span>{% endif %}
+                                        {% if prop.maintenance_charges %}<span>Maintenance: ₹{{ prop.maintenance_charges }}</span>{% endif %}
+                                    {% elif pt == 'VILLA' %}
+                                        {% if prop.plot_area %}<span>Plot Area: {{ prop.plot_area }} sq.ft</span>{% endif %}
+                                        {% if prop.builtup_area %}<span>Built-up: {{ prop.builtup_area }} sq.ft</span>{% endif %}
+                                        {% if prop.facing_direction %}<span>Facing: {{ prop.facing_direction }}</span>{% endif %}
+                                        {% if prop.garden_area %}<span>Garden: {{ prop.garden_area }} sq.ft</span>{% endif %}
+                                    {% elif pt == 'PLOT' %}
+                                        {% if prop.plot_length and prop.plot_width %}<span>Plot: {{ prop.plot_length }} x {{ prop.plot_width }} ft</span>{% endif %}
+                                        {% if prop.water_availability %}<span>Water: {{ prop.water_availability }}</span>{% endif %}
+                                        {% if prop.soil_type %}<span>Soil: {{ prop.soil_type }}</span>{% endif %}
+                                    {% elif pt == 'COMMERCIAL' %}
+                                        {% if prop.commercial_type %}<span>Type: {{ prop.commercial_type }}</span>{% endif %}
+                                        {% if prop.floor_height %}<span>Floor Height: {{ prop.floor_height }} ft</span>{% endif %}
+                                        {% if prop.loading_capacity %}<span>Loading Capacity: {{ prop.loading_capacity }}</span>{% endif %}
+                                        {% if prop.parking_capacity %}<span>Parking: {{ prop.parking_capacity }}</span>{% endif %}
+                                    {% elif pt == 'INDEPENDENT_HOUSE' %}
+                                        {% if prop.office_type %}<span>Type: {{ prop.office_type }}</span>{% endif %}
+                                        {% if prop.furnishing_type %}<span>Furnishing: {{ prop.furnishing_type }}</span>{% endif %}
+                                        {% if prop.conference_rooms %}<span>Conference Rooms: {{ prop.conference_rooms }}</span>{% endif %}
+                                        {% if prop.reception_area %}<span>Reception: {{ prop.reception_area }}</span>{% endif %}
+                                    {% elif pt == 'TOWNHOUSE' %}
+                                        {% if prop.units_in_complex %}<span>Units in Complex: {{ prop.units_in_complex }}</span>{% endif %}
+                                        {% if prop.corner_unit %}<span>Corner Unit: {{ prop.corner_unit }}</span>{% endif %}
+                                        {% if prop.end_unit %}<span>End Unit: {{ prop.end_unit }}</span>{% endif %}
+                                        {% if prop.hoa_fee %}<span>HOA Fee: ₹{{ prop.hoa_fee }}</span>{% endif %}
+                                    {% else %}
+                                        <!-- Default details for unknown property types -->
+                                        {% if prop.bedrooms %}<span><i class="fas fa-bed"></i> {{ prop.bedrooms }} Beds</span>{% endif %}
+                                        {% if prop.bathrooms %}<span><i class="fas fa-bath"></i> {{ prop.bathrooms }} Baths</span>{% endif %}
+                                        {% if prop.sqft %}<span><i class="fas fa-ruler-combined"></i> {{ prop.sqft }} sq.ft</span>{% endif %}
+                                    {% endif %}
+                                    {% endwith %}
+                                </div>
+
+                                {% if prop.property_images_list %}
+                                    <div class="image-thumbnails">
+                                        {% for img in prop.property_images_list|slice:":4" %}
+                                            <div class="image-thumb">
+                                                <img src="{{ img.image.url }}" alt="Property thumbnail">
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+
+                                <div class="property-actions">
+                                    <a href="{% url 'mck_website:property_detail' prop.id %}" class="view-details">View Details</a>
+                                    <button class="inquire-btn" data-property-id="{{ prop.id }}">Inquire Now</button>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="no-properties">
+                    <i class="fas fa-home"></i>
+                    <h3>No properties available at the moment</h3>
+                    <p>Check back later or contact us for personalized property recommendations</p>
+                    <a href="#contact" class="cta-button">Contact Us</a>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
+     <!-- How It Works Section -->
+    <section class="how-it-works">
+        <div class="container">
+            <h2>How SquareBox Works</h2>
+            <div class="steps-grid">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Browse Properties</h3>
+                    <p>Explore our extensive collection of verified properties</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Connect with Experts</h3>
+                    <p>Get in touch with our certified property consultants</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Site Visits</h3>
+                    <p>Schedule personalized property tours</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Close the Deal</h3>
+                    <p>Complete your transaction with legal support</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Why Choose Us Section -->
+    <section class="why-choose-us">
+        <div class="container">
+            <h2>Why Choose SquareBox?</h2>
+            <div class="features-grid">
+                <div class="feature">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Verified Properties</h3>
+                    <p>Every listing undergoes rigorous verification to ensure authenticity</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-rupee-sign"></i>
+                    <h3>Best Price Guarantee</h3>
+                    <p>We ensure you get the best market value for your investment</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-users"></i>
+                    <h3>Expert Consultation</h3>
+                    <p>Get advice from certified real estate professionals</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-file-contract"></i>
+                    <h3>Legal Support</h3>
+                    <p>End-to-end legal assistance for all property transactions</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- CTA Section -->
+    <!-- <section class="cta-section" id="contact">
+        <div class="">
+            <div class="cta-content">
+                <h2>Ready to Find Your Perfect Property?</h2>
+                
+                <div class="cta-buttons">
+                    <a href="tel:+919876543210" class="cta-button">
+                        <i class="fas fa-phone"></i> Call Now
+                    </a>
+                    <a href="https://wa.me/919876543210" class="cta-button whatsapp">
+                        <i class="fab fa-whatsapp"></i> WhatsApp
+                    </a>
+                    <a href="mailto:info@squarebox.com" class="cta-button">
+                        <i class="fas fa-envelope"></i> Email Us
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+    <!-- Inquiry Modal -->
+    <div class="modal" id="inquiryModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Property Inquiry</h3>
+            <form id="heroEnquiryForm">
+              {% csrf_token %}
+                <input type="hidden" id="propertyId" name="property_id">
+                <div class="form-group">
+                    <input type="text" name="name" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" name="email" placeholder="Your Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" name="phone" placeholder="Your Phone Number" required>
+                </div>
+                <div class="form-group">
+                    <textarea name="message" placeholder="Your Message" rows="4"></textarea>
+                </div>
+                <button type="submit" class="btn">
+                  <i class="fas fa-paper-plane"></i> Submit
+                </button>
+                <div id="heroSuccessMessage" class="success-message">
+                ✅ Your enquiry was submitted successfully!
+              </div>
+              <div id="heroErrorMessage" class="error-message">
+                ❌ <span id="heroErrorText"></span>
+              </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Madurai:wght@400;600;700&display=swap" rel="stylesheet">
+
     <style>
+        :root {
+            --primary: #ffd200;
+            --secondary: #e74c3c;
+            --light: #f8f9fa;
+            --dark: #2c3e50;
+            --text: #2c3e50;
+            --text-light: #7f8c8d;
+            --success: #27ae60;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Hind Madurai', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
-        :root {
-            --primary: #2C3E50;
-            --secondary: #27AE60;
-            --accent: #E67E22;
-            --light: #F5F5F5;
-            --dark: #333333;
-            --tamil-blue: #0099CC;
-            --tamil-yellow: #FF9933;
-        }
-        
+
         body {
-            color: var(--dark);
-            line-height: 1.6;
             background-color: var(--light);
+            color: var(--text);
+            line-height: 1.6;
         }
-        
+
         .container {
-            width: 100%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* Header Styles */
-        header {
-            background-color: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo h1 {
-            font-size: 24px;
-            color: var(--primary);
-        }
-        
-        .logo span {
-            color: var(--secondary);
-        }
-        
-        .tamil-text {
-            font-size: 14px;
-            color: var(--tamil-blue);
-            margin-top: 2px;
-        }
-        
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-        
-        nav li {
-            margin-left: 20px;
-        }
-        
-        nav a {
-            text-decoration: none;
-            color: var(--dark);
-            font-weight: 500;
-            transition: color 0.3s;
-            font-size: 16px;
-        }
-        
-        nav a:hover {
-            color: var(--secondary);
-        }
-        
-        .contact-number {
-            display: flex;
-            align-items: center;
-            background-color: var(--secondary);
-            color: white;
-            padding: 10px 15px;
-            border-radius: 30px;
-            font-weight: 600;
-        }
-        
-        .contact-number i {
-            margin-right: 8px;
-        }
-        
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1586773860418-d37222d8fce3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            padding: 100px 0;
-            text-align: center;
-        }
-        
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .hero h2 {
-            font-size: 2.8rem;
-            margin-bottom: 20px;
-        }
-        
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-        }
-        
-        .btn {
-            display: inline-block;
-            padding: 15px 30px;
-            background-color: var(--secondary);
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: 600;
-            transition: background-color 0.3s;
-            margin: 5px;
-        }
-        
-        .btn:hover {
-            background-color: #219653;
-        }
-        
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--secondary);
-            color: white;
-        }
-        
-        .btn-outline:hover {
-            background-color: var(--secondary);
-        }
-        
-        /* Services Section */
-        .services {
-            padding: 80px 0;
-            background-color: white;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-        
-        .section-title h2 {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 15px;
-        }
-        
-        .section-title p {
-            color: #666;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .service-card {
-            background-color: var(--light);
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-        }
-        
-        .service-card:hover {
-            transform: translateY(-10px);
-        }
-        
-        .service-img {
-            height: 200px;
-            background-color: #ddd;
-            background-position: center;
-            background-size: cover;
-        }
-        
-        .service-content {
-            padding: 25px;
-        }
-        
-        .service-content h3 {
-            color: var(--primary);
-            margin-bottom: 15px;
-        }
-        
-        /* Products Section */
-        .products {
-            padding: 80px 0;
-            background-color: var(--light);
-        }
-        
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-        
-        .product-card {
-            background-color: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        
-        .product-img {
-            height: 220px;
-            background-color: #eee;
-            background-position: center;
-            background-size: cover;
-        }
-        
-        .product-content {
             padding: 20px;
         }
-        
-        .product-content h3 {
-            color: var(--primary);
-            margin-bottom: 10px;
-        }
-        
-        .product-content p {
-            color: #666;
-            margin-bottom: 15px;
-        }
-        
-        /* Coverage Area */
-        .coverage {
+
+        /* Hero Section */
+        .hero-section {
+             background: url("https://i.pinimg.com/1200x/99/c9/54/99c954fe61d60100c58611588f101e9a.jpg") no-repeat center center;
             padding: 80px 0;
-            background: linear-gradient(to right, var(--tamil-blue), var(--primary));
-            color: white;
-        }
-        
-        .districts {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 40px;
-        }
-        
-        .district {
-            background-color: rgba(255, 255, 255, 0.1);
-            padding: 10px 20px;
-            border-radius: 30px;
-            transition: background-color 0.3s;
-        }
-        
-        .district:hover {
-            background-color: var(--tamil-yellow);
+            text-align: center;
             color: var(--dark);
         }
-        
-        /* Why Choose Us */
-        .why-choose {
-            padding: 80px 0;
-            background-color: white;
+
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-weight: 700;
         }
-        
-        .features {
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-top: 40px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: var(--text);
+        }
+
+        /* Trust Badges */
+        .trust-badges {
+            
+            background: white;
+        }
+
+        .badges-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 30px;
-            margin-top: 50px;
         }
+
+        .badge-item {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .badge-item i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .badge-item h4 {
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: 80px 0;
+            background: var(--light);
+            text-align: center;
+        }
+
+        .how-it-works h2 {
+            margin-bottom: 50px;
+            font-size: 2.5rem;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .step {
+            text-align: center;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            color: var(--dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 20px;
+        }
+
+        /* Properties Listing */
         
+
+        .properties-listing h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        .property-type-filter {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+
+        .filter-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 30px;
+            background-color: white;
+            color: var(--text-light);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--dark);
+            color: white;
+        }
+
+        .properties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .property-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .property-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .property-image {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .property-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .property-card:hover .property-image img {
+            transform: scale(1.1);
+        }
+
+        .property-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .badge-type {
+            padding: 8px 15px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 600;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .badge-type i {
+            font-size: 12px;
+        }
+
+        .badge-apartment { background-color: #3498db; }
+        .badge-villa { background-color: #e74c3c; }
+        .badge-plot { background-color: #2ecc71; }
+        .badge-commercial { background-color: #f39c12; }
+        .badge-independent_house { background-color: #9b59b6; }
+        .badge-townhouse { background-color: #1abc9c; }
+
+        .badge-featured {
+            padding: 8px 15px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 600;
+            background-color: var(--primary);
+            color: var(--dark);
+        }
+
+        .property-content {
+            padding: 25px;
+        }
+
+        .property-title {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .property-location {
+            color: var(--text-light);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .property-price {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+
+        .property-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .property-details span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .property-details i {
+            color: var(--primary);
+        }
+
+        .image-thumbnails {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .image-thumb {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .image-thumb:hover {
+            border-color: var(--secondary);
+        }
+
+        .image-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .property-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .view-details {
+            flex: 1;
+            padding: 12px 20px;
+            background-color: var(--primary);
+            color: var(--dark);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .view-details:hover {
+            background-color: var(--dark);
+            color: white;
+        }
+
+        .inquire-btn {
+            flex: 1;
+            padding: 12px 20px;
+            background-color: var(--primary);
+            color: rgb(8, 8, 8);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .inquire-btn:hover {
+            background-color: #0c0c0c;
+            color:#ddd
+        }
+
+        .no-properties {
+            text-align: center;
+            padding: 60px 20px;
+            grid-column: 1 / -1;
+        }
+
+        .no-properties i {
+            font-size: 4rem;
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+
+        /* Why Choose Us */
+        .why-choose-us {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .why-choose-us h2 {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.5rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
         .feature {
             text-align: center;
             padding: 30px;
-            background-color: var(--light);
-            border-radius: 8px;
         }
-        
-        .feature-icon {
-            font-size: 2.5rem;
-            color: var(--secondary);
+
+        .feature i {
+            font-size: 3rem;
+            color: var(--primary);
             margin-bottom: 20px;
         }
-        
+
         .feature h3 {
             margin-bottom: 15px;
-            color: var(--primary);
+            color: var(--dark);
         }
-        
+
         /* Testimonials */
         .testimonials {
             padding: 80px 0;
-            background-color: var(--light);
+            background: var(--light);
         }
-        
-        .testimonial-grid {
+
+        .testimonials h2 {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.5rem;
+        }
+
+        .testimonials-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
-            margin-top: 50px;
         }
-        
+
         .testimonial {
-            background-color: white;
+            background: white;
             padding: 30px;
-            border-radius: 8px;
+            border-radius: 15px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
-        
+
         .testimonial-content {
+            margin-bottom: 20px;
+        }
+
+        .testimonial-content p {
             font-style: italic;
-            margin-bottom: 20px;
+            color: var(--text);
         }
-        
-        .testimonial-author {
-            display: flex;
-            align-items: center;
+
+        .testimonial-author h4 {
+            color: var(--dark);
+            margin-bottom: 5px;
         }
-        
-        .author-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-color: #ddd;
-            margin-right: 15px;
+
+        .testimonial-author p {
+            color: var(--text-light);
         }
-        
+
         /* CTA Section */
-        .cta {
+        .cta-section {
             padding: 80px 0;
-            background: linear-gradient(to right, var(--secondary), var(--accent));
+             background: url("https://i.pinimg.com/1200x/99/c9/54/99c954fe61d60100c58611588f101e9a.jpg") no-repeat center center;
+            /* background: linear-gradient(135deg, var(--dark) 0%, #34495e 100%); */
             color: white;
             text-align: center;
         }
-        
-        .cta h2 {
+
+        .cta-content h2 {
+            margin-bottom: 20px;
             font-size: 2.5rem;
-            margin-bottom: 20px;
         }
-        
-        /* Footer */
-        footer {
-            background-color: var(--dark);
-            color: white;
-            padding: 60px 0 30px;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
+
+        .cta-content p {
             margin-bottom: 40px;
+            font-size: 1.2rem;
         }
-        
-        .footer-column h3 {
-            color: var(--secondary);
-            margin-bottom: 20px;
-            font-size: 1.4rem;
-        }
-        
-        .footer-column ul {
-            list-style: none;
-        }
-        
-        .footer-column li {
-            margin-bottom: 10px;
-        }
-        
-        .footer-column a {
-            color: #ccc;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .footer-column a:hover {
-            color: var(--secondary);
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .social-links a {
-            display: inline-block;
-            width: 40px;
-            height: 40px;
-            background-color: #444;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 40px;
-            color: white;
-            transition: background-color 0.3s;
-        }
-        
-        .social-links a:hover {
-            background-color: var(--secondary);
-        }
-        
-        .copyright {
-            text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid #444;
-        }
-        
-        /* Language Toggle */
-        .language-toggle {
+
+        .cta-buttons {
             display: flex;
             justify-content: center;
-            margin: 20px 0;
+            gap: 20px;
+            flex-wrap: wrap;
         }
-        
-        .language-btn {
-            padding: 8px 15px;
-            background-color: #eee;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s;
+
+        .cta-button {
+            padding: 15px 30px;
+            background: var(--primary);
+            color: var(--dark);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
         }
-        
-        .language-btn.active {
-            background-color: var(--tamil-blue);
+
+        .cta-button:hover {
+            background: white;
+            transform: translateY(-3px);
+        }
+
+        .cta-button.whatsapp {
+            background: #25D366;
             color: white;
         }
-        
-        /* Responsive Design */
+
+        .cta-button.whatsapp:hover {
+            background: #128C7E;
+        }
+        .success-message {
+      display: none;
+      background: #d4edda;
+      color: #155724;
+      padding: 12px;
+      border-radius: 8px;
+      margin-top: 20px;
+      text-align: center;
+    }
+ .error-message {
+      display: none;
+      background: #f8d7da;
+      color: #721c24;
+      padding: 12px;
+      border-radius: 8px;
+      margin-top: 20px;
+      text-align: center;
+    }
+    
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--primary);
+            color: var(--dark);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: var(--dark);
+            color: white;
+        }
+
         @media (max-width: 768px) {
-            .header-container {
+            .hero-stats {
                 flex-direction: column;
-                text-align: center;
+                gap: 30px;
             }
             
-            nav ul {
-                margin-top: 20px;
-                justify-content: center;
-                flex-wrap: wrap;
-            }
-            
-            nav li {
-                margin: 5px 10px;
-            }
-            
-            .contact-number {
-                margin-top: 20px;
-            }
-            
-            .hero h2 {
-                font-size: 2rem;
-            }
-            
-            .services-grid, .products-grid, .testimonial-grid {
+            .properties-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .property-actions {
+                flex-direction: column;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.2rem;
             }
         }
     </style>
-</head>
-<body>
-    <!-- Header -->
-    <header>
-        <div class="container header-container">
-            <div class="logo">
-                <div>
-                    <h1>நில சமனாக்கம் <span>Land Leveling</span></h1>
-                    <div class="tamil-text">தமிழ்நாடு முழுவதும் சேவை</div>
-                </div>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="#">முகப்பு</a></li>
-                    <li><a href="#">சேவைகள்</a></li>
-                    <li><a href="#">உபகரணங்கள்</a></li>
-                    <li><a href="#">தொடர்பு காண்க</a></li>
-                </ul>
-            </nav>
-            <div class="contact-number">
-                <i class="fas fa-phone"></i>
-                <span>+91 98765 43210</span>
-            </div>
-        </div>
-    </header>
-
-    <!-- Language Toggle -->
-    <div class="language-toggle">
-        <button class="language-btn active">தமிழ்</button>
-        <button class="language-btn">English</button>
-    </div>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container hero-content">
-            <h2>தமிழ்நாட்டின் சிறந்த நில சமனாக்க சேவை</h2>
-            <p>விவசாயம், கட்டுமானம் மற்றும் அடிப்படை வசதிக்கான நில சமனாக்க சேவைகள்</p>
-            <a href="#" class="btn">இலவச ஆலோசனை</a>
-            <a href="#" class="btn btn-outline">எங்கள் சேவைகள்</a>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section class="services">
-        <div class="container">
-            <div class="section-title">
-                <h2>எங்கள் சேவைகள்</h2>
-                <p>விவசாயம் மற்றும் கட்டுமான தேவைகளுக்கான முழுமையான நில சமனாக்க தீர்வுகள்</p>
-            </div>
-            
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-img" style="background-image: url('https://images.unsplash.com/photo-1586773860418-d37222d8fce3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80');"></div>
-                    <div class="service-content">
-                        <h3>விவசாய நில சமனாக்கம்</h3>
-                        <p>நீர் பரவல் மற்றும் பயிர் மகசூலை மேம்படுத்துவதற்கான துல்லியமான நில சமனாக்கம்.</p>
-                    </div>
-                </div>
-                
-                <div class="service-card">
-                    <div class="service-img" style="background-image: url('https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80');"></div>
-                    <div class="service-content">
-                        <h3>கட்டுமான தள தயாரிப்பு</h3>
-                        <p>அனைத்து அளவிலான கட்டுமான திட்டங்களுக்கும் திறமையான கிரேடிங் மற்றும் லெவலிங் சேவைகள்.</p>
-                    </div>
-                </div>
-                
-                <div class="service-card">
-                    <div class="service-img" style="background-image: url('https://images.unsplash.com/photo-1541979667479-339a9c826894?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80');"></div>
-                    <div class="service-content">
-                        <h3>லேசர் வழிகாட்டிய சமனாக்கம்</h3>
-                        <p>குறைந்த பிழை விகிதத்துடன் துல்லியமான சமனாக்கத்திற்கான மேம்பட்ட லேசர் தொழில்நுட்பம்.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Products Section -->
-    <section class="products">
-        <div class="container">
-            <div class="section-title">
-                <h2>எங்கள் உபகரணங்கள்</h2>
-                <p>அனைத்து சமனாக்க தேவைகளுக்கும் உயர் செயல்திறன் கொண்ட இயந்திரங்கள்</p>
-            </div>
-            
-            <div class="products-grid">
-                <div class="product-card">
-                    <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80');"></div>
-                    <div class="product-content">
-                        <h3>லேசர் நில சமனாக்கிகள்</h3>
-                        <p>துல்லியமான முடிவுகளுக்கு லேசர் வழிகாட்டுதலுடன் கூடிய துல்லியமான சமனாக்க உபகரணங்கள்.</p>
-                        <a href="#" class="btn">மேலும் அறிக</a>
-                    </div>
-                </div>
-                
-                <div class="product-card">
-                    <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1473976345543-9ffc928e648d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80');"></div>
-                    <div class="product-content">
-                        <h3>மோட்டார் கிரேடர்கள்</h3>
-                        <p>பெரிய அளவிலான நில சமனாக்கம் மற்றும் கட்டுமான திட்டங்களுக்கான கனரக கிரேடர்கள்.</p>
-                        <a href="#" class="btn">மேலும் அறிக</a>
-                    </div>
-                </div>
-                
-                <div class="product-card">
-                    <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1622749042816-531744148c5e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80');"></div>
-                    <div class="product-content">
-                        <h3>ஸ்கிராப்பர்கள்</h3>
-                        <p>வெட்டுதல், நிரப்புதல் மற்றும் நிலத்தை சமன் செய்வதற்கான திறமையான பூமி இயக்கும் உபகரணங்கள்.</p>
-                        <a href="#" class="btn">மேலும் அறிக</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Coverage Area -->
-    <section class="coverage">
-        <div class="container">
-            <div class="section-title">
-                <h2>தமிழ்நாடு முழுவதும் எங்கள் சேவை</h2>
-                <p>தமிழ்நாட்டின் பின்வரும் மாவட்டங்களில் எங்கள் சேவைகள் கிடைக்கின்றன</p>
-            </div>
-            
-            <div class="districts">
-                <div class="district">சென்னை</div>
-                <div class="district">கோயம்புத்தூர்</div>
-                <div class="district">மதுரை</div>
-                <div class="district">திருச்சிராப்பள்ளி</div>
-                <div class="district">சேலம்</div>
-                <div class="district">திருநெல்வேலி</div>
-                <div class="district">தஞ்சாவூர்</div>
-                <div class="district">ஈரோடு</div>
-                <div class="district">திருப்பூர்</div>
-                <div class="district">வேலூர்</div>
-                <div class="district">கன்னியாகுமரி</div>
-                <div class="district">கரூர்</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section class="testimonials">
-        <div class="container">
-            <div class="section-title">
-                <h2>வாடிக்கையாளர் கருத்துகள்</h2>
-                <p>எங்கள் சேவைகளால் பூர்வீகர்கள் சொல்வது</p>
-            </div>
-            
-            <div class="testimonial-grid">
-                <div class="testimonial">
-                    <div class="testimonial-content">
-                        "நாங்கள் எங்கள் விவசாய நிலத்தை சமன் செய்ய இந்த நிறுவனத்தை அணுகினோம். மிகவும் துல்லியமாக வேலை செய்தார்கள். நீர் பயன்பாடு 40% குறைந்தது."
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar"></div>
-                        <div>
-                            <h4>ராமலிங்கம்</h4>
-                            <p>மதுரை</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="testimonial">
-                    <div class="testimonial-content">
-                        "கட்டுமான தளத்தை தயாரிப்பதில் சிறந்த சேவை. வேலை விரைவாக முடிந்தது. விலை நியாயமானது. Highly recommended!"
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar"></div>
-                        <div>
-                            <h4>முரளி</h4>
-                            <p>கோயம்புத்தூர்</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="testimonial">
-                    <div class="testimonial-content">
-                        "லேசர் சமனாக்க சேவை மிகத் துல்லியமாக இருந்தது. எங்கள் 10 ஏக்கர் நிலம் சமனாக்கம் செய்யப்பட்டது. மிகவும் திருப்தி."
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar"></div>
-                        <div>
-                            <h4>செல்வம்</h4>
-                            <p>தஞ்சாவூர்</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta">
-        <div class="container">
-            <h2>உங்கள் நிலத்தை சமன் செய்ய தயாரா?</h2>
-            <p>இலவச ஆலோசனை மற்றும் மதிப்பீட்டிற்கு இன்றே தொடர்பு கொள்ளவும்</p>
-            <a href="#" class="btn" style="background-color: white; color: var(--secondary);">தொடங்கு</a>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>நில சமனாக்கம்</h3>
-                    <p>2010 முதல் தமிழ்நாடு முழுவதும் பிரீமியம் நில சமனாக்க உபகரணங்கள் மற்றும் சேவைகளை வழங்குகிறோம்.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>எங்கள் சேவைகள்</h3>
-                    <ul>
-                        <li><a href="#">விவசாய நில சமனாக்கம்</a></li>
-                        <li><a href="#">கட்டுமான தள தயாரிப்பு</a></li>
-                        <li><a href="#">லேசர் சமனாக்கம்</a></li>
-                        <li><a href="#">உபகரணங்கள் வாடகை</a></li>
-                        <li><a href="#">பராமரிப்பு & பழுது</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>தொடர்புக்கு</h3>
-                    <ul>
-                        <li><i class="fas fa-map-marker-alt"></i> 123 நில சமனாக்க வீதி, கோயம்புத்தூர்</li>
-                        <li><i class="fas fa-phone"></i> +91 98765 43210</li>
-                        <li><i class="fas fa-envelope"></i> info@nilasamanakkam.com</li>
-                        <li><i class="fas fa-clock"></i> திங்கள் - சனி: 9AM - 6PM</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="copyright">
-                <p>&copy; 2023 நில சமனாக்கம் சேவைகள். அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.</p>
-            </div>
-        </div>
-    </footer>
 
     <script>
-        // Simple JavaScript for language toggle
+        // Property type filtering functionality
         document.addEventListener('DOMContentLoaded', function() {
-            const languageBtns = document.querySelectorAll('.language-btn');
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const propertyCards = document.querySelectorAll('.property-card');
             
-            languageBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    languageBtns.forEach(b => b.classList.remove('active'));
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Update active button
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
                     this.classList.add('active');
                     
-                    // In a real implementation, this would change the actual language
-                    // For this demo, we'll just show an alert
-                    if(this.textContent === 'English') {
-                        alert('Website language changed to English');
-                    } else {
-                        alert('வலைத்தள மொழி தமிழாக மாற்றப்பட்டது');
-                    }
+                    const selectedType = this.dataset.type;
+                    
+                    propertyCards.forEach(card => {
+                        const cardType = card.getAttribute('data-type');
+                        
+                        if (selectedType === 'all' || cardType === selectedType) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
                 });
             });
+
+            // Inquiry modal functionality
+            const modal = document.getElementById('inquiryModal');
+            const inquireButtons = document.querySelectorAll('.inquire-btn');
+            const closeBtn = document.querySelector('.close');
+            const propertyIdField = document.getElementById('propertyId');
+
+            inquireButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const propertyId = this.getAttribute('data-property-id');
+                    propertyIdField.value = propertyId;
+                    modal.style.display = 'block';
+                });
+            });
+
+            closeBtn.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+
+            window.addEventListener('click', function(event) {
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                }
+            });
+
+            // Form submission
+            document.getElementById('inquiryForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                // Here you would typically send the form data to your server
+                alert('Thank you for your inquiry! We will contact you shortly.');
+                modal.style.display = 'none';
+            });
         });
+
+        document.addEventListener('DOMContentLoaded', function() {
+      // Hero form submission
+      const heroForm = document.getElementById('heroEnquiryForm');
+      const heroSuccessMessage = document.getElementById('heroSuccessMessage');
+      const heroErrorMessage = document.getElementById('heroErrorMessage');
+      const heroErrorText = document.getElementById('heroErrorText');
+      
+      heroForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        submitForm(this, heroSuccessMessage, heroErrorMessage, heroErrorText);
+      });
+      
+      // Contact form submission
+      const contactForm = document.getElementById('contactEnquiryForm');
+      const contactSuccessMessage = document.getElementById('contactSuccessMessage');
+      const contactErrorMessage = document.getElementById('contactErrorMessage');
+      const contactErrorText = document.getElementById('contactErrorText');
+      
+      contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        submitForm(this, contactSuccessMessage, contactErrorMessage, contactErrorText);
+      });
+      
+      function submitForm(form, successElement, errorElement, errorTextElement) {
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        
+        // Show loading state
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+        submitBtn.disabled = true;
+        
+        successElement.style.display = 'none';
+        errorElement.style.display = 'none';
+        
+        const formData = new FormData(form);
+        
+        fetch("{% url 'mck_website:mck_ajax_enquiry_save' %}", {
+          method: "POST",
+          body: formData,
+          headers: {
+            "X-CSRFToken": getCSRFToken()
+          }
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.status === "success") {
+            successElement.style.display = "block";
+            form.reset();
+          } else {
+            errorTextElement.textContent = data.message || "There was an error submitting your enquiry";
+            errorElement.style.display = "block";
+          }
+        })
+        .catch(error => {
+          errorTextElement.textContent = "Network error. Please check your connection and try again.";
+          errorElement.style.display = "block";
+        })
+        .finally(() => {
+          submitBtn.innerHTML = originalText;
+          submitBtn.disabled = false;
+        });
+      }
+      
+      function getCSRFToken() {
+        const name = "csrftoken";
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== "") {
+          const cookies = document.cookie.split(";");
+          for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + "=")) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+            }
+          }
+        }
+        return cookieValue;
+      }
+    });
     </script>
-</body>
-</html>
+{% endblock %}

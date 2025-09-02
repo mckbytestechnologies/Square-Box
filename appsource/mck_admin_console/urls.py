@@ -28,7 +28,4 @@ urlpatterns = [
     path('testimonial/<id>/edit/', views.TestimonialUpdateView.as_view(), name='mck_testimonial_update'),
     path('testimonial/<id>/delete/', views.TestimonialDeleteView.as_view(), name='mck_testimonial_delete'),
 
-    
-
-
 ]

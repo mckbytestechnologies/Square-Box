@@ -76,19 +76,19 @@
                             <span class="badge listing-date">Listed {{ property.list_date|date:"M d, Y" }}</span>
                         </div>
                         
-                        <h1 class="property-title">{{ property.title }}</h1>
+                        <h1 class="property-title text-dark ">{{ property.title }}</h1>
                         
                         <div class="property-location">
                             <i class="fas fa-map-marker-alt"></i>
                             <span>{{ property.address }}, {{ property.city }}, {{ property.state }}</span>
                         </div>
                         
-                        <div class="price-section">
+                        <!-- <div class="price-section">
                             <h2 class="price">${{ property.price|floatformat:0 }}</h2>
                             {% if property.price_per_sqft %}
                             <div class="price-sqft">${{ property.price_per_sqft|floatformat:0 }}/sqft</div>
                             {% endif %}
-                        </div>
+                        </div> -->
                         
                         <div class="property-highlights">                  
                             <div class="highlight-item">
@@ -331,12 +331,13 @@
     --text: #1f2937;
     --muted: #64748b;
     --line: #e5e7eb;
-    --primary: #29A1FF;
-    --primary-600: #1f8fe6;
+    --primary: #FFD700;
+    --primary-600: #FFD700;
     --primary-50: #eaf6ff;
     --shadow: 0 8px 24px rgba(15, 23, 42, .06);
     --radius: 14px;
 }
+
 
 body {
     font-family: 'Inter', sans-serif;
@@ -374,7 +375,7 @@ body {
 .swiper-button-prev-custom, .swiper-button-next-custom {
     width: 50px;
     height: 50px;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(7, 7, 7, 0.9);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -385,7 +386,7 @@ body {
 }
 
 .swiper-button-prev-custom:hover, .swiper-button-next-custom:hover {
-    background: white;
+    background: rgb(3, 3, 3);
     transform: scale(1.05);
 }
 
@@ -402,14 +403,14 @@ body {
 .swiper-pagination-bullet {
     width: 10px;
     height: 10px;
-    background: rgba(255, 255, 255, 0.6);
+    background: rgba(7, 7, 7, 0.6);
     border-radius: 50%;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .swiper-pagination-bullet-active {
-    background: white;
+    background: rgb(7, 7, 7);
     transform: scale(1.2);
 }
 
@@ -445,7 +446,7 @@ body {
 .btn-favorite, .btn-share, .btn-fullscreen {
     width: 50px;
     height: 50px;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(5, 5, 5, 0.9);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -457,7 +458,7 @@ body {
 }
 
 .btn-favorite:hover, .btn-share:hover, .btn-fullscreen:hover {
-    background: white;
+    background: rgb(8, 8, 8);
     transform: scale(1.05);
 }
 
@@ -497,12 +498,12 @@ body {
 
 .property-type {
     background: var(--primary);
-    color: white;
+    color: rgb(8, 8, 8);
 }
 
 .hot-selling {
     background: #f59e0b;
-    color: white;
+    color: rgb(15, 15, 15);
 }
 
 .listing-date {
@@ -607,14 +608,15 @@ body {
 .btn-primary {
     background: var(--primary);
     border: none;
-    color: white;
+    color: rgb(2, 2, 2);
 }
 
-.btn-primary:hover {
-    background: var(--primary-600);
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(41,161,255,.25);
-}
+
+    .btn-primary:hover {
+        background: #050505;
+        color: white;
+    }
+
 
 .btn-outline {
     background: transparent;

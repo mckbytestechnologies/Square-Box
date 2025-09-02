@@ -8,6 +8,12 @@ urlpatterns = [
     path('', views.LandingPage.as_view(), name='mck_landing_page'),
     path('login/', views.SignIn.as_view(), name='mck_signin'),
     path('logout/',views.LogOut.as_view(),name='mck_logout'),
+    
+    path('website/login/', views.WebsiteSignIn.as_view(), name='website_signin'),
+    path('website/register/', views.WebsiteSignUp.as_view(), name='website_signup'),
+    path('website/logout/', views.WebsiteLogOut.as_view(), name='website_logout'),
+    # ... existing patterns
+    path('website/password-reset/', views.WebsitePasswordReset.as_view(), name='website_password_reset'),
 
     path('mck-auth/role/list/', views.AccountTypeRoleList.as_view(),name='mck_role_list'),
     path('mck-auth/role/create/', views.AccountTypeRoleCreateView.as_view(),name='mck_role_create'),

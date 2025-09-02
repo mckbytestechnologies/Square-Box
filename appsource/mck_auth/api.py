@@ -22,8 +22,102 @@ def get_request_accountuser(request):
     return accountuser
 
 
+# mck_auth/api.py
 @app_logger.functionlogs(log=log_name)
-def user_login(request):
+def user_login(request, for_admin=True):
+    result = False
+    message = 'Internal Server Error'
+    data = dict()
+    try:
+        mobile_user = None
+        pDict = request.POST
+        
+        # Find user by email or username
+        if User.objects.filter(email=pDict['email'], is_active=True).exists():
+            mobile_user = User.objects.filter(email=pDict['email'], is_active=True).first()
+        elif User.objects.filter(username=pDict['email'], is_active=True).exists():
+            mobile_user = User.objects.filter(username=pDict['email'], is_active=True).first()
+        else:
+            message = "Invalid User and Password combination"
+            return result, message, data
+        
+        if not mobile_user:
+            message = "Invalid User"
+            return result, message, data
+        
+        # Check if user is staff/admin when for_admin=True
+        if for_admin and not mobile_user.is_staff:
+            message = "Admin access required. Please use the website login."
+            return result, message, data
+        
+        # Check if user is NOT staff when for_admin=False (website users)
+        if not for_admin and mobile_user.is_staff:
+            message = "Website users cannot login here. Please use the admin login."
+            return result, message, data
+        
+        user = authenticate(username=mobile_user.username, password=pDict['password'])
+        if user is not None:
+            login(request, user)
+            result = True
+            message = 'Success'
+            data['user'] = user
+        else:
+            result = False
+            data['user'] = user
+            message = 'Invalid Password'
+        logger.info(f"request user: {request.user.is_authenticated}")
+    except Exception as e:
+        exc_type, exc_obj, exc_traceback = sys.exc_info()
+        logger.error('sconsole_user_login Error at %s:%s' %(exc_traceback.tb_lineno,e))
+
+    return result, message, data
+
+# mck_auth/api.py
+@app_logger.functionlogs(log=log_name)
+def website_user_register(request):
+    result = False
+    message = 'Internal Server Error'
+    data = dict()
+    try:
+        pDict = request.POST
+        
+        # Validation checks
+        if not pDict.get('email') or not pDict.get('password'):
+            message = "Email and password are required"
+            return result, message, data
+        
+        if User.objects.filter(email=pDict['email']).exists():
+            message = "Email already registered"
+            return result, message, data
+        
+        if User.objects.filter(username=pDict['email']).exists():
+            message = "Username already taken"
+            return result, message, data
+        
+        # Create user (non-staff for website users)
+        user = User.objects.create_user(
+            username=pDict['email'],
+            email=pDict['email'],
+            password=pDict['password'],
+            first_name=pDict.get('first_name', ''),
+            last_name=pDict.get('last_name', ''),
+            is_staff=False  # Website users are not staff
+        )
+        
+        result = True
+        message = 'Registration successful'
+        data['user'] = user
+        
+    except Exception as e:
+        exc_type, exc_obj, exc_traceback = sys.exc_info()
+        logger.error('website_user_register Error at %s:%s' %(exc_traceback.tb_lineno,e))
+        message = f'Registration failed: {str(e)}'
+
+    return result, message, data
+
+
+@app_logger.functionlogs(log=log_name)
+def ser_login(request):
     result = False
     message = 'Internal Server Error'
     data = dict()
