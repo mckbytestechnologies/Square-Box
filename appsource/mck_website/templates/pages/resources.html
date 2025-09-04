@@ -1012,6 +1012,72 @@ body {
 </style>
 
 <!-- JavaScript -->
+ <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Thumbnail swiper
+    const thumbSwiper = new Swiper(".property-thumbs", {
+      spaceBetween: 10,
+      slidesPerView: 4,
+      freeMode: true,
+      watchSlidesProgress: true,
+    });
+
+    // Main swiper
+    const mainSwiper = new Swiper(".property-main", {
+      spaceBetween: 10,
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+      thumbs: {
+        swiper: thumbSwiper,
+      },
+    });
+
+    // Fullscreen image modal
+    const fullscreenModal = document.createElement("div");
+    fullscreenModal.className = "fullscreen-modal";
+    fullscreenModal.style.display = "none";
+    fullscreenModal.style.position = "fixed";
+    fullscreenModal.style.top = "0";
+    fullscreenModal.style.left = "0";
+    fullscreenModal.style.width = "100%";
+    fullscreenModal.style.height = "100%";
+    fullscreenModal.style.background = "rgba(0,0,0,0.9)";
+    fullscreenModal.style.zIndex = "9999";
+    fullscreenModal.style.justifyContent = "center";
+    fullscreenModal.style.alignItems = "center";
+
+    const fullscreenImg = document.createElement("img");
+    fullscreenImg.style.maxWidth = "90%";
+    fullscreenImg.style.maxHeight = "90%";
+    fullscreenModal.appendChild(fullscreenImg);
+
+    document.body.appendChild(fullscreenModal);
+
+    // Close fullscreen on click
+    fullscreenModal.addEventListener("click", () => {
+      fullscreenModal.style.display = "none";
+      fullscreenImg.src = "";
+    });
+
+    // Open fullscreen when clicking on image
+    document.querySelectorAll(".property-main .swiper-slide img").forEach((img) => {
+      img.addEventListener("click", () => {
+        fullscreenImg.src = img.src;
+        fullscreenModal.style.display = "flex";
+      });
+    });
+
+    // Favorite button toggle
+    document.querySelectorAll(".favorite-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        btn.classList.toggle("active");
+      });
+    });
+  });
+</script>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize Swiper for main gallery

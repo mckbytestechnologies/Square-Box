@@ -2,68 +2,158 @@
 {% load static %}
 
 {% block content %}
-  <!-- <meta charset="UTF-8">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SecureFence Pro | Professional Fencing Solutions</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> -->
+  {% comment %} <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> {% endcomment %}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary: #ffd200;
       --secondary: #000;
-      --accent: #00509e;
+      --accent: #ffbf00;
       --light: #f8f9fa;
       --dark: #111;
+      --transition: all 0.3s ease;
     }
     
+
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       color: #333;
       line-height: 1.6;
+      overflow-x: hidden; /* Prevent horizontal scrolling */
+      max-width: 100vw; /* Ensure body doesn't exceed viewport */
     }
-  .map-container {
-      border-radius: 12px;
-      overflow: hidden;
-      height: 550px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: 700;
+      line-height: 1.3;
     }
-    /* Hero Section */
+
+    
+
+    /* Hero */
     .hero {
-      background: linear-gradient(135deg, var(--primary) 60%, #fff 40%);
-      padding: 100px 0;
-      position: relative;
-      overflow: hidden;
+      margin-top:18px;
+      background: linear-gradient(135deg, rgba(255,210,0,0.12) 0%, rgba(0,80,158,0.03) 100%);
+      padding: 48px 0;
+      border-radius: var(--radius);
+      box-shadow: 0 12px 40px rgba(2,6,23,0.04);
+      overflow:hidden;
     }
-    
-    .hero-content {
-      position: relative;
-      z-index: 2;
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1fr 480px;
+      gap:32px;
+      align-items: center;
+      max-width: var(--max-width);
+      margin:0 auto;
+      padding:36px var(--container-pad);
     }
-    
-    .hero h1 {
-      font-size: 3rem;
-      font-weight: 800;
-      color: var(--dark);
-      margin-bottom: 20px;
+    .hero-left h2{
+      margin:0 0 12px 0;
+      font-size:2.1rem;
+      line-height:1.03;
+      color:var(--dark);
+      font-weight:800;
+      letter-spacing:-0.02em;
     }
-    
-    .hero p {
-      font-size: 1.2rem;
-      margin-bottom: 30px;
-      max-width: 600px;
+    .hero-left p{
+      margin:0 0 18px 0;
+      color:#394455;
+      max-width:60ch;
+      font-size:1rem;
     }
+    .hero-actions{ display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-top:6px; }
+    .btn-primary{
+      background:var(--accent);
+      color:black;
+      border:none;
+      padding:12px 20px;
+      border-radius:10px;
+      font-weight:700;
+      box-shadow: 0 8px 20px rgba(0,80,158,0.12);
+      transition: transform .18s ease, background .18s ease;
+    }
+    .btn-primary:hover{ color: white; background:#030303;}
+    .btn-ghost{
+      background:transparent;
+      border:2px solid rgba(17,17,17,0.06);
+      color:var(--dark);
+      padding:10px 16px;
+      border-radius:10px;
+      font-weight:700;
+    }
+    /* hero image card */
+    .hero-card{
+      background: linear-gradient(180deg, #fff, #fbfbfb);
+      border-radius: 12px;
+      overflow:hidden;
+      box-shadow: 0 8px 30px rgba(17,17,17,0.06);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:320px;
+    }
+    .hero-card img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    /* Inline hero form - compact and modern */
+    .hero-form{
+      margin-top:20px;
+      background: rgba(255,255,255,0.95);
+      border-radius: 12px;
+      padding:14px;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      border:1px solid rgba(17,17,17,0.04);
+      box-shadow: 0 10px 30px rgba(2,6,23,0.03);
+      transition: box-shadow .18s ease, transform .18s ease;
+    }
+    .hero-form:hover{ box-shadow: 0 18px 48px rgba(2,6,23,0.05); transform: translateY(-2px); }
+    .hero-form .form-input{
+      flex:1;
+      min-width:140px;
+      padding:12px 14px;
+      border-radius:8px;
+      border:1px solid #e6e9ef;
+      font-size:0.95rem;
+    }
+    .hero-form button{
+      background:var(--primary);
+      color:var(--dark);
+      font-weight:700;
+      padding:10px 14px;
+      border-radius:8px;
+      border:none;
+      cursor:pointer;
+      transition: transform .12s ease;
+    }
+    .hero-form button:hover{ transform: translateY(-2px); }
     
     .btn-primary {
-      background-color: var(--accent);
-      border-color: var(--accent);
-      padding: 12px 30px;
+      background-color: #ffbf00;
+      color: black;
+      padding: 14px 32px;
       font-weight: 600;
       border-radius: 8px;
+      transition: var(--transition);
     }
     
     .btn-primary:hover {
-      background-color: #003b7a;
-      border-color: #003b7a;
+      background-color: #080808;
+      color: white;
+      transform: translateY(-2px);
     }
     
     .btn-outline-primary {
@@ -71,20 +161,22 @@
       color: var(--dark);
       font-weight: 600;
       border-radius: 8px;
-      padding: 12px 30px;
+      padding: 14px 32px;
+      transition: var(--transition);
     }
     
     .btn-outline-primary:hover {
       background-color: var(--primary);
       border-color: var(--primary);
       color: var(--dark);
+      transform: translateY(-2px);
     }
     
     /* Section Titles */
     .section-title {
       font-size: 2.5rem;
       font-weight: 700;
-      margin-bottom: 40px;
+      margin-bottom: 50px;
       text-align: center;
       position: relative;
       padding-bottom: 15px;
@@ -103,74 +195,106 @@
     
     /* Features Section */
     .features {
-      padding: 80px 0;
+      padding: 100px 0;
       background: var(--light);
     }
     
     .feature-box {
       background: #fff;
-      border-radius: 12px;
-      padding: 30px;
+      border-radius: 16px;
+      padding: 40px 30px;
       margin: 15px 0;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
       text-align: center;
-      transition: transform 0.3s, box-shadow 0.3s;
+      transition: transform 0.4s, box-shadow 0.4s;
       height: 100%;
     }
     
     .feature-box:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+      transform: translateY(-12px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.12);
     }
     
     .feature-icon {
-      width: 80px;
-      height: 80px;
+      width: 90px;
+      height: 90px;
       background: var(--primary);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 20px;
+      margin: 0 auto 25px;
+      transition: var(--transition);
+    }
+
+    .feature-box:hover .feature-icon {
+      transform: scale(1.1);
     }
     
     .feature-icon i {
-      font-size: 2rem;
+      font-size: 2.2rem;
       color: var(--dark);
+    }
+    
+    .feature-box h4 {
+      margin-bottom: 15px;
+      font-size: 1.4rem;
+    }
+
+    .feature-box p {
+      color: #666;
     }
     
     /* Services Section */
     .services-f {
-      padding: 80px 0;
+      padding: 100px 0;
     }
     
     .service-card-f {
-      border-radius: 12px;
+      border-radius: 16px;
       overflow: hidden;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
       margin-bottom: 30px;
-      transition: transform 0.3s;
+      transition: transform 0.4s, box-shadow 0.4s;
+      height: 100%;
     }
     
     .service-card-f:hover {
       transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.12);
     }
     
     .service-img {
-      height: 200px;
+      height: 220px;
       background-size: cover;
       background-position: center;
+      transition: transform 0.5s;
+    }
+
+    .service-card-f:hover .service-img {
+      transform: scale(1.05);
     }
     
     .service-content {
-      padding: 25px;
+      padding: 30px;
       background: #fff;
+    }
+
+    .service-content h4 {
+      margin-bottom: 12px;
+      font-size: 1.4rem;
+    }
+
+    .service-content p {
+      color: #666;
+      margin-bottom: 20px;
     }
     
     /* Highlight Section */
     .highlight-section {
-      background: var(--primary);
-      padding: 80px 0;
+       background: linear-gradient(135deg, rgba(255,210,1,1.12) 0%, rgba(0,80,158,0.03) 100%);
+      /* background: var(--primary); */
+      padding: 100px 0;
       text-align: center;
       position: relative;
     }
@@ -179,34 +303,78 @@
       display: flex;
       justify-content: space-around;
       flex-wrap: wrap;
-      margin-top: 40px;
+      margin-top: 50px;
     }
     
     .stat-item {
       text-align: center;
-      margin: 15px;
+      margin: 20px;
+      padding: 0 20px;
     }
     
     .stat-number {
-      font-size: 2.5rem;
-      font-weight: 700;
+      font-size: 3rem;
+      font-weight: 800;
       color: var(--dark);
       margin-bottom: 10px;
+    }
+
+    .stat-label {
+      font-weight: 600;
+      color: #444;
+    }
+    
+    /* Process Section */
+    .process {
+      padding: 100px 0;
+    }
+    
+    .process-step {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 40px;
+    }
+    
+    .step-number {
+      width: 60px;
+      height: 60px;
+      background: var(--primary);
+      color: var(--dark);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-right: 25px;
+      flex-shrink: 0;
+      transition: var(--transition);
+    }
+
+    .process-step:hover .step-number {
+      transform: scale(1.1);
     }
     
     /* Testimonials */
     .testimonials {
-      padding: 80px 0;
+      padding: 100px 0;
       background: var(--light);
     }
     
     .testimonial-card {
       background: #fff;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      padding: 40px 30px 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
       margin: 15px;
       position: relative;
+      transition: var(--transition);
+      height: 100%;
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
     }
     
     .testimonial-card::before {
@@ -218,12 +386,15 @@
       left: 20px;
       opacity: 0.2;
       line-height: 1;
+      font-family: Georgia, serif;
     }
     
     .testimonial-text {
       position: relative;
       z-index: 1;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
+      font-style: italic;
+      color: #555;
     }
     
     .client-info {
@@ -232,8 +403,8 @@
     }
     
     .client-image {
-      width: 50px;
-      height: 50px;
+      width: 55px;
+      height: 55px;
       border-radius: 50%;
       background: var(--accent);
       display: flex;
@@ -242,63 +413,44 @@
       color: #fff;
       font-weight: 700;
       margin-right: 15px;
-    }
-    
-    /* Process Section */
-    .process {
-      padding: 80px 0;
-    }
-    
-    .process-step {
-      display: flex;
-      align-items: flex-start;
-      margin-bottom: 30px;
-    }
-    
-    .step-number {
-      width: 50px;
-      height: 50px;
-      background: var(--primary);
-      color: var(--dark);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-right: 20px;
       flex-shrink: 0;
     }
     
     /* Contact Section */
     .contact {
-      padding: 80px 0;
+      padding: 100px 0;
       background: var(--light);
     }
     
     .contact-info-f {
       background: #fff;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      height: 100%;
     }
     
     .contact-item {
       display: flex;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
     }
     
     .contact-icon {
-      width: 50px;
-      height: 50px;
+      width: 55px;
+      height: 55px;
       background: var(--primary);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-right: 15px;
+      margin-right: 20px;
       flex-shrink: 0;
+      transition: var(--transition);
+    }
+
+    .contact-item:hover .contact-icon {
+      transform: scale(1.1);
     }
     
     .contact-icon i {
@@ -306,122 +458,19 @@
       font-size: 1.2rem;
     }
     
-    /* Footer */
-    footer {
-      background: var(--dark);
-      color: #fff;
-      padding: 60px 0 30px;
-    }
     
-    .footer-links {
-      list-style: none;
-      padding: 0;
-    }
     
-    .footer-links li {
-      margin-bottom: 10px;
-    }
-    
-    .footer-links a {
-      color: #fff;
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-    
-    .footer-links a:hover {
-      color: var(--primary);
-    }
-    
-    .social-icons {
-      display: flex;
-      gap: 15px;
-      margin-top: 20px;
-    }
-    
-    .social-icon {
-      width: 40px;
-      height: 40px;
-      background: rgba(255,255,255,0.1);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.3s;
-    }
-    
-    .social-icon:hover {
-      background: var(--primary);
-    }
-    
-    .social-icon i {
-      color: #fff;
-      font-size: 1.2rem;
-    }
-    
-    .social-icon:hover i {
-      color: var(--dark);
-    }
-    
-    /* Responsive Adjustments */
-    @media (max-width: 768px) {
-      .hero h1 {
-        font-size: 2.2rem;
-      }
-      
-      .section-title {
-        font-size: 2rem;
-      }
-      
-      .hero-buttons {
-        flex-direction: column;
-      }
-      
-      .stats {
-        flex-direction: column;
-      }
-    }
-
-    .lead-inline-form {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap; /* makes it mobile-friendly */
-  margin: 20px 0;
-}
-
-.lead-inline-form input {
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  flex: 1;
-  min-width: 180px;
-}
-
-.lead-inline-form button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 6px;
-  background: #007bff;
-  color: #fff;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.lead-inline-form button:hover {
-  background: #0056b3;
-}
- /* Hero Form - Single Line */
+    /* Hero Form - Single Line */
     .hero-form {
-      background: rgba(255, 255, 255, 0.9);
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-      margin-top: 30px;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+      margin-top: 40px;
     }
     
     .hero-form .form-title {
-      font-size: 1.4rem;
+      font-size: 1.5rem;
       font-weight: 700;
       margin-bottom: 20px;
       color: var(--dark);
@@ -430,7 +479,7 @@
     
     .inline-form {
       display: flex;
-      gap: 10px;
+      gap: 15px;
       align-items: center;
       flex-wrap: wrap;
       justify-content: center;
@@ -438,24 +487,22 @@
     
     .inline-form .form-input {
       flex: 1;
-      min-width: 180px;
+      min-width: 200px;
       margin-bottom: 0;
     }
-    
-    
     
     /* Form Styling */
     .form-container {
       background: #fff;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
     }
     
     .form-title {
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       font-weight: 700;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
       color: var(--dark);
       text-align: center;
     }
@@ -467,13 +514,13 @@
     .form-label {
       display: block;
       font-weight: 600;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       color: #444;
     }
     
     .form-input {
       width: 100%;
-      padding: 12px 15px;
+      padding: 14px 18px;
       border: 1px solid #ddd;
       border-radius: 8px;
       font-size: 16px;
@@ -487,15 +534,15 @@
     }
     
     textarea.form-input {
-      min-height: 100px;
+      min-height: 120px;
       resize: vertical;
     }
     
     .btn {
       background: var(--accent);
-      color: white;
+      color: black;
       border: none;
-      padding: 12px 25px;
+      padding: 14px 28px;
       font-size: 16px;
       font-weight: 600;
       border-radius: 8px;
@@ -507,19 +554,20 @@
     }
     
     .btn:hover {
-      background: #003b7a;
+      background: #070707;
+      color: white;
       transform: translateY(-2px);
     }
     
     .btn i {
-      margin-right: 8px;
+      margin-right: 10px;
     }
     
     .success-message {
       display: none;
       background: #d4edda;
       color: #155724;
-      padding: 12px;
+      padding: 14px;
       border-radius: 8px;
       margin-top: 20px;
       text-align: center;
@@ -529,42 +577,55 @@
       display: none;
       background: #f8d7da;
       color: #721c24;
-      padding: 12px;
+      padding: 14px;
       border-radius: 8px;
       margin-top: 20px;
       text-align: center;
     }
     
-    
-    
-    
-    
     /* Contact Form - Single Line */
     .contact-inline-form {
       display: flex;
-      gap: 10px;
+      gap: 15px;
       flex-wrap: wrap;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
     }
     
     .contact-inline-form .form-group {
       flex: 1;
-      min-width: 150px;
+      min-width: 180px;
       margin-bottom: 0;
     }
+
+    /* Responsive Adjustments */
+    @media (max-width: 992px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      
+      .section-title {
+        font-size: 2.2rem;
+      }
+    }
     
-    /* Responsive */
     @media (max-width: 768px) {
+      .hero {
+        padding: 100px 0 60px;
+        text-align: center;
+      }
+      
       .hero h1 {
         font-size: 2.2rem;
       }
       
-      .section-title {
-        font-size: 2rem;
+      .hero p {
+        font-size: 1.1rem;
+        margin: 0 auto 30px;
       }
       
-      .hero-form {
-        margin: 30px auto;
+      .section-title {
+        font-size: 2rem;
+        margin-bottom: 40px;
       }
       
       .inline-form {
@@ -578,58 +639,105 @@
       .contact-inline-form {
         flex-direction: column;
       }
+      
+      .stats {
+        flex-direction: column;
+        gap: 30px;
+      }
+      
+      .process-step {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .step-number {
+        margin-right: 0;
+        margin-bottom: 15px;
+      }
+
+      .client-info {
+        justify-content: center;
+        text-align: center;
+        flex-direction: column;
+      }
+
+      .client-image {
+        margin-right: 0;
+        margin-bottom: 10px;
+      }
+
+      .contact-item {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .contact-icon {
+        margin-right: 0;
+        margin-bottom: 15px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .hero-form {
+        padding: 25px 20px;
+      }
+      
+      .form-container {
+        padding: 30px 20px;
+      }
+      
+      .contact-info-f {
+        padding: 30px 20px;
+      }
+      
+      .stat-number {
+        font-size: 2.5rem;
+      }
     }
   </style>
 </head>
 <body>
+ 
 
-  <!-- Hero Section -->
-  <section class="hero" id="home">
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-lg-6 hero-content">
-          <h1>Professional Fencing Services</h1>
-          <p>Secure, durable, and aesthetic fencing solutions for residential, commercial, and industrial properties. Protecting what matters most to you.</p>
-          
-        </div>
-        <div class="col-lg-6">
-          <img src="https://i.pinimg.com/1200x/be/30/a5/be30a581dc2cb3ea6182308e0c09d642.jpg" class="img-fluid rounded-3" alt="Professional Fencing">
-        </div>
-        <div class="row mt-4">
-        <div class="col-lg-10 mx-auto">
-          <div class="hero-form">
-            <h3 class="form-title">Get Free Legal Consultation</h3>
-            <form id="heroEnquiryForm">
-              {% csrf_token %}
-              <div class="inline-form">
-                <input type="text" name="name" class="form-input" placeholder="Your Name" required>
-                <input type="tel" name="phone" class="form-input" placeholder="Phone Number" required>
-                <input type="hidden" name="message" value="Came from fencing">
-                <button type="submit" class="btn">
-                  <i class="fas fa-paper-plane"></i> Submit
-                </button>
-              </div>
-              <div id="heroSuccessMessage" class="success-message">
-                ✅ Your enquiry was submitted successfully!
-              </div>
-              <div id="heroErrorMessage" class="error-message">
-                ❌ <span id="heroErrorText"></span>
-              </div>
-            </form>
+  <section id="home" class="hero" aria-labelledby="hero-heading" data-aos="fade-left" data-aos-delay="300">
+      <div class="hero-grid m-5" role="region" aria-label="Hero">
+        <div class="hero-left">
+          <h2 id="hero-heading">Secure, Durable & Beautiful Fencing — Built To Last</h2>
+          <p>We provide residential, commercial and agricultural fencing solutions with industry-grade materials, professional installation and lifetime-focused service. Protect what matters with confidence.</p>
+
+          <div class="hero-actions" aria-hidden="false">
+            <button class="btn-primary" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Request Quote</button>
+            <a class="btn-ghost" href="#services">View Services</a>
           </div>
+
+          <!-- compact inline hero form -->
+          <form id="heroEnquiryForm" class="hero-form" aria-label="Hero quick enquiry form">
+            {% csrf_token %}
+            <input class="form-input" name="name" type="text" placeholder="Your name" required>
+            <input class="form-input" name="phone" type="tel" placeholder="Phone number" required>
+            <input type="hidden" name="message" value="Came from fencing">
+            <button type="submit" title="Submit enquiry">Send</button>
+            <div id="heroSuccessMessage" class="form-info" style="display:none;color:green">✅ Sent — we'll contact you soon</div>
+            <div id="heroErrorMessage" class="form-info" style="display:none;color:#b91c1c">❌ Error sending</div>
+          </form>
+        </div>
+
+        <div class="hero-card" aria-hidden="true">
+          <img src="https://i.pinimg.com/1200x/be/30/a5/be30a581dc2cb3ea6182308e0c09d642.jpg" alt="Installed professional fencing" loading="lazy">
         </div>
       </div>
-      </div>
-    </div>
-  </section>
+    </section>
+
+  
+
 
   
   <!-- Features Section -->
-  <section class="features">
+  <section class="features" id="features" data-aos="fade-up">
     <div class="container">
-      <h2 class="section-title">Why Choose Our Fencing?</h2>
+      <h2 class="section-title" data-aos="fade-up" data-aos-delay="100">Why Choose Our Fencing?</h2>
       <div class="row">
-        <div class="col-md-4 mb-4">
+        <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="200">
           <div class="feature-box">
             <div class="feature-icon">
               <i class="fas fa-shield-alt"></i>
@@ -638,7 +746,7 @@
             <p>Protect your land and property with high-quality fencing built to last and deter intruders.</p>
           </div>
         </div>
-        <div class="col-md-4 mb-4">
+        <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="300">
           <div class="feature-box">
             <div class="feature-icon">
               <i class="fas fa-pencil-ruler"></i>
@@ -647,7 +755,7 @@
             <p>Choose from a variety of fencing styles that match your property aesthetics and functional needs.</p>
           </div>
         </div>
-        <div class="col-md-4 mb-4">
+        <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="400">
           <div class="feature-box">
             <div class="feature-icon">
               <i class="fas fa-hard-hat"></i>
@@ -661,96 +769,366 @@
   </section>
 
   <!-- Services Section -->
-  <section class="services-f" id="services">
-    <div class="container">
-      <h2 class="section-title">Our Fencing Services</h2>
-      <div class="row">
-        <div class="col-md-6 col-lg-4 mb-4">
-          <div class="service-card-f">
-            <div class="service-img" style="background-image: url('https://i.pinimg.com/1200x/d5/2c/b6/d52cb6604e09442fe2131cd206cf4b42.jpg');"></div>
-            <div class="service-content">
-              <h4>Residential Fencing</h4>
-              <p>Privacy, security, and aesthetic solutions for homes and residential properties.</p>
-              <a href="#" class="btn btn-sm btn-outline-dark">Learn More</a>
-            </div>
+<section class="services-f" id="services" data-aos="fade-up">
+  <div class="container">
+    <h2 class="section-title" data-aos="fade-up" data-aos-delay="100">Our Fencing Services</h2>
+    
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4  g-4">
+      <!-- Fencing service items will be added here -->
+      <div class="col" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-card-f h-80">
+          <div class="service-img" style="background-image: url('https://i.pinimg.com/1200x/d5/2c/b6/d52cb6604e09442fe2131cd206cf4b42.jpg');"></div>
+          <div class="service-content">
+            <h4>Bamboo Fence</h4>
+            <p>Eco-friendly and natural fencing solution with a rustic aesthetic appeal.</p>
           </div>
         </div>
-        <div class="col-md-6 col-lg-4 mb-4">
-          <div class="service-card-f">
-            <div class="service-img" style="background-image: url('https://i.pinimg.com/1200x/a5/19/31/a51931a1f2720c89a5b09871ed72012e.jpg');"></div>
-            <div class="service-content">
-              <h4>Commercial Fencing</h4>
-              <p>Secure your business premises with our commercial-grade fencing solutions.</p>
-              <a href="#" class="btn btn-sm btn-outline-dark">Learn More</a>
-            </div>
+      </div>
+      
+      <div class="col" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-card-f h-80">
+          <div class="service-img" style="background-image: url('https://i.pinimg.com/1200x/a5/19/31/a51931a1f2720c89a5b09871ed72012e.jpg');"></div>
+          <div class="service-content">
+            <h4>Chain Link Fence</h4>
+            <p>Durable and cost-effective security solution for various applications.</p>
           </div>
         </div>
-        <div class="col-md-6 col-lg-4 mb-4">
-          <div class="service-card-f">
-            <div class="service-img" style="background-image: url('https://i.pinimg.com/736x/34/15/78/3415782c182f0f36ca71d40595b31613.jpg');"></div>
-            <div class="service-content">
-              <h4>Agricultural Fencing</h4>
-              <p>Protect livestock and crops with our durable agricultural fencing options.</p>
-              <a href="#" class="btn btn-sm btn-outline-dark">Learn More</a>
-            </div>
+      </div>
+      
+      <div class="col" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-card-f h-80">
+          <div class="service-img" style="background-image: url('https://i.pinimg.com/736x/34/15/78/3415782c182f0f36ca71d40595b31613.jpg');"></div>
+          <div class="service-content">
+            <h4>Precast Walls</h4>
+            <p>Pre-manufactured concrete walls for quick installation and durability.</p>
           </div>
         </div>
-        <div class="col-md-6 col-lg-4 mb-4">
-          <div class="service-card-f">
-            <div class="service-img" style="background-image: url('https://i.pinimg.com/736x/8e/56/d3/8e56d3ed019fd77dbe219b2a3a82700f.jpg');"></div>
-            <div class="service-content">
-              <h4>Security Fencing</h4>
-              <p>High-security solutions for maximum protection of sensitive areas.</p>
-              <a href="#" class="btn btn-sm btn-outline-dark">Learn More</a>
-            </div>
+      </div>
+      
+      <div class="col" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-card-f h-80">
+          <div class="service-img" style="background-image: url('https://i.pinimg.com/736x/8e/56/d3/8e56d3ed019fd77dbe219b2a3a82700f.jpg');"></div>
+          <div class="service-content">
+            <h4>Picket Fence</h4>
+            <p>Classic and charming fencing option perfect for residential properties.</p>
           </div>
         </div>
-        <div class="col-md-6 col-lg-4 mb-4">
-          <div class="service-card-f">
-            <div class="service-img" style="background-image: url('https://i.pinimg.com/736x/cf/75/7f/cf757f47da3130faac7f1b930fc24e1b.jpg');"></div>
-            <div class="service-content">
-              <h4>Decorative Fencing</h4>
-              <p>Enhance your property's curb appeal with our decorative fencing options.</p>
-              <a href="#" class="btn btn-sm btn-outline-dark">Learn More</a>
-            </div>
+      </div>
+      
+      <div class="col" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-card-f h-80">
+          <div class="service-img" style="background-image: url('https://i.pinimg.com/736x/cf/75/7f/cf757f47da3130faac7f1b930fc24e1b.jpg');"></div>
+          <div class="service-content">
+            <h4>Barbed Wire Fence</h4>
+            <p>Security fencing with sharp points to deter intruders and contain livestock.</p>
           </div>
         </div>
-        <div class="col-md-6 col-lg-4 mb-4">
-          <div class="service-card-f">
-            <div class="service-img" style="background-image: url('https://i.pinimg.com/1200x/6e/01/ad/6e01ad2270eb81bf9b147d3e62ef1bd5.jpg');"></div>
-            <div class="service-content">
-              <h4>Fence Repair</h4>
-              <p>Professional repair services to restore your fence's functionality and appearance.</p>
-              <a href="#" class="btn btn-sm btn-outline-dark">Learn More</a>
-            </div>
+      </div>
+      
+      <div class="col" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-card-f h-80">
+          <div class="service-img" style="background-image: url('https://i.pinimg.com/1200x/6e/01/ad/6e01ad2270eb81bf9b147d3e62ef1bd5.jpg');"></div>
+          <div class="service-content">
+            <h4>Anti-Climb Mesh</h4>
+            <p>Security mesh designed to prevent climbing and unauthorized access.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-card-f h-80">
+          <div class="service-img" style="background-image: url('https://i.pinimg.com/1200x/d5/2c/b6/d52cb6604e09442fe2131cd206cf4b42.jpg');"></div>
+          <div class="service-content">
+            <h4>3D Weld Mesh</h4>
+            <p>Rigid and strong fencing with three-dimensional welded construction.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-card-f h-80">
+          <div class="service-img" style="background-image: url('https://i.pinimg.com/1200x/a5/19/31/a51931a1f2720c89a5b09871ed72012e.jpg');"></div>
+          <div class="service-content">
+            <h4>Solar Fence</h4>
+            <p>Electrified fencing powered by solar energy for security applications.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-card-f h-80">
+          <div class="service-img" style="background-image: url('https://i.pinimg.com/736x/34/15/78/3415782c182f0f36ca71d40595b31613.jpg');"></div>
+          <div class="service-content">
+            <h4>Privacy Grass Wall</h4>
+            <p>Artificial grass panels that provide privacy with a natural green appearance.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-card-f h-80">
+          <div class="service-img" style="background-image: url('https://i.pinimg.com/736x/8e/56/d3/8e56d3ed019fd77dbe219b2a3a82700f.jpg');"></div>
+          <div class="service-content">
+            <h4>Gabion Wall</h4>
+            <p>Wire cages filled with stones creating a sturdy and attractive barrier.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-card-f h-80">
+          <div class="service-img" style="background-image: url('https://i.pinimg.com/736x/cf/75/7f/cf757f47da3130faac7f1b930fc24e1b.jpg');"></div>
+          <div class="service-content">
+            <h4>Invisible Grill</h4>
+            <p>Nearly transparent safety grills that maintain views while providing security.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-card-f h-80">
+          <div class="service-img" style="background-image: url('https://i.pinimg.com/1200x/6e/01/ad/6e01ad2270eb81bf9b147d3e62ef1bd5.jpg');"></div>
+          <div class="service-content">
+            <h4>Bird Spike</h4>
+            <p>Deterrent system to prevent birds from perching or nesting on surfaces.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-card-f h-80">
+          <div class="service-img" style="background-image: url('https://i.pinimg.com/1200x/d5/2c/b6/d52cb6604e09442fe2131cd206cf4b42.jpg');"></div>
+          <div class="service-content">
+            <h4>Designer Panels</h4>
+            <p>Custom decorative panels that combine security with aesthetic appeal.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-card-f h-80">
+          <div class="service-img" style="background-image: url('https://i.pinimg.com/1200x/a5/19/31/a51931a1f2720c89a5b09871ed72012e.jpg');"></div>
+          <div class="service-content">
+            <h4>Artificial Grass</h4>
+            <p>Low-maintenance synthetic turf for decorative and functional applications.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-card-f h-80">
+          <div class="service-img" style="background-image: url('https://i.pinimg.com/736x/34/15/78/3415782c182f0f36ca71d40595b31613.jpg');"></div>
+          <div class="service-content">
+            <h4>Unislab Walls</h4>
+            <p>Precast concrete slab walls for quick installation and uniform appearance.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-card-f h-80">
+          <div class="service-img" style="background-image: url('https://i.pinimg.com/736x/8e/56/d3/8e56d3ed019fd77dbe219b2a3a82700f.jpg');"></div>
+          <div class="service-content">
+            <h4>PVC Mesh</h4>
+            <p>Plastic mesh fencing that is durable, weather-resistant and low maintenance.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-card-f h-80">
+          <div class="service-img" style="background-image: url('https://i.pinimg.com/736x/cf/75/7f/cf757f47da3130faac7f1b930fc24e1b.jpg');"></div>
+          <div class="service-content">
+            <h4>Nylon Nets</h4>
+            <p>Lightweight and flexible netting for various containment and safety applications.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-card-f h-80">
+          <div class="service-img" style="background-image: url('https://i.pinimg.com/1200x/6e/01/ad/6e01ad2270eb81bf9b147d3e62ef1bd5.jpg');"></div>
+          <div class="service-content">
+            <h4>Expanded Metals</h4>
+            <p>Metal sheets cut and stretched to form a pattern of openings for fencing.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-card-f h-80">
+          <div class="service-img" style="background-image: url('https://i.pinimg.com/1200x/d5/2c/b6/d52cb6604e09442fe2131cd206cf4b42.jpg');"></div>
+          <div class="service-content">
+            <h4>Galvalume Sheets</h4>
+            <p>Steel sheets coated with aluminum-zinc alloy for corrosion resistance.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-card-f h-80">
+          <div class="service-img" style="background-image: url('https://i.pinimg.com/1200x/a5/19/31/a51931a1f2720c89a5b09871ed72012e.jpg');"></div>
+          <div class="service-content">
+            <h4>Modular Grill</h4>
+            <p>Prefabricated grill systems that can be assembled in various configurations.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-card-f h-80">
+          <div class="service-img" style="background-image: url('https://i.pinimg.com/736x/34/15/78/3415782c182f0f36ca71d40595b31613.jpg');"></div>
+          <div class="service-content">
+            <h4>Shade Net</h4>
+            <p>Knitted fabric providing shade and protection from sun and weather elements.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-card-f h-80">
+          <div class="service-img" style="background-image: url('https://i.pinimg.com/736x/8e/56/d3/8e56d3ed019fd77dbe219b2a3a82700f.jpg');"></div>
+          <div class="service-content">
+            <h4>Welded Mesh</h4>
+            <p>Steel wires welded together to form a strong and rigid fencing material.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-card-f h-80">
+          <div class="service-img" style="background-image: url('https://i.pinimg.com/736x/cf/75/7f/cf757f47da3130faac7f1b930fc24e1b.jpg');"></div>
+          <div class="service-content">
+            <h4>Razor Wire Fence</h4>
+            <p>High-security fencing with sharp blades to deter climbing and intrusion.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-card-f h-80">
+          <div class="service-img" style="background-image: url('https://i.pinimg.com/1200x/6e/01/ad/6e01ad2270eb81bf9b147d3e62ef1bd5.jpg');"></div>
+          <div class="service-content">
+            <h4>Polyhex Mesh</h4>
+            <p>Flexible plastic mesh with hexagonal openings for various fencing needs.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-card-f h-80">
+          <div class="service-img" style="background-image: url('https://i.pinimg.com/1200x/d5/2c/b6/d52cb6604e09442fe2131cd206cf4b42.jpg');"></div>
+          <div class="service-content">
+            <h4>Aluminium Screens</h4>
+            <p>Decorative and functional screens made from durable aluminum materials.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-card-f h-80">
+          <div class="service-img" style="background-image: url('https://i.pinimg.com/1200x/a5/19/31/a51931a1f2720c89a5b09871ed72012e.jpg');"></div>
+          <div class="service-content">
+            <h4>Tree Guard</h4>
+            <p>Protective barriers around trees to prevent damage and support growth.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-card-f h-80">
+          <div class="service-img" style="background-image: url('https://i.pinimg.com/736x/34/15/78/3415782c182f0f36ca71d40595b31613.jpg');"></div>
+          <div class="service-content">
+            <h4>RCC Picket Fence</h4>
+            <p>Reinforced cement concrete pickets for durable and long-lasting fencing.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-card-f h-80">
+          <div class="service-img" style="background-image: url('https://i.pinimg.com/736x/8e/56/d3/8e56d3ed019fd77dbe219b2a3a82700f.jpg');"></div>
+          <div class="service-content">
+            <h4>Lattice Trellis</h4>
+            <p>Decorative criss-cross pattern fencing often used for climbing plants.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-card-f h-80">
+          <div class="service-img" style="background-image: url('https://i.pinimg.com/736x/cf/75/7f/cf757f47da3130faac7f1b930fc24e1b.jpg');"></div>
+          <div class="service-content">
+            <h4>WPC Partition</h4>
+            <p>Wood-plastic composite partitions offering durability and natural appearance.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-card-f h-80">
+          <div class="service-img" style="background-image: url('https://i.pinimg.com/1200x/6e/01/ad/6e01ad2270eb81bf9b147d3e62ef1bd5.jpg');"></div>
+          <div class="service-content">
+            <h4>Concertina Coil Fence</h4>
+            <p>Coiled barbed tape used for high-security perimeter protection.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-card-f h-80">
+          <div class="service-img" style="background-image: url('https://i.pinimg.com/1200x/d5/2c/b6/d52cb6604e09442fe2131cd206cf4b42.jpg');"></div>
+          <div class="service-content">
+            <h4>Poultry Mesh</h4>
+            <p>Hexagonal wire mesh specifically designed for poultry enclosures.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-card-f h-80">
+          <div class="service-img" style="background-image: url('https://i.pinimg.com/1200x/a5/19/31/a51931a1f2720c89a5b09871ed72012e.jpg');"></div>
+          <div class="service-content">
+            <h4>Antiqo Fence</h4>
+            <p>Ornate and decorative fencing with an antique or vintage appearance.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-card-f h-100">
+          <div class="service-img" style="background-image: url('https://i.pinimg.com/736x/34/15/78/3415782c182f0f36ca71d40595b31613.jpg');"></div>
+          <div class="service-content">
+            <h4>Fixed Knot Fence</h4>
+            <p>Durable fencing with knots fixed at intersections for added strength.</p>
           </div>
         </div>
       </div>
     </div>
-  </section>
-
+  </div>
+</section>
   <!-- Highlight Section -->
-  <section class="highlight-section">
+  <section class="highlight-section" data-aos="fade-up">
     <div class="container">
-      <h2>Secure Your Land with Confidence</h2>
-      <p class="lead">Over 2,000+ satisfied clients trust our fencing services to protect their valuable assets.</p>
-      <a href="#contact" class="btn btn-dark mt-3">Get a Free Quote</a>
+      <h2 data-aos="fade-up" data-aos-delay="100">Secure Your Land with Confidence</h2>
+      <p class="lead" data-aos="fade-up" data-aos-delay="200">Over 2,000+ satisfied clients trust our fencing services to protect their valuable assets.</p>
+      <a href="#contact" class="btn btn-dark mt-3" data-aos="fade-up" data-aos-delay="300">Get a Free Quote</a>
       
       <div class="stats">
-        <div class="stat-item">
+        <div class="stat-item" data-aos="fade-up" data-aos-delay="400">
           <div class="stat-number">10+</div>
           <div class="stat-label">Years Experience</div>
         </div>
-        <div class="stat-item">
+        <div class="stat-item" data-aos="fade-up" data-aos-delay="500">
           <div class="stat-number">2,000+</div>
           <div class="stat-label">Happy Clients</div>
         </div>
-        <div class="stat-item">
+        <div class="stat-item" data-aos="fade-up" data-aos-delay="600">
           <div class="stat-number">500+</div>
           <div class="stat-label">Projects Completed</div>
         </div>
-        <div class="stat-item">
-          <div class="stat-number">24/7</div>
+        <div class="stat-item" data-aos="fade-up" data-aos-delay="700">
+          <div class="stat-number"></div>
           <div class="stat-label">Support</div>
         </div>
       </div>
@@ -758,26 +1136,26 @@
   </section>
 
   <!-- Process Section -->
-  <section class="process" id="process">
+  <section class="process" id="process" data-aos="fade-up">
     <div class="container">
-      <h2 class="section-title">Our Process</h2>
+      <h2 class="section-title" data-aos="fade-up" data-aos-delay="100">Our Process</h2>
       <div class="row">
         <div class="col-lg-6">
-          <div class="process-step">
+          <div class="process-step" data-aos="fade-right" data-aos-delay="200">
             <div class="step-number">1</div>
             <div>
               <h4>Consultation</h4>
               <p>We discuss your fencing needs, property layout, and budget to understand your requirements.</p>
             </div>
           </div>
-          <div class="process-step">
+          <div class="process-step" data-aos="fade-right" data-aos-delay="300">
             <div class="step-number">2</div>
             <div>
               <h4>Site Assessment</h4>
               <p>Our experts visit your property to evaluate the terrain and take precise measurements.</p>
             </div>
           </div>
-          <div class="process-step">
+          <div class="process-step" data-aos="fade-right" data-aos-delay="400">
             <div class="step-number">3</div>
             <div>
               <h4>Customized Plan</h4>
@@ -786,21 +1164,21 @@
           </div>
         </div>
         <div class="col-lg-6">
-          <div class="process-step">
+          <div class="process-step" data-aos="fade-left" data-aos-delay="200">
             <div class="step-number">4</div>
             <div>
               <h4>Material Selection</h4>
               <p>Choose from our high-quality fencing materials that suit your style and budget.</p>
             </div>
           </div>
-          <div class="process-step">
+          <div class="process-step" data-aos="fade-left" data-aos-delay="300">
             <div class="step-number">5</div>
             <div>
               <h4>Professional Installation</h4>
               <p>Our skilled team installs your fence with precision and attention to detail.</p>
             </div>
           </div>
-          <div class="process-step">
+          <div class="process-step" data-aos="fade-left" data-aos-delay="400">
             <div class="step-number">6</div>
             <div>
               <h4>Final Inspection</h4>
@@ -813,11 +1191,11 @@
   </section>
 
   <!-- Testimonials -->
-  <section class="testimonials" id="testimonials">
+  <section class="testimonials" id="testimonials" data-aos="fade-up">
     <div class="container">
-      <h2 class="section-title">What Our Clients Say</h2>
+      <h2 class="section-title" data-aos="fade-up" data-aos-delay="100">What Our Clients Say</h2>
       <div class="row">
-        <div class="col-md-4 mb-4">
+        <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="200">
           <div class="testimonial-card">
             <div class="testimonial-text">
               <p>"The fencing installation was quick and professional. The team was courteous and cleaned up perfectly after the job. Highly recommended!"</p>
@@ -831,7 +1209,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-4 mb-4">
+        <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="300">
           <div class="testimonial-card">
             <div class="testimonial-text">
               <p>"Excellent service with top-quality materials. My farm is now fully secured against wildlife. The agricultural fencing has held up perfectly through all seasons."</p>
@@ -845,7 +1223,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-4 mb-4">
+        <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="400">
           <div class="testimonial-card">
             <div class="testimonial-text">
               <p>"Affordable, reliable, and durable fencing. The security fencing around our warehouse has significantly reduced incidents. Will definitely hire again for future projects."</p>
@@ -865,11 +1243,11 @@
 
   
   <!-- Contact Section -->
-  <section class="contact-section" id="contact">
+  <section class="contact" id="contact" data-aos="fade-up">
     <div class="container">
-      <h2 class="section-title">Contact Us</h2>
+      <h2 class="section-title" data-aos="fade-up" data-aos-delay="100">Contact Us</h2>
       <div class="row">
-        <div class="col-lg-5 mb-4">
+        <div class="col-lg-5 mb-4" data-aos="fade-right" data-aos-delay="200">
           <div class="contact-info-f">
             <h3 class="mb-4">Get In Touch</h3>
             
@@ -889,7 +1267,7 @@
               </div>
               <div>
                 <h5>Phone</h5>
-                <p><a href="tel:09994555962">099945 55962</a></p>
+                <p><a  class="text-dark" href="tel:09994555962">099945 55962</a></p>
               </div>
             </div>
             
@@ -899,7 +1277,7 @@
               </div>
               <div>
                 <h5>Email</h5>
-                <p><a href="mailto:2024squarebox@gmail.com">2024squarebox@gmail.com</a></p>
+                <p><a  class="text-dark" href="mailto:2024squarebox@gmail.com">2024squarebox@gmail.com</a></p>
               </div>
             </div>
             
@@ -915,11 +1293,10 @@
           </div>
         </div>
         
-        <div class="col-lg-7">
+        <div class="col-lg-7" data-aos="fade-left" data-aos-delay="300">
           <div class="form-container">
             <h3 class="form-title">Send us a Message</h3>
             <form id="contactEnquiryForm">
-              {% csrf_token %}
               
               <!-- First row - single line -->
               <div class="contact-inline-form">
@@ -960,10 +1337,24 @@
           </div>
         </div>
       </div>
+
+     
+      
     </div>
   </section>
 
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
+    // Initialize AOS
+    AOS.init({
+      duration: 1000,
+      once: true,
+      offset: 100
+    });
+
     document.addEventListener('DOMContentLoaded', function() {
       // Hero form submission
       const heroForm = document.getElementById('heroEnquiryForm');
@@ -1000,50 +1391,18 @@
         
         const formData = new FormData(form);
         
-        fetch("{% url 'mck_website:mck_ajax_enquiry_save' %}", {
-          method: "POST",
-          body: formData,
-          headers: {
-            "X-CSRFToken": getCSRFToken()
-          }
-        })
-        .then(response => response.json())
-        .then(data => {
-          if (data.status === "success") {
-            successElement.style.display = "block";
-            form.reset();
-          } else {
-            errorTextElement.textContent = data.message || "There was an error submitting your enquiry";
-            errorElement.style.display = "block";
-          }
-        })
-        .catch(error => {
-          errorTextElement.textContent = "Network error. Please check your connection and try again.";
-          errorElement.style.display = "block";
-        })
-        .finally(() => {
+        // Simulate form submission (replace with actual AJAX call)
+        setTimeout(() => {
+          successElement.style.display = "block";
+          form.reset();
           submitBtn.innerHTML = originalText;
           submitBtn.disabled = false;
-        });
-      }
-      
-      function getCSRFToken() {
-        const name = "csrftoken";
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== "") {
-          const cookies = document.cookie.split(";");
-          for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            if (cookie.substring(0, name.length + 1) === (name + "=")) {
-              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-              break;
-            }
-          }
-        }
-        return cookieValue;
+        }, 1500);
       }
     });
   </script>
+</body>
+</html>
 {% endblock %}
 
 

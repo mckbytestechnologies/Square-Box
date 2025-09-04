@@ -7,7 +7,7 @@
              :root {
       --primary: #ffd200;
       --secondary: #000;
-      --accent: #00509e;
+      --accent: #ffbf00;
       --light: #f8f9fa;
       --dark: #111;
     }
@@ -83,31 +83,111 @@
     }
 
     
-    /* Hero Section */
+   
+     /* Hero */
     .hero {
-      background: linear-gradient(135deg, var(--primary) 60%, #fff 40%);
-      padding: 100px 0;
-      position: relative;
-      overflow: hidden;
+      margin-top:18px;
+      background: linear-gradient(135deg, rgba(255,210,0,0.12) 0%, rgba(0,80,158,0.03) 100%);
+      padding: 48px 0;
+      border-radius: var(--radius);
+      box-shadow: 0 12px 40px rgba(2,6,23,0.04);
+      overflow:hidden;
     }
-    
-    .hero-content {
-      position: relative;
-      z-index: 2;
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1fr 480px;
+      gap:32px;
+      align-items: center;
+      max-width: var(--max-width);
+      margin:0 auto;
+      padding:36px var(--container-pad);
     }
-    
-    .hero h1 {
-      font-size: 3rem;
-      font-weight: 800;
-      color: var(--dark);
-      margin-bottom: 20px;
+    .hero-left h2{
+      margin:0 0 12px 0;
+      font-size:2.1rem;
+      line-height:1.03;
+      color:var(--dark);
+      font-weight:800;
+      letter-spacing:-0.02em;
     }
-    
-    .hero p {
-      font-size: 1.2rem;
-      margin-bottom: 30px;
-      max-width: 600px;
+    .hero-left p{
+      margin:0 0 18px 0;
+      color:#394455;
+      max-width:60ch;
+      font-size:1rem;
     }
+    .hero-actions{ display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-top:6px; }
+    .btn-primary{
+      background:var(--accent);
+      color:#fff;
+      border:none;
+      padding:12px 20px;
+      border-radius:10px;
+      font-weight:700;
+      box-shadow: 0 8px 20px rgba(0,80,158,0.12);
+      transition: transform .18s ease, background .18s ease;
+    }
+    .btn-primary:hover{ transform:translateY(-3px); background:#003b7a;}
+    .btn-ghost{
+      background:transparent;
+      border:2px solid rgba(17,17,17,0.06);
+      color:var(--dark);
+      padding:10px 16px;
+      border-radius:10px;
+      font-weight:700;
+    }
+    /* hero image card */
+    .hero-card{
+      background: linear-gradient(180deg, #fff, #fbfbfb);
+      border-radius: 12px;
+      overflow:hidden;
+      box-shadow: 0 8px 30px rgba(17,17,17,0.06);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:320px;
+    }
+    .hero-card img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    /* Inline hero form - compact and modern */
+    .hero-form{
+      margin-top:20px;
+      background: rgba(255,255,255,0.95);
+      border-radius: 12px;
+      padding:14px;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      border:1px solid rgba(17,17,17,0.04);
+      box-shadow: 0 10px 30px rgba(2,6,23,0.03);
+      transition: box-shadow .18s ease, transform .18s ease;
+    }
+    .hero-form:hover{ box-shadow: 0 18px 48px rgba(2,6,23,0.05); transform: translateY(-2px); }
+    .hero-form .form-input{
+      flex:1;
+      min-width:140px;
+      padding:12px 14px;
+      border-radius:8px;
+      border:1px solid #e6e9ef;
+      font-size:0.95rem;
+    }
+    .hero-form button{
+      background:var(--primary);
+      color:var(--dark);
+      font-weight:700;
+      padding:10px 14px;
+      border-radius:8px;
+      border:none;
+      cursor:pointer;
+      transition: transform .12s ease;
+    }
+    .hero-form button:hover{ transform: translateY(-2px); }
+
         /* Main Container Styles */
         .property-creation-container {
             padding: 30px 0;
@@ -156,7 +236,8 @@
         }
 
         .section-header {
-            background-color: #f8fafc;
+            background: linear-gradient(135deg, rgba(255,210,1,1.12) 0%, rgba(0,80,158,0.03) 100%);
+            /* background-color: #f8fafc; */
             padding: 15px 20px;
             border-bottom: 1px solid #e0e6ed;
             display: flex;
@@ -443,32 +524,7 @@
             }
         }
 
-         .faq-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .faq-item {
-            background: white;
-            margin-bottom: 15px;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-        }
-
-        .faq-question {
-            padding: 20px;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .faq-answer {
-            padding: 0 20px 20px;
-            color: var(--text-light);
-        }
+        
         .section {
             padding: 80px 0;
         }
@@ -530,6 +586,168 @@
             margin-bottom: 15px;
             color: var(--dark);
         }
+
+        .maintenance-approach {
+            padding: 60px 0;
+            background: linear-gradient(135deg, rgba(255,210,0,0.05) 0%, rgba(0,80,158,0.02) 100%);
+        }
+        
+        .approach-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .approach-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .approach-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+        
+        .approach-subtitle {
+            font-size: 1.2rem;
+            color: #394455;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .approach-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .approach-card {
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(17,17,17,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .approach-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(17,17,17,0.12);
+        }
+        
+        .approach-card-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .approach-card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .approach-card:hover .approach-card-img img {
+            transform: scale(1.05);
+        }
+        
+        .approach-card-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .approach-card-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .approach-card-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: var(--dark);
+            font-size: 1.2rem;
+        }
+        
+        .approach-card-desc {
+            color: #394455;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+        
+        .approach-features {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .approach-features li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(17,17,17,0.05);
+            display: flex;
+            align-items: center;
+        }
+        
+        .approach-features li:last-child {
+            border-bottom: none;
+        }
+        
+        .approach-features li i {
+            color: var(--accent);
+            margin-right: 10px;
+            font-size: 0.9rem;
+        }
+        .faq-section {
+            margin: 40px 0;
+        }
+
+        .faq-item {
+            margin-bottom: 15px;
+            border: 1px solid #e0e6ed;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 15px 20px;
+            background: #f8fafc;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            padding: 15px 20px;
+            background: white;
+            display: none;
+        }
+
 
     </style>
 </head>
@@ -985,6 +1203,99 @@
     </section>
   {% endif %}
 
+<section class="seller-approach">
+  <div class="container">
+    <div class="approach-header">
+      <h2 class="approach-title">Why Sellers Trust Our Platform</h2>
+      <p class="approach-subtitle">
+        We provide property owners with the right tools, insights, and support to
+        maximize visibility, maintain property value, and ensure a smooth selling
+        process.
+      </p>
+    </div>
+
+    <div class="approach-grid">
+      <!-- Smart Property Presentation -->
+      <div class="approach-card">
+        <div class="approach-card-img">
+          <img
+            src="https://i.pinimg.com/736x/fe/81/4b/fe814b3926c9c777f6efdedefcbbc00b.jpg"
+            alt="Smart Presentation"
+          />
+        </div>
+        <div class="approach-card-content">
+          <h3 class="approach-card-title">
+            <span class="approach-card-icon"><i class="fas fa-home"></i></span>
+            Smart Property Presentation
+          </h3>
+          <p class="approach-card-desc">
+            We help you showcase your property with professional listings that
+            highlight the best features, attracting serious buyers.
+          </p>
+          <ul class="approach-features">
+            <li><i class="fas fa-check-circle"></i> High-quality images & details</li>
+            <li><i class="fas fa-check-circle"></i> Optimized property descriptions</li>
+            <li><i class="fas fa-check-circle"></i> Location highlights</li>
+            <li><i class="fas fa-check-circle"></i> Professional presentation tips</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Faster Selling Support -->
+      <div class="approach-card">
+        <div class="approach-card-img">
+          <img
+            src="https://i.pinimg.com/736x/02/3d/fb/023dfb534c8982bddd97cac94d26a440.jpg"
+            alt="Faster Selling Support"
+          />
+        </div>
+        <div class="approach-card-content">
+          <h3 class="approach-card-title">
+            <span class="approach-card-icon"><i class="fas fa-bolt"></i></span>
+            Faster Selling Support
+          </h3>
+          <p class="approach-card-desc">
+            From listing to closing, our platform ensures sellers receive quick
+            responses, buyer leads, and real-time updates.
+          </p>
+          <ul class="approach-features">
+            <li><i class="fas fa-check-circle"></i> Real-time inquiries</li>
+            <li><i class="fas fa-check-circle"></i> Lead notifications</li>
+            <li><i class="fas fa-check-circle"></i> support team</li>
+            <li><i class="fas fa-check-circle"></i> Easy communication tools</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Value Assurance -->
+      <div class="approach-card">
+        <div class="approach-card-img">
+          <img
+            src="https://i.pinimg.com/1200x/52/83/10/528310ee24695d52115300dcb67a1557.jpg"
+            alt="Value Assurance"
+          />
+        </div>
+        <div class="approach-card-content">
+          <h3 class="approach-card-title">
+            <span class="approach-card-icon"><i class="fas fa-award"></i></span>
+            Value Assurance
+          </h3>
+          <p class="approach-card-desc">
+            We guide you to price your property correctly and maintain its value
+            while ensuring buyers see it as a trustworthy investment.
+          </p>
+          <ul class="approach-features">
+            <li><i class="fas fa-check-circle"></i> Market-based pricing tools</li>
+            <li><i class="fas fa-check-circle"></i> Verified property checks</li>
+            <li><i class="fas fa-check-circle"></i> Professional valuation support</li>
+            <li><i class="fas fa-check-circle"></i> Buyer confidence guarantee</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
   <!-- Security Section -->
     <section class="section">
@@ -1019,49 +1330,61 @@
         </div>
     </section>
 
-    <!-- FAQ Section -->
-    <section class="section" style="background-color: #f1f5f9;">
-        <div class="container">
-            <div class="section-header">
-                <h2>Frequently Asked Questions</h2>
-                <!-- <p>Get answers to common questions about listing your property</p> -->
-            </div>
-            <div class="faq-container">
-                <div class="faq-item">
-                    <div class="faq-question">
-                        Is there any cost to list my property? <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Listing your property on SquareBox is completely free. We only charge a success fee once your property is successfully sold or rented through our platform.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        How long does it take to list a property? <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Our streamlined process takes just 10-15 minutes to complete your listing. Once submitted, our team will verify and activate your listing within 24 hours.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        Can I update my listing after publishing? <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Yes, you can easily update your listing anytime through your dashboard. You can change photos, description, price, and other details as needed.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        How do you help me determine the right price? <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Our pricing tool analyzes similar properties in your area and current market trends to suggest an optimal price range. Our experts can also provide a free valuation.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+   
+<!-- FAQ Section -->
+                   <div class="faq-section container">
+  <h3 class="mb-4">Frequently Asked Questions for Sellers</h3>
+
+  <div class="faq-item">
+    <div class="faq-question">
+      How do I create a property listing?
+      <i class="fas fa-chevron-down"></i>
+    </div>
+    <div class="faq-answer">
+      Simply fill out the property create form with accurate details such as title, price, location, and images. Once submitted, your listing will be reviewed and published on our platform for buyers to view.
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">
+      How long will my property listing stay active?
+      <i class="fas fa-chevron-down"></i>
+    </div>
+    <div class="faq-answer">
+      Listings typically remain active for 90 days by default. You can extend, edit, or remove your listing anytime from your dashboard.
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">
+      Do I need to pay to list my property?
+      <i class="fas fa-chevron-down"></i>
+    </div>
+    <div class="faq-answer">
+      Basic property listings are free. However, we also offer premium plans that give your property higher visibility, featured placement, and faster lead generation.
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">
+      How will buyers contact me?
+      <i class="fas fa-chevron-down"></i>
+    </div>
+    <div class="faq-answer">
+      Interested buyers can reach out to you directly via the contact options provided on your listing. You will also receive instant notifications and inquiries through your registered email or dashboard.
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">
+      Can I edit or update my property details after publishing?
+      <i class="fas fa-chevron-down"></i>
+    </div>
+    <div class="faq-answer">
+      Yes, you can edit your property details anytime from your dashboard. Changes are updated in real-time to ensure buyers always see the most accurate information.
+    </div>
+  </div>
+</div>
 
 
 
@@ -1246,17 +1569,13 @@
             }, 500);
         }
     });
-
-     // FAQ toggle functionality
-        document.querySelectorAll('.faq-question').forEach(question => {
-            question.addEventListener('click', () => {
-                const answer = question.nextElementSibling;
-                answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
-                const icon = question.querySelector('i');
-                icon.classList.toggle('fa-chevron-down');
-                icon.classList.toggle('fa-chevron-up');
-            });
+    // FAQ toggle
+        $('.faq-question').on('click', function() {
+            $(this).siblings('.faq-answer').slideToggle();
+            $(this).find('i').toggleClass('fa-chevron-down fa-chevron-up');
         });
+
+     
     </script>
     
  

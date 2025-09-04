@@ -1,1031 +1,798 @@
-{% extends "layouts/base.html" %}
-{% load static %}
+<!-- Top Announcement Bar -->
+<div class="announce" id="announceBar" role="region" aria-label="Announcement">
+  <div class="announce__track">
+    Vellore's No.1 Real Estate Platform • Find Homes, Plots & Commercial Spaces • Trusted Agents • Verified Listings • Secure Deals •
+    Mumbai's No.1 Real Estate Platform • Find Homes, Plots & Commercial Spaces • Trusted Agents • Verified Listings • Secure Deals •
+  </div>
+  <button class="announce__close" id="announceClose" aria-label="Close announcement">
+    <i class="fas fa-times" aria-hidden="true"></i>
+  </button>
+</div>
 
-{% block content %}
-<body>
-    
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="container nav-inner">
+    <!-- Logo -->
+    <a class="logo" href="{% url 'mck_website:home_page' %}" aria-label="Homepage">
+      <div class="logo-mark">SB</div>
+      <div class="logo-text">
+        Square<span class="highlight">Box</span>
+      </div>
+    </a>
 
-    <!-- Trust Badges Section -->
-    <section class="trust-badges">
-        <div class="container">
-            <div class="badges-grid">
-                <div class="badge-item">
-                    <i class="fas fa-shield-alt"></i>
-                    <h4>Verified Listings</h4>
-                    <p>Every property is thoroughly verified for authenticity</p>
-                </div>
-                <div class="badge-item">
-                    <i class="fas fa-handshake"></i>
-                    <h4>Trusted Agents</h4>
-                    <p>Professional and certified real estate experts</p>
-                </div>
-                <div class="badge-item">
-                    <i class="fas fa-lock"></i>
-                    <h4>Secure Transactions</h4>
-                    <p>Safe and transparent property dealings</p>
-                </div>
-                <div class="badge-item">
-                    <i class="fas fa-headset"></i>
-                    <h4>24/7 Support</h4>
-                    <p>Always available to assist you</p>
-                </div>
-            </div>
+    <!-- Desktop Nav -->
+    <ul class="nav desktop-nav" role="menubar" aria-label="Primary">
+      <!-- Buy Dropdown -->
+      <li class="nav-dropdown">
+        <a href="{% url 'mck_website:mck_property_page' %}?listing_type=sale" role="menuitem" aria-haspopup="true" class="dropdown-toggle">Buy </a>
+        <div class="dropdown" role="menu">
+          <a href="{% url 'mck_website:mck_property_page' %}?listing_type=sale&property_type=Apartment">Apartments</a>
+          <a href="{% url 'mck_website:mck_property_page' %}?listing_type=sale&property_type=Independent_House">Independent House</a>
+          <a href="{% url 'mck_website:mck_property_page' %}?listing_type=sale&property_type=Villa">Villa</a>
+          <a href="{% url 'mck_website:mck_property_page' %}?listing_type=sale&property_type=Plot">Plot / Land</a>
+          <a href="{% url 'mck_website:mck_property_page' %}?listing_type=sale&property_type=Commercial">Commercial Property</a>
+          <a href="{% url 'mck_website:mck_property_page' %}">New Launch</a>
         </div>
-    </section>
+      </li>
+      
+      <!-- Rent Dropdown -->
+      <li class="nav-dropdown">
+        <a href="{% url 'mck_website:mck_property_page' %}?listing_type=rent" role="menuitem" aria-haspopup="true" class="dropdown-toggle">Rent </a>
+        <div class="dropdown" role="menu">
+          <a href="{% url 'mck_website:mck_property_page' %}?listing_type=rent&property_type=Apartment">Apartments</a>
+          <a href="{% url 'mck_website:mck_property_page' %}?listing_type=rent&property_type=Independent_House">Independent House</a>
+          <a href="{% url 'mck_website:mck_property_page' %}?listing_type=rent&property_type=Villa">Villa</a>
+          <a href="{% url 'mck_website:mck_property_page' %}?listing_type=rent&property_type=Plot">Plot / Land</a>
+          <a href="{% url 'mck_website:mck_property_page' %}?listing_type=rent&property_type=Commercial">Commercial Property</a>
+          <a href="{% url 'mck_website:mck_property_page' %}?listing_type=rent&status=New Launch">New Launch</a>
+        </div>
+      </li>
+      
+      <li><a href="{% url 'mck_website:mck_property_create_page' %}">Sell</a></li>
+      
+      <!-- Services Dropdown -->
+      <li class="nav-dropdown">
+        <a href="#" aria-haspopup="true" class="dropdown-toggle">Services </a>
+        <div class="dropdown" role="menu">
+          <a href="{% url 'mck_website:property_legal_services_page' %}">Property Legal Services</a>
+          <a href="{% url 'mck_website:land_levelling_page' %}">Land Levelling</a>
+          <a href="{% url 'mck_website:fencing_page' %}">Fencing</a>
+          <a href="{% url 'mck_website:solar_page' %}">Solar Roadmap</a>
+        </div>
+      </li>
+      
+      <li><a href="{% url 'mck_website:property_maintenance_page' %}"> Property Maintenance</a></li>
+    </ul>
 
-   
-    <!-- Properties Listing Section -->
-    <section class="properties-listing">
-        <div class="container">
-            <h2>Featured Properties</h2>
-
-            <!-- Property type filter buttons -->
-            <div class="property-type-filter">
-                <button class="filter-btn active" data-type="all">All Properties</button>
-                {% for type in property_types %}
-                    <button class="filter-btn" data-type="{{ type.name }}">{{ type.name|title }}</button>
-                {% endfor %}
-            </div>
+    <!-- User Authentication Section - Desktop -->
+    <div class="user-auth desktop-auth">
+      {% if user.is_authenticated %}
+        <!-- User is logged in - Show profile dropdown -->
+        <div class="user-dropdown">
+          <button class="user-btn" aria-expanded="false" aria-label="User menu">
+            <i class="fas fa-user-circle"></i>
+            <span class="user-name">{{ user.first_name|default:user.username }}</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="user-menu" role="menu">
             
-            {% if properties %}
-                <div class="properties-grid">
-                    {% for prop in properties %}
-                        <div class="property-card" data-city="{{ prop.city }}" data-type="{{ prop.property_type.name }}">
-                            <div class="property-image">
-                                {% if prop.property_images_list.first %}
-                                    <img src="{{ prop.property_images_list.first.image.url }}" alt="{{ prop.title }}">
-                                {% else %}
-                                    <img src="{% static 'images/default-property.jpg' %}" alt="Default property image">
-                                {% endif %}
-                                <div class="property-badge">
-                                    <!-- Property type badge with icon -->
-                                    <span class="badge-type badge-{{ prop.property_type.name|lower }}">
-                                        <i class="fas 
-                                            {% if prop.property_type.name == 'APARTMENT' %}fa-building
-                                            {% elif prop.property_type.name == 'VILLA' %}fa-home
-                                            {% elif prop.property_type.name == 'PLOT' %}fa-vector-square
-                                            {% elif prop.property_type.name == 'COMMERCIAL' %}fa-store
-                                            {% elif prop.property_type.name == 'INDEPENDENT_HOUSE' %}fa-house-user
-                                            {% elif prop.property_type.name == 'TOWNHOUSE' %}fa-city
-                                            {% else %}fa-home{% endif %}">
-                                        </i>
-                                        {{ prop.property_type.name|default:"Premium"|title }}
-                                    </span>
-                                    {% if prop.is_featured %}
-                                        <span class="badge-featured">Featured</span>
-                                    {% endif %}
-                                </div>
-                            </div>
-                            <div class="property-content">
-                                <h3 class="property-title">{{ prop.title }}</h3>
-                                <div class="property-location">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    {{ prop.city }}, {{ prop.state }}
-                                </div>
-                                <!-- <div class="property-price">₹{{ prop.price|floatformat:"0" }}</div> -->
-                                
-                                <!-- Property details based on type -->
-                                <div class="property-details">
-                                    {% with pt=prop.property_type.name %}
-                                    {% if pt == 'APARTMENT' %}
-                                        {% if prop.bedrooms %}<span><i class="fas fa-bed"></i> {{ prop.bedrooms }} Beds</span>{% endif %}
-                                        {% if prop.bathrooms %}<span><i class="fas fa-bath"></i> {{ prop.bathrooms }} Baths</span>{% endif %}
-                                        {% if prop.sqft %}<span><i class="fas fa-ruler-combined"></i> {{ prop.sqft }} sq.ft</span>{% endif %}
-                                        {% if prop.floor_number %}<span>Floor: {{ prop.floor_number }}/{{ prop.total_floors }}</span>{% endif %}
-                                        {% if prop.building_age %}<span>Age: {{ prop.building_age }} yrs</span>{% endif %}
-                                        {% if prop.maintenance_charges %}<span>Maintenance: ₹{{ prop.maintenance_charges }}</span>{% endif %}
-                                    {% elif pt == 'VILLA' %}
-                                        {% if prop.plot_area %}<span>Plot Area: {{ prop.plot_area }} sq.ft</span>{% endif %}
-                                        {% if prop.builtup_area %}<span>Built-up: {{ prop.builtup_area }} sq.ft</span>{% endif %}
-                                        {% if prop.facing_direction %}<span>Facing: {{ prop.facing_direction }}</span>{% endif %}
-                                        {% if prop.garden_area %}<span>Garden: {{ prop.garden_area }} sq.ft</span>{% endif %}
-                                    {% elif pt == 'PLOT' %}
-                                        {% if prop.plot_length and prop.plot_width %}<span>Plot: {{ prop.plot_length }} x {{ prop.plot_width }} ft</span>{% endif %}
-                                        {% if prop.water_availability %}<span>Water: {{ prop.water_availability }}</span>{% endif %}
-                                        {% if prop.soil_type %}<span>Soil: {{ prop.soil_type }}</span>{% endif %}
-                                    {% elif pt == 'COMMERCIAL' %}
-                                        {% if prop.commercial_type %}<span>Type: {{ prop.commercial_type }}</span>{% endif %}
-                                        {% if prop.floor_height %}<span>Floor Height: {{ prop.floor_height }} ft</span>{% endif %}
-                                        {% if prop.loading_capacity %}<span>Loading Capacity: {{ prop.loading_capacity }}</span>{% endif %}
-                                        {% if prop.parking_capacity %}<span>Parking: {{ prop.parking_capacity }}</span>{% endif %}
-                                    {% elif pt == 'INDEPENDENT_HOUSE' %}
-                                        {% if prop.office_type %}<span>Type: {{ prop.office_type }}</span>{% endif %}
-                                        {% if prop.furnishing_type %}<span>Furnishing: {{ prop.furnishing_type }}</span>{% endif %}
-                                        {% if prop.conference_rooms %}<span>Conference Rooms: {{ prop.conference_rooms }}</span>{% endif %}
-                                        {% if prop.reception_area %}<span>Reception: {{ prop.reception_area }}</span>{% endif %}
-                                    {% elif pt == 'TOWNHOUSE' %}
-                                        {% if prop.units_in_complex %}<span>Units in Complex: {{ prop.units_in_complex }}</span>{% endif %}
-                                        {% if prop.corner_unit %}<span>Corner Unit: {{ prop.corner_unit }}</span>{% endif %}
-                                        {% if prop.end_unit %}<span>End Unit: {{ prop.end_unit }}</span>{% endif %}
-                                        {% if prop.hoa_fee %}<span>HOA Fee: ₹{{ prop.hoa_fee }}</span>{% endif %}
-                                    {% else %}
-                                        <!-- Default details for unknown property types -->
-                                        {% if prop.bedrooms %}<span><i class="fas fa-bed"></i> {{ prop.bedrooms }} Beds</span>{% endif %}
-                                        {% if prop.bathrooms %}<span><i class="fas fa-bath"></i> {{ prop.bathrooms }} Baths</span>{% endif %}
-                                        {% if prop.sqft %}<span><i class="fas fa-ruler-combined"></i> {{ prop.sqft }} sq.ft</span>{% endif %}
-                                    {% endif %}
-                                    {% endwith %}
-                                </div>
-
-                                {% if prop.property_images_list %}
-                                    <div class="image-thumbnails">
-                                        {% for img in prop.property_images_list|slice:":4" %}
-                                            <div class="image-thumb">
-                                                <img src="{{ img.image.url }}" alt="Property thumbnail">
-                                            </div>
-                                        {% endfor %}
-                                    </div>
-                                {% endif %}
-
-                                <div class="property-actions">
-                                    <a href="{% url 'mck_website:property_detail' prop.id %}" class="view-details">View Details</a>
-                                    <button class="inquire-btn" data-property-id="{{ prop.id }}">Inquire Now</button>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-            {% else %}
-                <div class="no-properties">
-                    <i class="fas fa-home"></i>
-                    <h3>No properties available at the moment</h3>
-                    <p>Check back later or contact us for personalized property recommendations</p>
-                    <a href="#contact" class="cta-button">Contact Us</a>
-                </div>
-            {% endif %}
+            <div class="user-menu-divider"></div>
+            <a href="{% url 'mck_auth:website_logout' %}" role="menuitem" class="logout-btn">
+              <i class="fas fa-sign-out-alt"></i>Logout
+            </a>
+          </div>
         </div>
-    </section>
-
-     <!-- How It Works Section -->
-    <section class="how-it-works">
-        <div class="container">
-            <h2>How SquareBox Works</h2>
-            <div class="steps-grid">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <h3>Browse Properties</h3>
-                    <p>Explore our extensive collection of verified properties</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <h3>Connect with Experts</h3>
-                    <p>Get in touch with our certified property consultants</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <h3>Site Visits</h3>
-                    <p>Schedule personalized property tours</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <h3>Close the Deal</h3>
-                    <p>Complete your transaction with legal support</p>
-                </div>
-            </div>
+      {% else %}
+        <!-- User is not logged in - Show login/register buttons -->
+        <div class="auth-buttons">
+          <a href="{% url 'mck_auth:website_signin' %}" class="auth-btn login-btn">
+            <i class="fas fa-sign-in-alt"></i>Login
+          </a>
+          <a href="{% url 'mck_auth:website_signup' %}" class="auth-btn register-btn">
+            <i class="fas fa-user-plus"></i>Register
+          </a>
         </div>
-    </section>
-
-
-    <!-- Why Choose Us Section -->
-    <section class="why-choose-us">
-        <div class="container">
-            <h2>Why Choose SquareBox?</h2>
-            <div class="features-grid">
-                <div class="feature">
-                    <i class="fas fa-check-circle"></i>
-                    <h3>Verified Properties</h3>
-                    <p>Every listing undergoes rigorous verification to ensure authenticity</p>
-                </div>
-                <div class="feature">
-                    <i class="fas fa-rupee-sign"></i>
-                    <h3>Best Price Guarantee</h3>
-                    <p>We ensure you get the best market value for your investment</p>
-                </div>
-                <div class="feature">
-                    <i class="fas fa-users"></i>
-                    <h3>Expert Consultation</h3>
-                    <p>Get advice from certified real estate professionals</p>
-                </div>
-                <div class="feature">
-                    <i class="fas fa-file-contract"></i>
-                    <h3>Legal Support</h3>
-                    <p>End-to-end legal assistance for all property transactions</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-
-    <!-- CTA Section -->
-    <!-- <section class="cta-section" id="contact">
-        <div class="">
-            <div class="cta-content">
-                <h2>Ready to Find Your Perfect Property?</h2>
-                
-                <div class="cta-buttons">
-                    <a href="tel:+919876543210" class="cta-button">
-                        <i class="fas fa-phone"></i> Call Now
-                    </a>
-                    <a href="https://wa.me/919876543210" class="cta-button whatsapp">
-                        <i class="fab fa-whatsapp"></i> WhatsApp
-                    </a>
-                    <a href="mailto:info@squarebox.com" class="cta-button">
-                        <i class="fas fa-envelope"></i> Email Us
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section> -->
-
-    <!-- Inquiry Modal -->
-    <div class="modal" id="inquiryModal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h3>Property Inquiry</h3>
-            <form id="heroEnquiryForm">
-              {% csrf_token %}
-                <input type="hidden" id="propertyId" name="property_id">
-                <div class="form-group">
-                    <input type="text" name="name" placeholder="Your Name" required>
-                </div>
-                <div class="form-group">
-                    <input type="email" name="email" placeholder="Your Email" required>
-                </div>
-                <div class="form-group">
-                    <input type="tel" name="phone" placeholder="Your Phone Number" required>
-                </div>
-                <div class="form-group">
-                    <textarea name="message" placeholder="Your Message" rows="4"></textarea>
-                </div>
-                <button type="submit" class="btn">
-                  <i class="fas fa-paper-plane"></i> Submit
-                </button>
-                <div id="heroSuccessMessage" class="success-message">
-                ✅ Your enquiry was submitted successfully!
-              </div>
-              <div id="heroErrorMessage" class="error-message">
-                ❌ <span id="heroErrorText"></span>
-              </div>
-            </form>
-        </div>
+      {% endif %}
     </div>
 
-    <!-- Add Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <style>
-        :root {
-            --primary: #ffd200;
-            --secondary: #e74c3c;
-            --light: #f8f9fa;
-            --dark: #2c3e50;
-            --text: #2c3e50;
-            --text-light: #7f8c8d;
-            --success: #27ae60;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: var(--light);
-            color: var(--text);
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        /* Hero Section */
-        .hero-section {
-             background: url("https://i.pinimg.com/1200x/99/c9/54/99c954fe61d60100c58611588f101e9a.jpg") no-repeat center center;
-            padding: 80px 0;
-            text-align: center;
-            color: var(--dark);
-        }
-
-        .hero-content h1 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
-
-        .hero-content p {
-            font-size: 1.2rem;
-            margin-bottom: 40px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .hero-stats {
-            display: flex;
-            justify-content: center;
-            gap: 50px;
-            margin-top: 40px;
-        }
-
-        .stat {
-            text-align: center;
-        }
-
-        .stat-number {
-            display: block;
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--dark);
-        }
-
-        .stat-label {
-            font-size: 1rem;
-            color: var(--text);
-        }
-
-        /* Trust Badges */
-        .trust-badges {
-            
-            background: white;
-        }
-
-        .badges-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-
-        .badge-item {
-            text-align: center;
-            padding: 30px;
-        }
-
-        .badge-item i {
-            font-size: 3rem;
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
-
-        .badge-item h4 {
-            margin-bottom: 15px;
-            color: var(--dark);
-        }
-
-        /* How It Works */
-        .how-it-works {
-            padding: 80px 0;
-            background: var(--light);
-            text-align: center;
-        }
-
-        .how-it-works h2 {
-            margin-bottom: 50px;
-            font-size: 2.5rem;
-        }
-
-        .steps-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-
-        .step {
-            text-align: center;
-            padding: 30px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .step-number {
-            width: 60px;
-            height: 60px;
-            background: var(--primary);
-            color: var(--dark);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin: 0 auto 20px;
-        }
-
-        /* Properties Listing */
-        
-
-        .properties-listing h2 {
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 2.5rem;
-        }
-
-        .section-subtitle {
-            text-align: center;
-            margin-bottom: 40px;
-            color: var(--text-light);
-            font-size: 1.1rem;
-        }
-
-        .property-type-filter {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 40px;
-        }
-
-        .filter-btn {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 30px;
-            background-color: white;
-            color: var(--text-light);
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .filter-btn:hover, .filter-btn.active {
-            background-color: var(--dark);
-            color: white;
-        }
-
-        .properties-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 30px;
-        }
-
-        .property-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .property-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-        }
-
-        .property-image {
-            height: 250px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .property-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-
-        .property-card:hover .property-image img {
-            transform: scale(1.1);
-        }
-
-        .property-badge {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .badge-type {
-            padding: 8px 15px;
-            border-radius: 30px;
-            font-size: 12px;
-            font-weight: 600;
-            color: white;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .badge-type i {
-            font-size: 12px;
-        }
-
-        .badge-apartment { background-color: #3498db; }
-        .badge-villa { background-color: #e74c3c; }
-        .badge-plot { background-color: #2ecc71; }
-        .badge-commercial { background-color: #f39c12; }
-        .badge-independent_house { background-color: #9b59b6; }
-        .badge-townhouse { background-color: #1abc9c; }
-
-        .badge-featured {
-            padding: 8px 15px;
-            border-radius: 30px;
-            font-size: 12px;
-            font-weight: 600;
-            background-color: var(--primary);
-            color: var(--dark);
-        }
-
-        .property-content {
-            padding: 25px;
-        }
-
-        .property-title {
-            font-size: 1.4rem;
-            margin-bottom: 15px;
-            color: var(--dark);
-        }
-
-        .property-location {
-            color: var(--text-light);
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .property-price {
-            font-size: 1.6rem;
-            font-weight: bold;
-            color: var(--secondary);
-            margin-bottom: 20px;
-        }
-
-        .property-details {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin: 20px 0;
-            font-size: 14px;
-            color: var(--text-light);
-        }
-
-        .property-details span {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .property-details i {
-            color: var(--primary);
-        }
-
-        .image-thumbnails {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-
-        .image-thumb {
-            width: 60px;
-            height: 60px;
-            border-radius: 8px;
-            overflow: hidden;
-            border: 2px solid transparent;
-            transition: all 0.3s;
-        }
-
-        .image-thumb:hover {
-            border-color: var(--secondary);
-        }
-
-        .image-thumb img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .property-actions {
-            display: flex;
-            gap: 15px;
-            margin-top: 25px;
-        }
-
-        .view-details {
-            flex: 1;
-            padding: 12px 20px;
-            background-color: var(--primary);
-            color: var(--dark);
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            text-align: center;
-            transition: all 0.3s;
-        }
-
-        .view-details:hover {
-            background-color: var(--dark);
-            color: white;
-        }
-
-        .inquire-btn {
-            flex: 1;
-            padding: 12px 20px;
-            background-color: var(--primary);
-            color: rgb(8, 8, 8);
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .inquire-btn:hover {
-            background-color: #0c0c0c;
-            color:#ddd
-        }
-
-        .no-properties {
-            text-align: center;
-            padding: 60px 20px;
-            grid-column: 1 / -1;
-        }
-
-        .no-properties i {
-            font-size: 4rem;
-            color: var(--text-light);
-            margin-bottom: 20px;
-        }
-
-        /* Why Choose Us */
-        .why-choose-us {
-            padding: 80px 0;
-            background: white;
-        }
-
-        .why-choose-us h2 {
-            text-align: center;
-            margin-bottom: 50px;
-            font-size: 2.5rem;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-
-        .feature {
-            text-align: center;
-            padding: 30px;
-        }
-
-        .feature i {
-            font-size: 3rem;
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
-
-        .feature h3 {
-            margin-bottom: 15px;
-            color: var(--dark);
-        }
-
-        /* Testimonials */
-        .testimonials {
-            padding: 80px 0;
-            background: var(--light);
-        }
-
-        .testimonials h2 {
-            text-align: center;
-            margin-bottom: 50px;
-            font-size: 2.5rem;
-        }
-
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .testimonial {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .testimonial-content {
-            margin-bottom: 20px;
-        }
-
-        .testimonial-content p {
-            font-style: italic;
-            color: var(--text);
-        }
-
-        .testimonial-author h4 {
-            color: var(--dark);
-            margin-bottom: 5px;
-        }
-
-        .testimonial-author p {
-            color: var(--text-light);
-        }
-
-        /* CTA Section */
-        .cta-section {
-            padding: 80px 0;
-             background: url("https://i.pinimg.com/1200x/99/c9/54/99c954fe61d60100c58611588f101e9a.jpg") no-repeat center center;
-            /* background: linear-gradient(135deg, var(--dark) 0%, #34495e 100%); */
-            color: white;
-            text-align: center;
-        }
-
-        .cta-content h2 {
-            margin-bottom: 20px;
-            font-size: 2.5rem;
-        }
-
-        .cta-content p {
-            margin-bottom: 40px;
-            font-size: 1.2rem;
-        }
-
-        .cta-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .cta-button {
-            padding: 15px 30px;
-            background: var(--primary);
-            color: var(--dark);
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s;
-        }
-
-        .cta-button:hover {
-            background: white;
-            transform: translateY(-3px);
-        }
-
-        .cta-button.whatsapp {
-            background: #25D366;
-            color: white;
-        }
-
-        .cta-button.whatsapp:hover {
-            background: #128C7E;
-        }
-        .success-message {
+    <!-- Hamburger (Mobile Only) -->
+    <button class="hamburger" aria-label="Open menu" id="openMobileNav">☰</button>
+  </div>
+</nav>
+
+<!-- Mobile Nav Drawer -->
+<div class="mobile-nav-drawer" id="mobileNavDrawer">
+  <div class="mobile-nav-content">
+    <!-- Close Button -->
+    <button class="mobile-close-btn" id="closeMobileNav" aria-label="Close menu">✕</button>
+
+    <!-- Mobile Logo -->
+    <div class="mobile-logo">
+      <div class="logo-mark text-dark">SB</div>
+      <div class="logo-text">
+        Square<span class="highlight">Box</span>
+      </div>
+    </div>
+
+    <!-- Mobile User Auth Section -->
+    <div class="mobile-auth-section">
+      {% if user.is_authenticated %}
+        <div class="mobile-user-info">
+          <i class="fas fa-user-circle"></i>
+          <div>
+            <div class="mobile-user-name">{{ user.first_name|default:user.username }}</div>
+            <div class="mobile-user-email">{{ user.email }}</div>
+          </div>
+        </div>
+        <div class="mobile-auth-links">
+          
+          <a href="{% url 'mck_auth:website_logout' %}" class="mobile-auth-link logout-link">
+            <i class="fas fa-sign-out-alt"></i>Logout
+          </a>
+        </div>
+      {% else %}
+        <!-- Login/Register buttons inside mobile menu -->
+        <div class="mobile-auth-header">
+          <h3>Account</h3>
+        </div>
+        <div class="mobile-auth-buttons">
+          <a href="{% url 'mck_auth:website_signin' %}" class="mobile-auth-btn login-btn">
+            <i class="fas fa-sign-in-alt"></i>Login
+          </a>
+          <a href="{% url 'mck_auth:website_signup' %}" class="mobile-auth-btn register-btn">
+            <i class="fas fa-user-plus"></i>Register
+          </a>
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="mobile-nav-menu">
+      <!-- Buy Dropdown -->
+      <div class="mobile-nav-item">
+        <button class="mobile-nav-toggle" data-target="buy-dropdown">
+          Buy <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="mobile-nav-dropdown" id="buy-dropdown">
+          <a href="{% url 'mck_website:mck_property_page' %}?listing_type=sale&property_type=Apartment">Apartments</a>
+          <a href="{% url 'mck_website:mck_property_page' %}?listing_type=sale&property_type=Independent_House">Independent House</a>
+          <a href="{% url 'mck_website:mck_property_page' %}?listing_type=sale&property_type=Villa">Villa</a>
+          <a href="{% url 'mck_website:mck_property_page' %}?listing_type=sale&property_type=Plot">Plot / Land</a>
+          <a href="{% url 'mck_website:mck_property_page' %}?listing_type=sale&property_type=Commercial">Commercial Property</a>
+          <a href="{% url 'mck_website:mck_property_page' %}">New Launch</a>
+        </div>
+      </div>
+
+      <!-- Rent Dropdown -->
+      <div class="mobile-nav-item">
+        <button class="mobile-nav-toggle" data-target="rent-dropdown">
+          Rent <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="mobile-nav-dropdown" id="rent-dropdown">
+          <a href="{% url 'mck_website:mck_property_page' %}?listing_type=rent&property_type=Apartment">Apartments</a>
+          <a href="{% url 'mck_website:mck_property_page' %}?listing_type=rent&property_type=Independent_House">Independent House</a>
+          <a href="{% url 'mck_website:mck_property_page' %}?listing_type=rent&property_type=Villa">Villa</a>
+          <a href="{% url 'mck_website:mck_property_page' %}?listing_type=rent&property_type=Plot">Plot / Land</a>
+          <a href="{% url 'mck_website:mck_property_page' %}?listing_type=rent&property_type=Commercial">Commercial Property</a>
+          <a href="{% url 'mck_website:mck_property_page' %}?listing_type=rent&status=New Launch">New Launch</a>
+        </div>
+      </div>
+
+      <!-- Sell -->
+      <a class="mobile-nav-link" href="{% url 'mck_website:mck_property_create_page' %}">Sell</a>
+
+      <!-- Services Dropdown -->
+      <div class="mobile-nav-item">
+        <button class="mobile-nav-toggle" data-target="services-dropdown">
+          Services <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="mobile-nav-dropdown" id="services-dropdown">
+          <a href="{% url 'mck_website:property_legal_services_page' %}">Property Legal Services</a>
+          <a href="{% url 'mck_website:land_levelling_page' %}">Land Levelling</a>
+          <a href="{% url 'mck_website:property_maintenance_page' %}">Property Management</a>
+          <a href="{% url 'mck_website:fencing_page' %}">Fencing</a>
+          <a href="{% url 'mck_website:solar_page' %}">Solar Roadmap</a>
+        </div>
+      </div>
+
+      <!-- Maintenance -->
+      <a class="mobile-nav-link" href="{% url 'mck_website:property_maintenance_page' %}">Maintenance</a>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Navbar Dropdown Styles */
+  .nav-dropdown {
+    position: relative;
+  }
+  
+  .nav-dropdown:hover .dropdown {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  
+  .dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    padding: 0.5rem;
+    min-width: 200px;
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+  }
+  
+  .dropdown a {
+    display: block;
+    padding: 0.75rem 1rem;
+    text-decoration: none;
+    color: #333;
+    border-radius: 4px;
+    transition: background 0.3s ease;
+  }
+  
+  .dropdown a:hover {
+    background: #f5f5f5;
+  }
+  
+  /* Desktop Authentication Styles */
+  .desktop-auth {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    padding-right: 1rem;
+  }
+
+  .auth-buttons {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .auth-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .login-btn {
+    background: transparent;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+  }
+
+  .login-btn:hover {
+    background: var(--primary);
+    color: white;
+  }
+
+  .register-btn {
+    background: var(--primary);
+    border: 2px solid var(--primary);
+    color: white;
+  }
+
+  .register-btn:hover {
+    background: transparent;
+    color: var(--primary);
+  }
+  
+  /* User Dropdown Styles */
+  .user-dropdown {
+    position: relative;
+  }
+
+  .user-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: transparent;
+    border: 2px solid var(--primary);
+    border-radius: 6px;
+    color: var(--primary);
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .user-btn:hover {
+    background: var(--primary);
+    color: white;
+  }
+
+  .user-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    padding: 0.5rem;
+    min-width: 200px;
+    display: none;
+    z-index: 1000;
+  }
+
+  .user-dropdown:hover .user-menu {
+    display: block;
+  }
+
+  .user-menu a {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    text-decoration: none;
+    color: #333;
+    border-radius: 4px;
+    transition: background 0.3s ease;
+  }
+
+  .user-menu a:hover {
+    background: #f5f5f5;
+  }
+
+  .user-menu-divider {
+    height: 1px;
+    background: #eee;
+    margin: 0.25rem 0;
+  }
+
+  .logout-btn {
+    color: #dc3545 !important;
+  }
+
+  .logout-btn:hover {
+    background: #ffe6e6 !important;
+  }
+  
+  /* Mobile Nav Drawer */
+  .mobile-nav-drawer {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 300px;
+    height: 100vh;
+    background: #2c3e50;
+    z-index: 10000;
+    transition: right 0.3s ease;
+    overflow-y: auto;
+  }
+  
+  .mobile-nav-drawer.active {
+    right: 0;
+  }
+  
+  .mobile-nav-content {
+    padding: 1rem;
+    position: relative;
+  }
+  
+  .mobile-close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 10001;
+  }
+  
+  .mobile-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 0;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  
+  .logo-mark {
+    width: 40px;
+    height: 40px;
+    background: var(--primary);
+    color: rgb(5, 5, 5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+  
+  .logo-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+  }
+  
+  .logo-text .highlight {
+    color: var(--primary);
+  }
+  
+  .mobile-nav-menu {
+    margin-top: 1rem;
+  }
+  
+  .mobile-nav-item {
+    margin-bottom: 0.5rem;
+  }
+  
+  .mobile-nav-toggle {
+    width: 100%;
+    text-align: left;
+    background: rgba(255,255,255,0.1);
+    border: none;
+    padding: 1rem;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .mobile-nav-toggle.active {
+    background: rgba(255,255,255,0.2);
+  }
+  
+  .mobile-nav-dropdown {
+    display: none;
+    padding: 0.5rem 0 0.5rem 1.5rem;
+  }
+  
+  .mobile-nav-dropdown.active {
+    display: block;
+  }
+  
+  .mobile-nav-dropdown a {
+    display: block;
+    padding: 0.75rem;
+    color: #e7f1fb;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background 0.3s ease;
+  }
+  
+  .mobile-nav-dropdown a:hover {
+    background: rgba(255,255,255,0.1);
+  }
+  
+  .mobile-nav-link {
+    display: block;
+    padding: 1rem;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 6px;
+    transition: background 0.3s ease;
+  }
+  
+  .mobile-nav-link:hover {
+    background: rgba(255,255,255,0.1);
+  }
+  
+  /* Overlay for mobile menu */
+  .mobile-nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 9999;
+    display: none;
+  }
+  
+  .mobile-nav-overlay.active {
+    display: block;
+  }
+  
+  /* Mobile Auth Section */
+  .mobile-auth-section {
+    padding: 1rem 0;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  
+  .mobile-auth-header {
+    margin-bottom: 1rem;
+  }
+  
+  .mobile-auth-header h3 {
+    color: white;
+    font-size: 1.2rem;
+    margin: 0;
+  }
+  
+  .mobile-user-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: rgba(255,255,255,0.05);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+  }
+  
+  .mobile-user-info i {
+    font-size: 2rem;
+    color: var(--primary);
+  }
+  
+  .mobile-user-name {
+    font-weight: 600;
+    color: white;
+  }
+  
+  .mobile-user-email {
+    font-size: 0.9rem;
+    color: #ccc;
+  }
+  
+  .mobile-auth-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .mobile-auth-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    color: #e7f1fb;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background 0.3s ease;
+  }
+  
+  .mobile-auth-link:hover {
+    background: rgba(255,255,255,0.1);
+  }
+  
+  .logout-link {
+    color: #ff6b6b !important;
+  }
+  
+  .mobile-auth-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .mobile-auth-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+  
+  .mobile-auth-btn.login-btn {
+    background: transparent;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+  }
+  
+  .mobile-auth-btn.login-btn:hover {
+    background: var(--primary);
+    color: white;
+  }
+  
+  .mobile-auth-btn.register-btn {
+    background: var(--primary);
+    border: 2px solid var(--primary);
+    color: white;
+  }
+  
+  .mobile-auth-btn.register-btn:hover {
+    background: transparent;
+    color: var(--primary);
+  }
+  
+  /* Announcement bar close button styles */
+  .announce__close {
+    position: absolute;
+    right: .75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #e7d20eff, #070707ff);
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    transition: transform .25s ease, box-shadow .25s ease, background .3s ease;
+    line-height: 1;
+    padding: 0;
+  }
+  
+  .announce__close i {
+    display: inline-block;
+    font-size: 18px;
+    line-height: 1;
+    margin: 0;
+    pointer-events: none;
+  }
+  
+  .announce__close:hover {
+    background: linear-gradient(135deg, #070707ff, #504f4fff);
+    transform: translateY(-50%) scale(1.15) rotate(10deg);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.25), 0 0 10px rgba(255, 92, 138, 0.5);
+  }
+  
+  .announce__close:hover i {
+    transform: rotate(90deg);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .desktop-auth {
       display: none;
-      background: #d4edda;
-      color: #155724;
-      padding: 12px;
-      border-radius: 8px;
-      margin-top: 20px;
-      text-align: center;
-    }
- .error-message {
-      display: none;
-      background: #f8d7da;
-      color: #721c24;
-      padding: 12px;
-      border-radius: 8px;
-      margin-top: 20px;
-      text-align: center;
     }
     
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-        }
+    .hamburger {
+      display: block;
+    }
+  }
+  
+  @media (min-width: 769px) {
+    .hamburger {
+      display: none;
+    }
+  }
+</style>
 
-        .modal-content {
-            background-color: white;
-            margin: 10% auto;
-            padding: 30px;
-            border-radius: 15px;
-            width: 90%;
-            max-width: 500px;
-            position: relative;
-        }
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Announcement bar close functionality
+    const announceBar = document.getElementById('announceBar');
+    const announceClose = document.getElementById('announceClose');
 
-        .close {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+    if (announceClose) {
+        announceClose.addEventListener('click', function() {
+            announceBar.style.display = 'none';
+        });
+    }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
+    // Mobile menu functionality
+    const openMobileNav = document.getElementById('openMobileNav');
+    const closeMobileNav = document.getElementById('closeMobileNav');
+    const mobileNavDrawer = document.getElementById('mobileNavDrawer');
+    const mobileNavOverlay = document.createElement('div');
+    mobileNavOverlay.className = 'mobile-nav-overlay';
+    document.body.appendChild(mobileNavOverlay);
 
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-        }
+    // Open mobile menu
+    if (openMobileNav) {
+        openMobileNav.addEventListener('click', function() {
+            mobileNavDrawer.classList.add('active');
+            mobileNavOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+    }
 
-        .submit-btn {
-            width: 100%;
-            padding: 15px;
-            background: var(--primary);
-            color: var(--dark);
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
+    // Close mobile menu
+    function closeMobileMenu() {
+        mobileNavDrawer.classList.remove('active');
+        mobileNavOverlay.classList.remove('active');
+        document.body.style.overflow = 'auto';
+        
+        // Close all dropdowns
+        document.querySelectorAll('.mobile-nav-dropdown').forEach(dropdown => {
+            dropdown.classList.remove('active');
+        });
+        
+        document.querySelectorAll('.mobile-nav-toggle').forEach(toggle => {
+            toggle.classList.remove('active');
+        });
+    }
 
-        .submit-btn:hover {
-            background: var(--dark);
-            color: white;
-        }
+    if (closeMobileNav) {
+        closeMobileNav.addEventListener('click', closeMobileMenu);
+    }
 
-        @media (max-width: 768px) {
-            .hero-stats {
-                flex-direction: column;
-                gap: 30px;
-            }
+    // Close mobile menu when clicking outside
+    mobileNavOverlay.addEventListener('click', closeMobileMenu);
+
+    // Mobile dropdown toggles
+    const mobileToggles = document.querySelectorAll('.mobile-nav-toggle');
+    mobileToggles.forEach(toggle => {
+        toggle.addEventListener('click', function() {
+            const targetId = this.getAttribute('data-target');
+            const targetDropdown = document.getElementById(targetId);
             
-            .properties-grid {
-                grid-template-columns: 1fr;
-            }
+            // Toggle active class
+            this.classList.toggle('active');
+            targetDropdown.classList.toggle('active');
             
-            .property-actions {
-                flex-direction: column;
-            }
-            
-            .cta-buttons {
-                flex-direction: column;
-            }
-            
-            .hero-content h1 {
-                font-size: 2.2rem;
-            }
-        }
-    </style>
-
-    <script>
-        // Property type filtering functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const filterButtons = document.querySelectorAll('.filter-btn');
-            const propertyCards = document.querySelectorAll('.property-card');
-            
-            filterButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    // Update active button
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    const selectedType = this.dataset.type;
-                    
-                    propertyCards.forEach(card => {
-                        const cardType = card.getAttribute('data-type');
-                        
-                        if (selectedType === 'all' || cardType === selectedType) {
-                            card.style.display = 'block';
-                        } else {
-                            card.style.display = 'none';
-                        }
-                    });
-                });
-            });
-
-            // Inquiry modal functionality
-            const modal = document.getElementById('inquiryModal');
-            const inquireButtons = document.querySelectorAll('.inquire-btn');
-            const closeBtn = document.querySelector('.close');
-            const propertyIdField = document.getElementById('propertyId');
-
-            inquireButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const propertyId = this.getAttribute('data-property-id');
-                    propertyIdField.value = propertyId;
-                    modal.style.display = 'block';
-                });
-            });
-
-            closeBtn.addEventListener('click', function() {
-                modal.style.display = 'none';
-            });
-
-            window.addEventListener('click', function(event) {
-                if (event.target == modal) {
-                    modal.style.display = 'none';
+            // Close other dropdowns
+            document.querySelectorAll('.mobile-nav-dropdown').forEach(dropdown => {
+                if (dropdown.id !== targetId) {
+                    dropdown.classList.remove('active');
                 }
             });
-
-            // Form submission
-            document.getElementById('inquiryForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                // Here you would typically send the form data to your server
-                alert('Thank you for your inquiry! We will contact you shortly.');
-                modal.style.display = 'none';
+            
+            document.querySelectorAll('.mobile-nav-toggle').forEach(otherToggle => {
+                if (otherToggle !== toggle) {
+                    otherToggle.classList.remove('active');
+                }
             });
         });
-
-        document.addEventListener('DOMContentLoaded', function() {
-      // Hero form submission
-      const heroForm = document.getElementById('heroEnquiryForm');
-      const heroSuccessMessage = document.getElementById('heroSuccessMessage');
-      const heroErrorMessage = document.getElementById('heroErrorMessage');
-      const heroErrorText = document.getElementById('heroErrorText');
-      
-      heroForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        submitForm(this, heroSuccessMessage, heroErrorMessage, heroErrorText);
-      });
-      
-      // Contact form submission
-      const contactForm = document.getElementById('contactEnquiryForm');
-      const contactSuccessMessage = document.getElementById('contactSuccessMessage');
-      const contactErrorMessage = document.getElementById('contactErrorMessage');
-      const contactErrorText = document.getElementById('contactErrorText');
-      
-      contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        submitForm(this, contactSuccessMessage, contactErrorMessage, contactErrorText);
-      });
-      
-      function submitForm(form, successElement, errorElement, errorTextElement) {
-        const submitBtn = form.querySelector('button[type="submit"]');
-        const originalText = submitBtn.innerHTML;
-        
-        // Show loading state
-        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
-        submitBtn.disabled = true;
-        
-        successElement.style.display = 'none';
-        errorElement.style.display = 'none';
-        
-        const formData = new FormData(form);
-        
-        fetch("{% url 'mck_website:mck_ajax_enquiry_save' %}", {
-          method: "POST",
-          body: formData,
-          headers: {
-            "X-CSRFToken": getCSRFToken()
-          }
-        })
-        .then(response => response.json())
-        .then(data => {
-          if (data.status === "success") {
-            successElement.style.display = "block";
-            form.reset();
-          } else {
-            errorTextElement.textContent = data.message || "There was an error submitting your enquiry";
-            errorElement.style.display = "block";
-          }
-        })
-        .catch(error => {
-          errorTextElement.textContent = "Network error. Please check your connection and try again.";
-          errorElement.style.display = "block";
-        })
-        .finally(() => {
-          submitBtn.innerHTML = originalText;
-          submitBtn.disabled = false;
-        });
-      }
-      
-      function getCSRFToken() {
-        const name = "csrftoken";
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== "") {
-          const cookies = document.cookie.split(";");
-          for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            if (cookie.substring(0, name.length + 1) === (name + "=")) {
-              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-              break;
-            }
-          }
-        }
-        return cookieValue;
-      }
     });
-    </script>
-{% endblock %}
+
+    // Desktop dropdown functionality
+    const navDropdowns = document.querySelectorAll('.nav-dropdown');
+    
+    navDropdowns.forEach(dropdown => {
+        dropdown.addEventListener('mouseenter', function() {
+            const menu = this.querySelector('.dropdown');
+            menu.style.display = 'block';
+            setTimeout(() => {
+                menu.style.opacity = '1';
+                menu.style.visibility = 'visible';
+                menu.style.transform = 'translateY(0)';
+            }, 10);
+        });
+        
+        dropdown.addEventListener('mouseleave', function() {
+            const menu = this.querySelector('.dropdown');
+            menu.style.opacity = '0';
+            menu.style.visibility = 'hidden';
+            menu.style.transform = 'translateY(10px)';
+            setTimeout(() => {
+                menu.style.display = 'none';
+            }, 300);
+        });
+    });
+
+    // User dropdown functionality for desktop
+    const userBtn = document.querySelector('.user-btn');
+    const userMenu = document.querySelector('.user-menu');
+    
+    if (userBtn && userMenu) {
+        userBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const isExpanded = userBtn.getAttribute('aria-expanded') === 'true';
+            userBtn.setAttribute('aria-expanded', String(!isExpanded));
+            userMenu.style.display = isExpanded ? 'none' : 'block';
+        });
+
+        // Close user menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.user-dropdown')) {
+                userBtn.setAttribute('aria-expanded', 'false');
+                userMenu.style.display = 'none';
+            }
+        });
+    }
+});
+</script>

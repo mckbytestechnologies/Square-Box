@@ -45,12 +45,12 @@ html, body {
 
 /* Links */
 a {
-  color: var(--brand, #0056b3);
+  color: var(black, #0056b3);
   text-decoration: none;
   transition: color 0.3s ease;
 }
 a:hover {
-  color: var(--brand-hover, #003d82);
+  color: var(black, #003d82);
 }
 
 /* Images */

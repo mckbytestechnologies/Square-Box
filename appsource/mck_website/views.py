@@ -21,6 +21,8 @@ from mck_auth import role_validations as rv
 from squarebox import api
 from squarebox import forms
 from squarebox import models
+from django.core.paginator import Paginator
+from django.db.models import Q
 
 LOG_NAME = "app"
 logger = app_logger.createLogger(LOG_NAME)
@@ -67,51 +69,65 @@ class HomePage(TemplateView):
         logger.info(request.GET)
         return render(request, self.template_name, context)
 
+
 class PropertyPage(TemplateView):
     template_name = "property_page.html"
 
     def get(self, request, *args, **kwargs):
         context = super().get_context_data(**kwargs)
-
+        
+        # Get all properties excluding deleted ones
         qs = Property.objects.exclude(datamode='D')
-
-        context["property"] = Property.objects.exclude(datamode='D').order_by('-updated_on')
-        context["property_type"] = PropertyType.objects.exclude(datamode='D').order_by('-updated_on')
-        context["property_image"] = PropertyImage.objects.exclude(datamode='D').order_by('-updated_on')
-        context["lead"] = Lead.objects.exclude(datamode='D').order_by('-updated_on')
-
+        
+        # Apply filters
         city = request.GET.get('city')
         listing_type = request.GET.get("listing_type")
         property_type = request.GET.get('property_type')
         budget = request.GET.get('budget')
+        sort = request.GET.get('sort', 'newest')
 
         if city:
-            qs = qs.filter(city__iexact=city)
+            qs = qs.filter(city__icontains=city)
 
         if property_type:
-            # property_type is likely a ForeignKey, so keep __name
             qs = qs.filter(property_type__name__iexact=property_type)
 
         if listing_type:
-            # FIX: listing_type is CharField with choices → no __name
             qs = qs.filter(listing_type__iexact=listing_type)
 
         if budget:
-            try:
-                qs = qs.filter(price__lte=float(budget))
-            except ValueError:
-                pass
+            if budget == "Below 100k":
+                qs = qs.filter(price__lt=100000)
+            elif budget == "100k - 300k":
+                qs = qs.filter(price__range=(100000, 300000))
+            elif budget == "Above 300k":
+                qs = qs.filter(price__gt=300000)
 
-        context["properties"] = (
-            qs.prefetch_related(
-                Prefetch(
-                    'images',  
-                    queryset=PropertyImage.objects.exclude(datamode='D').order_by('-updated_on'),
-                    to_attr='property_images_list'  
-                )
-            ).order_by('-updated_on')
+        # Apply sorting
+        if sort == 'price_low':
+            qs = qs.order_by('price')
+        elif sort == 'price_high':
+            qs = qs.order_by('-price')
+        else:  # newest
+            qs = qs.order_by('-updated_on')
+
+       
+
+        # Pagination
+        paginator = Paginator(qs, 9)  # Show 9 properties per page
+        page_number = request.GET.get('page')
+        properties = paginator.get_page(page_number)
+        
+        # Prefetch related images
+        properties.object_list = properties.object_list.prefetch_related(
+            Prefetch(
+                'images',  
+                queryset=PropertyImage.objects.exclude(datamode='D').order_by('-updated_on'),
+                to_attr='property_images_list'  
+            )
         )
 
+        context["properties"] = properties
         context["property_types"] = PropertyType.objects.exclude(datamode='D').order_by('-updated_on')
         context["cities"] = (
             Property.objects.exclude(datamode='D')
@@ -121,7 +137,7 @@ class PropertyPage(TemplateView):
         )
 
         return render(request, self.template_name, context)
-    
+
 
 class PropertyDetailPage(TemplateView):
     template_name = "resources.html"

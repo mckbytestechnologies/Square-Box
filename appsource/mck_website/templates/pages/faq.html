@@ -18,7 +18,7 @@
              :root {
       --primary: #ffd200;
       --secondary: #000;
-      --accent: #00509e;
+      --accent: #ffbf00;
       --light: #f8f9fa;
       --dark: #111;
     }
@@ -28,34 +28,113 @@
       color: #333;
       line-height: 1.6;
     }
-    
-    
-    /* Hero Section */
+
+    /* Hero */
     .hero {
-      background: linear-gradient(135deg, var(--primary) 60%, #fff 40%);
-      padding: 100px 0;
-      position: relative;
-      overflow: hidden;
+      margin-top:18px;
+      background: linear-gradient(135deg, rgba(255,210,0,0.12) 0%, rgba(0,80,158,0.03) 100%);
+      padding: 48px 0;
+      border-radius: var(--radius);
+      box-shadow: 0 12px 40px rgba(2,6,23,0.04);
+      overflow:hidden;
     }
-    
-    .hero-content {
-      position: relative;
-      z-index: 2;
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1fr 480px;
+      gap:32px;
+      align-items: center;
+      max-width: var(--max-width);
+      margin:0 auto;
+      padding:36px var(--container-pad);
     }
-    
-    .hero h1 {
-      font-size: 3rem;
-      font-weight: 800;
-      color: var(--dark);
-      margin-bottom: 20px;
+    .hero-left h2{
+      margin:0 0 12px 0;
+      font-size:2.1rem;
+      line-height:1.03;
+      color:var(--dark);
+      font-weight:800;
+      letter-spacing:-0.02em;
     }
-    
-    .hero p {
-      font-size: 1.2rem;
-      margin-bottom: 30px;
-      max-width: 600px;
+    .hero-left p{
+      margin:0 0 18px 0;
+      color:#394455;
+      max-width:60ch;
+      font-size:1rem;
     }
+    .hero-actions{ display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-top:6px; }
+    .btn-primary{
+      background:var(--accent);
+      color:#fff;
+      border:none;
+      padding:12px 20px;
+      border-radius:10px;
+      font-weight:700;
+      box-shadow: 0 8px 20px rgba(0,80,158,0.12);
+      transition: transform .18s ease, background .18s ease;
+    }
+    .btn-primary:hover{ transform:translateY(-3px); background:#003b7a;}
+    .btn-ghost{
+      background:transparent;
+      border:2px solid rgba(17,17,17,0.06);
+      color:var(--dark);
+      padding:10px 16px;
+      border-radius:10px;
+      font-weight:700;
+    }
+    /* hero image card */
+    .hero-card{
+      background: linear-gradient(180deg, #fff, #fbfbfb);
+      border-radius: 12px;
+      overflow:hidden;
+      box-shadow: 0 8px 30px rgba(17,17,17,0.06);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:320px;
+    }
+    .hero-card img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    /* Inline hero form - compact and modern */
+    .hero-form{
+      margin-top:20px;
+      background: rgba(255,255,255,0.95);
+      border-radius: 12px;
+      padding:14px;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      border:1px solid rgba(17,17,17,0.04);
+      box-shadow: 0 10px 30px rgba(2,6,23,0.03);
+      transition: box-shadow .18s ease, transform .18s ease;
+    }
+    .hero-form:hover{ box-shadow: 0 18px 48px rgba(2,6,23,0.05); transform: translateY(-2px); }
+    .hero-form .form-input{
+      flex:1;
+      min-width:140px;
+      padding:12px 14px;
+      border-radius:8px;
+      border:1px solid #e6e9ef;
+      font-size:0.95rem;
+    }
+    .hero-form button{
+      background:var(--primary);
+      color:var(--dark);
+      font-weight:700;
+      padding:10px 14px;
+      border-radius:8px;
+      border:none;
+      cursor:pointer;
+      transition: transform .12s ease;
+    }
+    .hero-form button:hover{ transform: translateY(-2px); }
+
     
+   
         /* Main Container Styles */
         .maintenance-creation-container {
             padding: 30px 0;
@@ -370,7 +449,7 @@
 
         /* New Content Styles */
         .info-section {
-            background-color: #e8f4fc;
+            background: linear-gradient(135deg, rgba(255,210,1,1.12) 0%, rgba(0,80,158,0.03) 100%);
             border-radius: 12px;
             padding: 25px;
             margin-bottom: 30px;
@@ -521,43 +600,20 @@
                 width: 100%;
             }
         }
-        /* Hero Section */
-    .hero {
-      background: linear-gradient(135deg, var(--primary) 60%, #fff 40%);
-      padding: 100px 0;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .hero-content {
-      position: relative;
-      z-index: 2;
-    }
-    
-    .hero h1 {
-      font-size: 3rem;
-      font-weight: 800;
-      color: var(--dark);
-      margin-bottom: 20px;
-    }
-    
-    .hero p {
-      font-size: 1.2rem;
-      margin-bottom: 30px;
-      max-width: 600px;
-    }
-    
+       
     .btn-primary {
-      background-color: var(--accent);
-      border-color: var(--accent);
+      background-color: #ffbf00;
+      /* border-color: var(--accent); */
+      color: #000;
       padding: 12px 30px;
       font-weight: 600;
       border-radius: 8px;
     }
     
     .btn-primary:hover {
-      background-color: #003b7a;
-      border-color: #003b7a;
+      background-color: #0d0d0e;
+      color: white;
+     
     }
     
     .btn-outline-primary {
@@ -573,6 +629,141 @@
       border-color: var(--primary);
       color: var(--dark);
     }
+   .maintenance-approach {
+            padding: 60px 0;
+            background: linear-gradient(135deg, rgba(255,210,0,0.05) 0%, rgba(0,80,158,0.02) 100%);
+        }
+        
+        .approach-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .approach-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .approach-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+        
+        .approach-subtitle {
+            font-size: 1.2rem;
+            color: #394455;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .approach-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .approach-card {
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(17,17,17,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .approach-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(17,17,17,0.12);
+        }
+        
+        .approach-card-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .approach-card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .approach-card:hover .approach-card-img img {
+            transform: scale(1.05);
+        }
+        
+        .approach-card-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .approach-card-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .approach-card-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: var(--dark);
+            font-size: 1.2rem;
+        }
+        
+        .approach-card-desc {
+            color: #394455;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+        
+        .approach-features {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .approach-features li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(17,17,17,0.05);
+            display: flex;
+            align-items: center;
+        }
+        
+        .approach-features li:last-child {
+            border-bottom: none;
+        }
+        
+        .approach-features li i {
+            color: var(--accent);
+            margin-right: 10px;
+            font-size: 0.9rem;
+        }
+
     
     </style>
 </head>
@@ -732,33 +923,84 @@
                             </div>
                         </form>
                     </div>
-                    
-                    <!-- Process Steps -->
-                    <div class="process-steps">
-                        <div class="step">
-                            <div class="step-number">1</div>
-                            <div class="step-title">Submit Request</div>
-                            <p class="step-desc">Fill out the form with details about your maintenance issue</p>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">2</div>
-                            <div class="step-title">Review</div>
-                            <p class="step-desc">Our team will review your request within 24 hours</p>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">3</div>
-                            <div class="step-title">Schedule</div>
-                            <p class="step-desc">We'll contact you to schedule a service visit</p>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">4</div>
-                            <div class="step-title">Resolution</div>
-                            <p class="step-desc">Our technicians will resolve your maintenance issue</p>
-                        </div>
+                       
+                </div>
+                                
+            </div>
+        </div>
+    </div>
+
+
+     <section class="maintenance-approach">
+        <div class="container">
+            <div class="approach-header">
+                <h2 class="approach-title">Our Property Maintenance Excellence</h2>
+                <p class="approach-subtitle">Discover how our comprehensive approach keeps your property in perfect condition while maximizing its value and longevity</p>
+            </div>
+            
+            <div class="approach-grid">
+                <div class="approach-card">
+                    <div class="approach-card-img">
+                        <img src="https://i.pinimg.com/1200x/97/d4/81/97d48185b35bdfe994589d3853085f07.jpg" alt="Preventive Maintenance">
                     </div>
-                    
-                    <!-- FAQ Section -->
-                    <div class="faq-section">
+                    <div class="approach-card-content">
+                        <h3 class="approach-card-title">
+                            <span class="approach-card-icon"><i class="fas fa-shield-alt"></i></span>
+                            Preventive Maintenance
+                        </h3>
+                        <p class="approach-card-desc">Our proactive approach identifies potential issues before they become major problems, saving you time and money in the long run.</p>
+                        <ul class="approach-features">
+                            <li><i class="fas fa-check-circle"></i> Regular system inspections</li>
+                            <li><i class="fas fa-check-circle"></i> Seasonal maintenance planning</li>
+                            <li><i class="fas fa-check-circle"></i> Component lifespan tracking</li>
+                            <li><i class="fas fa-check-circle"></i> Early problem detection</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="approach-card">
+                    <div class="approach-card-img">
+                        <img src="https://i.pinimg.com/736x/a5/fc/4e/a5fc4ee2148eccfd8842098b15665f35.jpg" alt="Rapid Response">
+                    </div>
+                    <div class="approach-card-content">
+                        <h3 class="approach-card-title">
+                            <span class="approach-card-icon"><i class="fas fa-bolt"></i></span>
+                            Rapid Response
+                        </h3>
+                        <p class="approach-card-desc">Our dedicated team ensures quick response times for all maintenance requests, with emergency issues prioritized .</p>
+                        <ul class="approach-features">
+                            <li><i class="fas fa-check-circle"></i>  emergency hotline</li>
+                            <li><i class="fas fa-check-circle"></i> Average 2-hour response time</li>
+                            <li><i class="fas fa-check-circle"></i> Dedicated maintenance coordinators</li>
+                            <li><i class="fas fa-check-circle"></i> Real-time status updates</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="approach-card">
+                    <div class="approach-card-img">
+                        <img src="https://i.pinimg.com/1200x/52/83/10/528310ee24695d52115300dcb67a1557.jpg" alt="Quality Assurance">
+                    </div>
+                    <div class="approach-card-content">
+                        <h3 class="approach-card-title">
+                            <span class="approach-card-icon"><i class="fas fa-award"></i></span>
+                            Quality Assurance
+                        </h3>
+                        <p class="approach-card-desc">We use only premium materials and certified technicians to ensure every repair meets the highest standards of quality and durability.</p>
+                        <ul class="approach-features">
+                            <li><i class="fas fa-check-circle"></i> Certified technicians</li>
+                            <li><i class="fas fa-check-circle"></i> Premium materials & parts</li>
+                            <li><i class="fas fa-check-circle"></i> 90-day workmanship guarantee</li>
+                            <li><i class="fas fa-check-circle"></i> Post-service inspections</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+                    <div class="faq-section container">
                         <h3 class="mb-4">Frequently Asked Questions</h3>
                         
                         <div class="faq-item">
@@ -791,14 +1033,9 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                
-                
-            </div>
-        </div>
-    </div>
 
- 
+
+  {% include "includes/property_type.html" %}
     <!-- jQuery and Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -943,3 +1180,4 @@
 </body>
 </html>
 {% endblock %}
+
